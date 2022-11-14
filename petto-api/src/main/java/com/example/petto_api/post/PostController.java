@@ -1,19 +1,12 @@
-package com.example.petto_api.article;
+package com.example.petto_api.post;
 
 import com.example.petto_api.security.JwtTokenService;
-import com.example.petto_api.user.UserLoginRequest;
-import com.example.petto_api.user.UserModel;
-import com.example.petto_api.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,16 +18,16 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/api")
-public class ArticleController {
+public class PostController {
 
     @Autowired
     private JwtTokenService jwtTokenUtils;
 
     @Autowired
-    private ArticleService articleService;
+    private PostService postService;
 
     @PostMapping("/post")
-    public ResponseEntity<Map<String, Object>> postArticle(@Valid ArticleModel articleModel, BindingResult bindingResult) {
+    public ResponseEntity<Map<String, Object>> post(@Valid PostModel postModel, BindingResult bindingResult) {
         String message;
         HttpStatus httpStatus;
         if (bindingResult.hasErrors()) {
@@ -42,7 +35,7 @@ public class ArticleController {
             httpStatus = HttpStatus.BAD_REQUEST;
         }
         else {
-            articleService.addArticle(articleModel);
+            postService.addPost(postModel);
             message = "文章發布成功!";
             httpStatus = HttpStatus.CREATED;
         }
@@ -53,9 +46,10 @@ public class ArticleController {
     }
 
     @GetMapping("/posts")
-    public ArrayList<ArticleModel> getArticle (){
-        ArrayList<ArticleModel> articles = articleService.getAllArticle();
-        return articles;
+    public ResponseEntity<ArrayList<PostModel>> getPost (){
+        ArrayList<PostModel> posts = postService.getPosts();
+        HttpStatus httpStatus = HttpStatus.OK;
+        return ResponseEntity.status(httpStatus).body(posts);
     }
 
 
