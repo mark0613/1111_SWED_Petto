@@ -26,10 +26,11 @@ public class PostController {
     private PostService postService;
 
     @GetMapping("/posts")
-    public ResponseEntity<ArrayList<PostModel>> getPost() {
+    public ResponseEntity<Map<String, Object>> getPost() {
+        Map<String, Object> response = new HashMap<>();
         ArrayList<PostModel> posts = postService.getPosts();
-        HttpStatus httpStatus = HttpStatus.OK;
-        return ResponseEntity.status(httpStatus).body(posts);
+        response.put("posts", posts);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping("/post")

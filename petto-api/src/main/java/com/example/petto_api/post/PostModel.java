@@ -37,7 +37,7 @@ public class PostModel {
 
     @Column
     @NotNull
-    private Boolean updated;
+    private Boolean updated = false;
 
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
