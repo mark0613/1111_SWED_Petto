@@ -19,12 +19,18 @@ import java.util.Objects;
 @Controller
 @RequestMapping("/api")
 public class PostController {
-
     @Autowired
     private JwtTokenService jwtTokenUtils;
 
     @Autowired
     private PostService postService;
+
+    @GetMapping("/posts")
+    public ResponseEntity<ArrayList<PostModel>> getPost() {
+        ArrayList<PostModel> posts = postService.getPosts();
+        HttpStatus httpStatus = HttpStatus.OK;
+        return ResponseEntity.status(httpStatus).body(posts);
+    }
 
     @PostMapping("/post")
     public ResponseEntity<Map<String, Object>> post(@Valid PostModel postModel, BindingResult bindingResult) {
@@ -44,13 +50,4 @@ public class PostController {
         response.put("message", message);
         return ResponseEntity.status(httpStatus).body(response);
     }
-
-    @GetMapping("/posts")
-    public ResponseEntity<ArrayList<PostModel>> getPost (){
-        ArrayList<PostModel> posts = postService.getPosts();
-        HttpStatus httpStatus = HttpStatus.OK;
-        return ResponseEntity.status(httpStatus).body(posts);
-    }
-
-
 }
