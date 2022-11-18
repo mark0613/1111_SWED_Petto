@@ -1,6 +1,9 @@
 package com.example.petto_api.post;
 
 import com.example.petto_api.security.JwtTokenService;
+import com.example.petto_api.user.UserRepository;
+import com.example.petto_api.user.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,22 +11,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import java.util.ArrayList;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/api")
 public class PostController {
     @Autowired
-    private JwtTokenService jwtTokenUtils;
+    private JwtTokenService jwtTokenService;
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/posts")
     public ResponseEntity<Map<String, Object>> getPost() {
@@ -34,21 +40,47 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<Map<String, Object>> post(@Valid PostModel postModel, BindingResult bindingResult) {
+    public ResponseEntity<Map<String, Object>> post(PostRequest postRequest) {
         String message;
         HttpStatus httpStatus;
-        if (bindingResult.hasErrors()) {
-            message = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
-            httpStatus = HttpStatus.BAD_REQUEST;
-        }
-        else {
-            postService.addPost(postModel);
-            message = "文章發布成功!";
-            httpStatus = HttpStatus.CREATED;
+        Map<String, Object> response = new HashMap<>();
+
+        String jwt = postRequest.getJwt();
+        String title = postRequest.getTitle();
+        String content = postRequest.getContent();
+        String mode = postRequest.getMode();
+        String [] tags = postRequest.getTags();
+
+        if (!jwtTokenService.validateToken(jwt)) {
+            message = "權限不足!";
+            response.put("message", message);
+            httpStatus = HttpStatus.UNAUTHORIZED;
+            return ResponseEntity.status(httpStatus).body(response);
         }
 
-        Map<String, Object> response = new HashMap<>();
+        int userId = jwtTokenService.getUserIdFromToken(jwt);
+
+        if (StringUtils.isAnyBlank(title, content)) {
+            message = "標題和內容都不能為空!";
+            response.put("message", message);
+            httpStatus = HttpStatus.BAD_REQUEST;
+            return ResponseEntity.status(httpStatus).body(response);
+        }
+        if (StringUtils.isBlank(mode)) {
+            mode = "text";
+        }
+
+        PostModel postModel = new PostModel();
+        postModel.setTitle(title);
+        postModel.setContent(content);
+        postModel.setUserModel(userService.findUserById(userId));
+        postModel.setMode(mode);
+        postModel.setTimestamp(new Date());
+        int post_id = postService.addPost(postModel);
+        message = "建立成功!";
         response.put("message", message);
+        response.put("post_id", post_id);
+        httpStatus = HttpStatus.BAD_REQUEST;
         return ResponseEntity.status(httpStatus).body(response);
     }
 }

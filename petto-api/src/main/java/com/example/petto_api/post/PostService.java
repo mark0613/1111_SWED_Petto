@@ -18,14 +18,6 @@ public class PostService {
     private Validator validator;
 
     public Integer addPost(PostModel post) {
-        Set<ConstraintViolation<PostModel>> violations = validator.validate(post);
-        if (!violations.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (ConstraintViolation<PostModel> constraintViolation : violations) {
-                sb.append(constraintViolation.getMessage());
-            }
-            throw new ConstraintViolationException(sb.toString(), violations);
-        }
         PostModel newPost = postRepository.save(post);
         return newPost.getId();
     }

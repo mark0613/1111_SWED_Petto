@@ -24,12 +24,11 @@ public class PostModel {
     private String title;
 
     @Column
+    @NotBlank(message = "文章內容不可為空!")
     private String content;
 
-    @Column(length = 4)
-    @NotBlank(message = "類型不可為空!")
-    @Size(max = 4,message = "")
-    private String type;
+    @Column
+    private String mode = "text";
 
     @Column
     @NotNull
