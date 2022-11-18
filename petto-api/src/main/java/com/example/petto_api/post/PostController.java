@@ -80,7 +80,7 @@ public class PostController {
         message = "建立成功!";
         response.put("message", message);
         response.put("post_id", post_id);
-        httpStatus = HttpStatus.BAD_REQUEST;
+        httpStatus = HttpStatus.CREATED;
         return ResponseEntity.status(httpStatus).body(response);
     }
 }
