@@ -3,6 +3,7 @@ package com.example.petto_api.user;
 
 import java.util.*;
 import com.example.petto_api.post.PostModel;
+import com.example.petto_api.reply.ReplyModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.EqualsAndHashCode;
@@ -46,5 +47,10 @@ public class UserModel {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userModel")
     @EqualsAndHashCode.Exclude
     private Set<PostModel> postModels;
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userModel")
+    @EqualsAndHashCode.Exclude
+    private Set<ReplyModel> replyModels;
 
 }

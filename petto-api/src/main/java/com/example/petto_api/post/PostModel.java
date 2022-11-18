@@ -1,6 +1,9 @@
 package com.example.petto_api.post;
 
+import com.example.petto_api.reply.ReplyModel;
 import com.example.petto_api.user.UserModel;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -9,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "post")
@@ -42,5 +46,10 @@ public class PostModel {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="owner")
     private UserModel userModel;
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postModel")
+    @EqualsAndHashCode.Exclude
+    private Set<ReplyModel> replyModels;
 }
 
