@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/register", "/api/login", "/api/posts").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();  //.authenticated()
     }
 
     @Override
