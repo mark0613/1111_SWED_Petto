@@ -32,7 +32,7 @@ class PostServiceTest {
         post.setContent(content);
         post.setTitle(title);
         post.setTimestamp(date);
-        post.setType(type);
+        post.setMode(type);
         post.setUpdated(true);
     }
 

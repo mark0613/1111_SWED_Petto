@@ -22,6 +22,10 @@ public class UserService {
     @Autowired
     private Validator validator;
 
+    public UserModel findUserById(int id) {
+        return userRepository.findById(id);
+    }
+
     public UserModel findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
