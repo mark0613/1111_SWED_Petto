@@ -2,18 +2,14 @@ import { useState } from "react";
     import {
     Input,
     Space,
+    Button,
     Layout,
     Dropdown,
     Typography,
-   
 } from "antd";
 import { DownOutlined } from '@ant-design/icons';
 import Icon, {SmileTwoTone } from '@ant-design/icons';
-import { AudioOutlined } from '@ant-design/icons';
-//import "./HomePageNavBarLogin.css";
-import {
-    useEffect,
-} from "react";
+import { Template } from "../../Views/Template";
 
 const { Title } = Typography;
 const HeartSvg = () => (
@@ -24,167 +20,149 @@ const HeartSvg = () => (
 const HeartIcon = (props) => <Icon component={HeartSvg} {...props} />;
 
 const { Search } = Input;
-const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: '#1890ff',
-    }}
-  />
-);
+
 const onSearch = (value) => console.log(value);
 
 
 function HomePageNavBarLogin() {
   const [open, setOpen] = useState(false);
-  const handleMenuClick = (e) => {
-    if (e.key === '4') {
-      setOpen(false);
-    }
-  };
-  const handleOpenChange = (flag) => {
-    setOpen(flag);
-  };
+  
   const items = [
     {
-      label: '我的文章',
-      key: '1',
+        label: <a href="https://www.antgroup.com">我的文章</a>,
+        key: '0',
     },
     {
-      label: '我的收藏',
-      key: '2',
+        label: <a href="https://www.aliyun.com">我的收藏</a>,
+        key: '1',
     },
     {
-      label: '會員資料',
-      key: '3',
+        label: <a href="https://ilearn2.fcu.edu.tw/">會員資料</a>,
+        key: '3',
     },
     {
-      label: '  登出  ',
-      key: '4',
+        label: 
+        (
+            <Button 
+                type="text" 
+                htmlType="submit"
+                style={{
+                    justifyContent:'center',
+                    display: 'flex',
+                    paddingBottom:'0px',
+                }} 
+                //onClick={ () => Form.submit()}
+            >
+                <a 
+                    href="https://www.youtube.com/"
+                    style={{
+                        color:'black',
+                    }}
+                >登出</a>
+            </Button>
+        ),
+        key: '4',
     },
   ];
 
-  return (
-<Layout
-    style={{
-        backgroundColor:'aliceblue',
-    }}
->
-    <Space 
-        style={{
-            paddingTop:'30px',
-            paddingBottom:'20px',
-        }}
-        direction="vertical"
-    >
-        <Space 
+  const HomePageNavBarLoginHeaderBlock = (
+    <>
+        <Layout
             style={{
-                justifyContent:'center',
-                display: 'flex',
+                backgroundColor:'antiquewhite',
             }}
-            direction="horizontal"
         >
-            <Space>
-                <HeartIcon
-                style={{
-                    color: 'teal',
-                    fontSize:'50px',
-                }}
-                />
-            </Space>
-            <Space>
-                <Search
-                    placeholder="請輸入關鍵字搜尋...."
-                    onSearch={onSearch}
-                    style={{
-                        width: 300,
-                    }}
-                />
-            </Space>
             <Space 
                 style={{
-                    marginLeft:'85px'
-                }}>
-                <HeartIcon
-                    style={{
-                        color: 'teal',
-                        fontSize:'50px',
-                        paddingBottom:'0px'
-                    }}
-                />
-            </Space>
-        </Space>
-
-        <Space
-           style={{
-                justifyContent:'center',
-                display: 'flex',
-            }} 
-        >
-            <div
-                style={{
-                    paddingLeft:'460px',
-                }} 
+                    justifyContent:'center',
+                    display: 'flex',
+                    paddingTop:'30px',
+                    paddingBottom:'20px',
+                }}
+                direction="vertical"
             >
-                <Dropdown
-                    menu={{
-                        items,
-                        onClick: handleMenuClick,
+                <Space 
+                    style={{
+                        justifyContent:'center',
+                        display: 'flex',
                     }}
-                    onOpenChange={handleOpenChange}
-                    open={open}
-                    >
-                    <a>
-                        <Space
+                    direction="horizontal"
+                >
+                    <Space>
+                        <HeartIcon
+                        style={{
+                            color: 'teal',
+                            fontSize:'50px',
+                        }}
+                        />
+                    </Space>
+                    <Space>
+                        <Search
+                            placeholder="請輸入關鍵字搜尋...."
+                            onSearch={onSearch}
                             style={{
-                                
-                                color: 'black',
-                                fontSize:'5px',
-                                //paddingLeft:'455px'
+                                width: 300,
+                            }}
+                        />
+                    </Space>
+                    <Space 
+                        style={{
+                            marginLeft:'85px'
+                        }}>
+                        <HeartIcon
+                            style={{
+                                color: 'teal',
+                                fontSize:'50px',
+                                paddingBottom:'0px'
+                            }}
+                        />
+                    </Space>
+                </Space>
+
+                <Space
+                style={{
+                        justifyContent:'center',
+                        display: 'flex',
+                    }} 
+                >
+                    <div
+                        style={{
+                            paddingLeft:'460px',
+                        }} 
+                    >
+                        <Dropdown
+                            menu={{
+                                items,
+                            }}
+                            trigger={['click']}
+                            style={{
+                                margenBottom:'0px',
+                            
                             }}
                         >
-                        名字
-                        <DownOutlined />
-                        </Space>
-                    </a>
-                </Dropdown>
-            </div>
-        </Space>
-    </Space>
-</Layout>
+                            <a onClick={(e) => e.preventDefault()}>
+                            <Space
+                                style={{
+                                    color:'black',
+                                }}
+                            >
+                                名字
+                                <DownOutlined />
+                            </Space>
+                            </a>
+                        </Dropdown>
+                    </div>
+                </Space>
+            </Space>
+        </Layout>
+    </>
+  )
+
+  return (
+    <Template 
+        HomePageNavBarLoginHeaderBlock={ HomePageNavBarLoginHeaderBlock } 
+    />
   );
 };
-
-const api = "./petto-api/src/main/java/com/example/petto_api/user/UserLoginRequest.java";
-
-function fetchApi(url, callback){
-    fetch(url)
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => { 
-        callback(data)
-    })
-    .catch((error) => {
-        console.log(`Error: ${error}`);
-    })
-}
-
-function Home() {
-    const [data, setData] = useState(null);
-
-    useEffect(() => {
-        fetchApi(api, (resp) => {
-            setData(_ => resp);
-        });
-    }, []);
-
-    return (
-        <>
-            <h1>Home Page</h1>
-            { console.log(data) }
-        </>
-    );
-}
 
 export { HomePageNavBarLogin };

@@ -75,36 +75,5 @@ function HomePageNavBarNoLogin() {
   );
 };
 
-const api = "./petto-api/src/main/java/com/example/petto_api/user/UserLoginRequest.java";
-
-function fetchApi(url, callback){
-    fetch(url)
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => { 
-        callback(data)
-    })
-    .catch((error) => {
-        console.log(`Error: ${error}`);
-    })
-}
-
-function Home() {
-    const [data, setData] = useState(null);
-
-    useEffect(() => {
-        fetchApi(api, (resp) => {
-            setData(_ => resp);
-        });
-    }, []);
-
-    return (
-        <>
-            <h1>Home Page</h1>
-            { console.log(data) }
-        </>
-    );
-}
-
 export { HomePageNavBarNoLogin };
+

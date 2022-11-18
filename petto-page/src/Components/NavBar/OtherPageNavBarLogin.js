@@ -11,10 +11,7 @@ import { useState } from "react";
 import { DownOutlined } from '@ant-design/icons';
 import  Icon  from '@ant-design/icons';
 import { AudioOutlined } from '@ant-design/icons';
-
-import {
-    useEffect,
-} from "react";
+import { Template } from "../../Views/Template";
 
 const { Title } = Typography;
 const HeartSvg = () => (
@@ -23,18 +20,17 @@ const HeartSvg = () => (
     </svg>
   );
 const HeartIcon = (props) => <Icon component={HeartSvg} {...props} />;
-
 const { Search } = Input;
 const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: '#1890ff',
-    }}
-  />
+    <AudioOutlined
+        style={{
+        fontSize: 16,
+        color: '#1890ff',
+        }}
+    />
 );
 
-function OtherPageNavBarLogin() {
+function OtherPageNavBarLogin(props) {
     
     const items = [
         {
@@ -52,110 +48,117 @@ function OtherPageNavBarLogin() {
         {
             label: 
             (
-                
-                    <Button 
-                        type="text" 
-                        htmlType="submit"
+                <Button 
+                    type="text" 
+                    htmlType="submit"
+                    style={{
+                        justifyContent:'center',
+                        display: 'flex',
+                        paddingBottom:'0px',
+                    }} 
+                    //onClick={ () => Form.submit()}
+                >
+                    <a 
+                        href="https://www.youtube.com/"
                         style={{
-                            justifyContent:'center',
-                            display: 'flex',
-                            paddingBottom:'0px',
-                        }} 
-                        //onClick={ () => Form.submit()}
-                    >
-                        <a 
-                            href="https://www.youtube.com/"
-                            style={{
-                                color:'black',
-                            }}
-                        >登出</a>
-                    </Button>
+                            color:'black',
+                        }}
+                    >登出</a>
+                </Button>
             ),
             key: '4',
         },
     ];
 
-  return (
-<Layout
-    style={{
-        backgroundColor:'aliceblue',
-    }}
->
-    <Space 
-        style={{
-            paddingTop:'30px',
-            paddingBottom:'20px',
-        }}
-    direction="vertical">
-        <Space 
-            style={{
-                justifyContent:'center',
-                display: 'flex',
-            }}
-            direction="horizontal"
-        >
-            <Space>
-                <HeartIcon
+    const OtherPageNavBarLoginHeaderBlock = (
+        <>
+            <Layout
                 style={{
-                    color: 'teal',
-                    fontSize:'50px',
+                    backgroundColor:'antiquewhite',
                 }}
-                />
-            </Space>
-            
-            <Space 
-            
-            style={{
-                marginLeft:'60px'
-            }}>
-                <HeartIcon
-                style={{
-                    paddingLeft:'335px',
-                    color: 'teal',
-                    fontSize:'50px',
-                    paddingBottom:'0px'
-                }}
-                />
-            </Space>
-        </Space>
-
-        <Space
-            style={{
-                justifyContent:'center',
-                display: 'flex',
-            }} 
-        >
-            <div
-                style={{
-                    paddingLeft:'460px',
-                }} 
             >
-                 <Dropdown
-                    menu={{
-                    items,
-                    }}
-                    trigger={['click']}
+                <Space 
                     style={{
-                        margenBottom:'0px',
-                    
+                        ustifyContent:'center',
+                        display: 'flex',
+                        paddingTop:'30px',
+                        paddingBottom:'20px',
                     }}
-                >
-                    <a onClick={(e) => e.preventDefault()}>
+                direction="vertical">
+                    <Space 
+                        style={{
+                            justifyContent:'center',
+                            display: 'flex',
+                        }}
+                        direction="horizontal"
+                    >
+                        <Space>
+                            <HeartIcon
+                            style={{
+                                color: 'teal',
+                                fontSize:'50px',
+                            }}
+                            />
+                        </Space>
+                        
+                        <Space 
+                        
+                        style={{
+                            marginLeft:'60px'
+                        }}>
+                            <HeartIcon
+                            style={{
+                                paddingLeft:'335px',
+                                color: 'teal',
+                                fontSize:'50px',
+                                paddingBottom:'0px'
+                            }}
+                            />
+                        </Space>
+                    </Space>
+
                     <Space
                         style={{
-                            color:'black',
-                        }}
+                            justifyContent:'center',
+                            display: 'flex',
+                        }} 
                     >
-                        名字
-                        
-                        <DownOutlined />
+                        <div
+                            style={{
+                                paddingLeft:'460px',
+                            }} 
+                        >
+                            <Dropdown
+                                menu={{
+                                items,
+                                }}
+                                trigger={['click']}
+                                style={{
+                                    margenBottom:'0px',
+                                
+                                }}
+                            >
+                                <a onClick={(e) => e.preventDefault()}>
+                                <Space
+                                    style={{
+                                        color:'black',
+                                    }}
+                                >
+                                    名字
+                                    <DownOutlined />
+                                </Space>
+                                </a>
+                            </Dropdown>
+                        </div>
                     </Space>
-                    </a>
-                </Dropdown>
-            </div>
-        </Space>
-    </Space>
-</Layout>
+                </Space>
+            </Layout>
+        </>
+    )
+  return (
+    <Template 
+            OtherPageNavBarLoginHeaderBlock={ OtherPageNavBarLoginHeaderBlock } 
+        />
   );
 };
 

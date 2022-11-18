@@ -12,7 +12,6 @@ import { Template } from "../../Views/Template";
 import {
     useEffect,
 } from "react";
-import { Login } from "../../Views/Login/Login";
 
 const { Title } = Typography;
 const HeartSvg = () => (
@@ -33,11 +32,10 @@ const suffix = (
 );
 const onSearch = (value) => console.log(value);
 
-
-function OtherPageNavBarNoLogin() {
+function OtherPageNavBarNoLogin(props) {
     const [] = useState(false);
 
-    const NavBarcontentBlock = (
+    const OtherPageNavBarNoLoginHeaderBlock = (
         <>
             <Layout
                 style={{
@@ -85,11 +83,16 @@ function OtherPageNavBarNoLogin() {
     
         </>
     )
-    
+    const RegisterContentBlock = props.RegisterContentBlock;
+    const LoginContentBlock = props.LoginContentBlock;
     return (
-        <Template NavBarcontentBlock={ NavBarcontentBlock } />
+        <Template 
+            RegisterContentBlock={ RegisterContentBlock }
+            LoginContentBlock = { LoginContentBlock }
+            OtherPageNavBarNoLoginHeaderBlock={ OtherPageNavBarNoLoginHeaderBlock } 
+        />
+        
     );
 };
-
 
 export { OtherPageNavBarNoLogin };

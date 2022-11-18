@@ -8,13 +8,14 @@ import { useState } from "react";
     Typography,
 } from "antd";
 import "./Login.css";
-import {Template} from "../Template" ;
+import {OtherPageNavBarNoLogin} from "../../Components/NavBar/OtherPageNavBarNoLogin" ;
 
 const { Title } = Typography;
 const api = "/api/login";
 
 function Login(props) {
     const [message, setMessage] = useState(null);
+    const OtherPageNavBarNoLoginHeaderBlock = props.OtherPageNavBarNoLoginHeaderBlock;
     const onFinish = (values) => {
         let userData = values.user;
         let data = new FormData();
@@ -49,7 +50,7 @@ function Login(props) {
         })
     };
 
-    const LogincontentBlock = (
+    const LoginContentBlock = (
         <>
         <Layout
             
@@ -172,8 +173,12 @@ function Login(props) {
     )
 
     return (
-        <Template LogincontentBlock={ LogincontentBlock } />
-    )   
+        
+        <OtherPageNavBarNoLogin 
+            LoginContentBlock = { LoginContentBlock } 
+            OtherPageNavBarNoLoginHeaderBlock = { OtherPageNavBarNoLoginHeaderBlock }
+        />
+    ) 
 };
 
 export { Login };

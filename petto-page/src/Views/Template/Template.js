@@ -10,9 +10,11 @@ const { Header, Content } = Layout;
 
 function Template(props) {
     
-    const LogincontentBlock = props.LogincontentBlock;
-    const RegistercontentBlock = props.RegistercontentBlock;
-    const NavBarcontentBlock = props.NavBarcontentBlock;
+    const LoginContentBlock = props.LoginContentBlock;
+    const RegisterContentBlock = props.RegisterContentBlock;
+    const OtherPageNavBarNoLoginHeaderBlock = props.OtherPageNavBarNoLoginHeaderBlock;
+    const OtherPageNavBarLoginHeaderBlock = props.OtherPageNavBarLoginHeaderBlock;
+    const HomePageNavBarLoginHeaderBlock = props.HomePageNavBarLoginHeaderBlock;
     const [] = useState(false);
     return (
     <>
@@ -20,26 +22,23 @@ function Template(props) {
         <Header
             style={{
                 backgroundColor:'antiquewhite',
-                paddingBottom:'120px',
+                paddingBottom:'190px',
             }}
             >
-                <div className="site-layout-header">
-                    { NavBarcontentBlock }
-                </div>
+                { HomePageNavBarLoginHeaderBlock }
+                { OtherPageNavBarNoLoginHeaderBlock }
+                { OtherPageNavBarLoginHeaderBlock }
         </Header>
 
         <Content
             style={{
-                //lineHeight:'300px',
-                //backgroundColor:'antiquewhite',
-                //blockSize:'500px'
                 paddingBottom:'500px',
             }}
             >
-                <div className="site-layout-content">
-                    { LogincontentBlock },
-                    { RegistercontentBlock },
-                </div>
+                
+                { LoginContentBlock }
+                { RegisterContentBlock }
+                
         </Content>
     </Layout>
     

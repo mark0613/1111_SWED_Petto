@@ -8,8 +8,7 @@ import { useState } from "react";
     Typography,
 } from "antd";
 import "./Register.css";
-import {Template} from "../Template" ;
-
+import {OtherPageNavBarNoLogin} from "../../Components/NavBar/OtherPageNavBarNoLogin" ;
 const { Title } = Typography;
 const api = "/api/register";
 const layout = {
@@ -31,9 +30,9 @@ const validateMessages = {
 };
 
 
-function Register() {
+function Register(props) {
     const [message, setMessage] = useState(null);
-    
+    const OtherPageNavBarNoLoginHeaderBlock = props.OtherPageNavBarNoLoginHeaderBlock;
     const onFinish = (values) => {
         let userData = values.user;
         let data = new FormData();
@@ -59,7 +58,7 @@ function Register() {
         })
     };
 
-    const RegistercontentBlock = (
+    const RegisterContentBlock = (
         <>
             <Layout>
             <Space direction="vertical">
@@ -156,7 +155,10 @@ function Register() {
     )
 
     return (
-        <Template RegistercontentBlock={ RegistercontentBlock } />
+        <OtherPageNavBarNoLogin
+        OtherPageNavBarNoLoginHeaderBlock={ OtherPageNavBarNoLoginHeaderBlock }
+            RegisterContentBlock={ RegisterContentBlock } 
+        />
     );
     
 };
