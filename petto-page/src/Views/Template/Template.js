@@ -15,6 +15,8 @@ function Template(props) {
     const OtherPageNavBarNoLoginHeaderBlock = props.OtherPageNavBarNoLoginHeaderBlock;
     const OtherPageNavBarLoginHeaderBlock = props.OtherPageNavBarLoginHeaderBlock;
     const HomePageNavBarLoginHeaderBlock = props.HomePageNavBarLoginHeaderBlock;
+    const HomePageNavBarNoLoginHeaderBlock = props.HomePageNavBarNoLoginHeaderBlock;
+    
     const [] = useState(false);
     return (
     <>
@@ -26,6 +28,7 @@ function Template(props) {
             }}
             >
                 { HomePageNavBarLoginHeaderBlock }
+                { HomePageNavBarNoLoginHeaderBlock }
                 { OtherPageNavBarNoLoginHeaderBlock }
                 { OtherPageNavBarLoginHeaderBlock }
         </Header>

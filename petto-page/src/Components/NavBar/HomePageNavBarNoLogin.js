@@ -8,10 +8,7 @@ import { useState } from "react";
 } from "antd";
 import Icon, {SmileTwoTone } from '@ant-design/icons';
 import { AudioOutlined } from '@ant-design/icons';
-
-import {
-    useEffect,
-} from "react";
+import { Template } from "../../Views/Template";
 
 const { Title } = Typography;
 const HeartSvg = () => (
@@ -33,45 +30,68 @@ const suffix = (
 const onSearch = (value) => console.log(value);
 function HomePageNavBarNoLogin() {
   const [] = useState(false);
-  return (
-<Layout
-    style={{
-        backgroundColor:'aliceblue',
-    }}
->
-    <Space 
-    style={{
-        justifyContent:'center',
-        display: 'flex',
-        paddingTop:'30px',
-        paddingBottom:'20px',
-    }}
-    direction="horizontal">
-        <Space>
-        <HeartIcon
+
+  const HomePageNavBarNoLoginHeaderBlock =(
+    <>
+      <Layout
         style={{
-            color: 'teal',
-            fontSize:'50px',
+            backgroundColor:'antiquewhite',
         }}
-        />
-        </Space>
-        <Space
+      >
+        <Space 
+          style={{
+				justifyContent:'center',
+				display: 'flex',
+				paddingTop:'30px',
+				paddingBottom:'20px',
+          }}
+          direction="horizontal"
         >
-            <Search
-            placeholder="請輸入關鍵字搜尋...."
-            onSearch={onSearch}
-            style={{
-                width: 300,
-            }}
-            />
+			<Space>
+			<HeartIcon
+			style={{
+				color: 'teal',
+				fontSize:'50px',
+			}}
+			/>
+			</Space>
+			<Space>
+				<Search
+					placeholder="請輸入關鍵字搜尋...."
+					onSearch={onSearch}
+					style={{
+						marginTop:'16px',
+						width: 300,
+					}}
+				/>
+			</Space>
+			<Space
+				style={{
+					paddingTop:'0px',
+				}}
+				type="link"
+			>
+				<Button>
+					<a href="/register">
+						註冊
+					</a>
+				</Button>
+				<Button>
+					<a href="/login">
+						登入
+					</a>
+				</Button>
+			</Space>
+              
         </Space>
-        <Space type="link">
-            <Button>註冊</Button>
-            <Button>登入</Button>
-        </Space>
-        
-    </Space>
-</Layout>
+      </Layout>
+    </>
+  )
+
+  return (
+	<Template 
+        HomePageNavBarNoLoginHeaderBlock={ HomePageNavBarNoLoginHeaderBlock } 
+    />
   );
 };
 

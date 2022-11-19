@@ -51,9 +51,11 @@ function Register(props) {
             return response.json();
         })
         .then((data) => {
-            window.location.href='/login';
             console.log(data);
-            
+            alert(data.message)
+            if(data.message === "註冊成功!"){
+                window.location.href='/login';
+            } 
         })
         .catch((error) => {
             console.log(`Error: ${error}`);
