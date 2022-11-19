@@ -51,7 +51,9 @@ function Register(props) {
             return response.json();
         })
         .then((data) => {
+            window.location.href='/login';
             console.log(data);
+            
         })
         .catch((error) => {
             console.log(`Error: ${error}`);
@@ -119,8 +121,8 @@ function Register(props) {
                         <Button 
                             type="primary" 
                             htmlType="submit"
-                            // onClick={ () => handleClick()}
                             onClick={ () => Form.submit()}
+                            ///onClick="location.href='/login'"
                         >
                             立即註冊
                         </Button>
@@ -156,7 +158,7 @@ function Register(props) {
 
     return (
         <OtherPageNavBarNoLogin
-        OtherPageNavBarNoLoginHeaderBlock={ OtherPageNavBarNoLoginHeaderBlock }
+            OtherPageNavBarNoLoginHeaderBlock={ OtherPageNavBarNoLoginHeaderBlock }
             RegisterContentBlock={ RegisterContentBlock } 
         />
     );
