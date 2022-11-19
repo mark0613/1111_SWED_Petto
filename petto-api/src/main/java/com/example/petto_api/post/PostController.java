@@ -1,5 +1,7 @@
 package com.example.petto_api.post;
 
+import com.example.petto_api.Tag.TagModel;
+import com.example.petto_api.Tag.TagService;
 import com.example.petto_api.security.JwtTokenService;
 import com.example.petto_api.user.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +26,9 @@ public class PostController {
     private PostService postService;
 
     @Autowired
+    private TagService tagService;
+
+    @Autowired
     private UserService userService;
 
     @GetMapping("/posts")
@@ -44,7 +49,7 @@ public class PostController {
         String title = postCreatedRequest.getTitle();
         String content = postCreatedRequest.getContent();
         String mode = postCreatedRequest.getMode();
-        String [] tags = postCreatedRequest.getTags();
+        Set<TagModel> tags = new HashSet<>();
 
         if (!jwtTokenService.validateToken(jwt)) {
             message = "權限不足!";
@@ -52,9 +57,6 @@ public class PostController {
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
         }
-
-        int userId = jwtTokenService.getUserIdFromToken(jwt);
-
         if (StringUtils.isAnyBlank(title, content)) {
             message = "標題和內容都不能為空!";
             response.put("message", message);
@@ -65,12 +67,22 @@ public class PostController {
             mode = "text";
         }
 
+        int userId = jwtTokenService.getUserIdFromToken(jwt);
+        for (Integer tag_id : postCreatedRequest.getTags()) {
+            TagModel tag = tagService.findById(tag_id);
+            if (tag == null) {
+                continue;
+            }
+            tags.add(tag);
+        }
+
         PostModel postModel = new PostModel();
         postModel.setTitle(title);
         postModel.setContent(content);
         postModel.setUserModel(userService.findUserById(userId));
         postModel.setMode(mode);
         postModel.setTimestamp(new Date());
+        postModel.setTags(tags);
         int post_id = postService.addPost(postModel);
         message = "建立成功!";
         response.put("message", message);
