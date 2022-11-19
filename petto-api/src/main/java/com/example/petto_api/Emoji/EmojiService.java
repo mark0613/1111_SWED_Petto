@@ -26,4 +26,8 @@ public class EmojiService {
         }
         emojiRepository.save(emojiModel);
     }
+
+    public long count() {
+        return emojiRepository.count();
+    }
 }

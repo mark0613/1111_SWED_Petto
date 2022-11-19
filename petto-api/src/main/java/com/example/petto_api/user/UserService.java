@@ -52,4 +52,8 @@ public class UserService {
         UserModel newUser = userRepository.save(user);
         return newUser.getId();
     }
+
+    public long count() {
+        return userRepository.count();
+    }
 }

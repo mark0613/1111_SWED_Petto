@@ -26,4 +26,8 @@ public class TagService {
         }
         tagRepository.save(tag);
     }
+
+    public long count() {
+        return tagRepository.count();
+    }
 }
