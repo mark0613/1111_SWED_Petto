@@ -1,5 +1,6 @@
 package com.example.petto_api.post;
 
+import com.example.petto_api.Tag.TagModel;
 import com.example.petto_api.reply.ReplyModel;
 import com.example.petto_api.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -51,5 +53,16 @@ public class PostModel {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postModel")
     @EqualsAndHashCode.Exclude
     private Set<ReplyModel> replyModels;
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = { CascadeType.REMOVE, CascadeType.ALL }
+    )
+    @JoinTable(
+            name = "post_tags",
+            joinColumns = { @JoinColumn(name = "post_id") },
+            inverseJoinColumns = { @JoinColumn(name = "tag_id") }
+    )
+    private Set<TagModel> tags = new HashSet<>();
 }
 
