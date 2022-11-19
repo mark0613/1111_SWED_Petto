@@ -1,5 +1,6 @@
 package com.example.petto_api.post;
 
+import com.example.petto_api.Emoji.EmojiModel;
 import com.example.petto_api.Tag.TagModel;
 import com.example.petto_api.reply.ReplyModel;
 import com.example.petto_api.user.UserModel;
@@ -64,5 +65,15 @@ public class PostModel {
             inverseJoinColumns = { @JoinColumn(name = "tag_id") }
     )
     private Set<TagModel> tags = new HashSet<>();
-}
 
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = { CascadeType.REMOVE, CascadeType.ALL }
+    )
+    @JoinTable(
+            name = "post_emojis",
+            joinColumns = { @JoinColumn(name = "post_id") },
+            inverseJoinColumns = { @JoinColumn(name = "emoji_id") }
+    )
+    private Set<EmojiModel> emojis = new HashSet<>();
+}
