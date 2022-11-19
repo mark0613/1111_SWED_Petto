@@ -21,7 +21,6 @@ function Login(props) {
         let data = new FormData();
         data.append("account", userData.account);
         data.append("password", userData.password);
-        //console.log(userData)
     
         fetch(
             api,
@@ -37,17 +36,14 @@ function Login(props) {
 
             if (data.hasOwnProperty("jwt")) {
                 console.log(data);
+                //console.log(data.jwt);
+                let token = data.jwt;
+                document.cookie = `token=${token}`;
+
                 alert("登入成功!");
-                //let token = eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Njg4NDc1NzUsImlkIjo3LCJ1c2VybmFtZSI6IjExMSJ9.SzLw5mk-BMrS-gWSIvOMcnGEZwAs3clx2hOqCY8QFwb3LycYJKiIgYUKr5b21QWiEKcjc7g94rOkQb9iC-POsA;
-                //const token = jwt.sign(id, username, { expiresIn: EXPIRES_IN });
-                const jwt = require('jsonwebtoken')
-                const SECRET = 'thisismynewproject'
-                
-                //const token = jwt.sign({ _id: user._id.toString() }, SECRET, { expiresIn: '1 day' })
-                //res.cookie('token', token, { maxAge: EXPIRES_IN, httpOnly: true});
-                //document.cookie = `token=${token}`;
-                //data.hasOwnProperty";
-                
+                if(data.message === "登入成功!"){
+                    window.location.href='/HomePageNavBarLogin';
+                } 
             }
             else {
                 console.log(data);
