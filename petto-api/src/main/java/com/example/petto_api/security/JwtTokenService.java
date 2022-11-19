@@ -54,4 +54,9 @@ public class JwtTokenService implements Serializable {
         Map<String, Object> claims = this.getClaimFromToken(token);
         return (String) claims.get("username");
     }
+
+    public int getUserIdFromToken(String token) {
+        Map<String, Object> claims = this.getClaimFromToken(token);
+        return (int) claims.get("id");
+    }
 }

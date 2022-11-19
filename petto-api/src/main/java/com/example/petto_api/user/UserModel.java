@@ -1,11 +1,21 @@
 package com.example.petto_api.user;
 
+
+import java.util.*;
+import com.example.petto_api.post.PostModel;
+import com.example.petto_api.reply.ReplyModel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
+
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "user")
@@ -32,4 +42,15 @@ public class UserModel {
 
     @Column
     private String type = "member";
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userModel")
+    @EqualsAndHashCode.Exclude
+    private Set<PostModel> postModels;
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userModel")
+    @EqualsAndHashCode.Exclude
+    private Set<ReplyModel> replyModels;
+
 }
