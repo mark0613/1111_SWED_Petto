@@ -1,4 +1,4 @@
-package com.example.petto_api.Emoji;
+package com.example.petto_api.emoji;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

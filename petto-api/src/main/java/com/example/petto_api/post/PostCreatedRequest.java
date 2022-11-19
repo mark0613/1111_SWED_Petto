@@ -1,6 +1,5 @@
 package com.example.petto_api.post;
 
-import com.example.petto_api.Tag.TagModel;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,7 @@
 package com.example.petto_api.post;
 
-import com.example.petto_api.Tag.TagModel;
-import com.example.petto_api.Tag.TagService;
+import com.example.petto_api.tag.TagModel;
+import com.example.petto_api.tag.TagService;
 import com.example.petto_api.security.JwtTokenService;
 import com.example.petto_api.user.UserService;
 import org.apache.commons.lang3.StringUtils;

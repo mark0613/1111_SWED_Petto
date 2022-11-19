@@ -1,4 +1,4 @@
-package com.example.petto_api.Emoji;
+package com.example.petto_api.emoji;
 
 
 import com.example.petto_api.post.PostModel;

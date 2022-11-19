@@ -1,4 +1,4 @@
-package com.example.petto_api.Tag;
+package com.example.petto_api.tag;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

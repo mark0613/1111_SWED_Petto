@@ -1,4 +1,4 @@
-package com.example.petto_api.Tag;
+package com.example.petto_api.tag;
 
 
 import com.example.petto_api.post.PostModel;

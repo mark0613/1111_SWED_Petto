@@ -1,7 +1,7 @@
 package com.example.petto_api.post;
 
-import com.example.petto_api.Emoji.EmojiModel;
-import com.example.petto_api.Tag.TagModel;
+import com.example.petto_api.emoji.EmojiModel;
+import com.example.petto_api.tag.TagModel;
 import com.example.petto_api.reply.ReplyModel;
 import com.example.petto_api.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
