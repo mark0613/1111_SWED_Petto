@@ -5,7 +5,7 @@ import lombok.Setter;
 
 
 @Getter  @Setter
-public class PostRequest {
+public class PostCreatedRequest {
     String jwt;
     String title;
     String content;

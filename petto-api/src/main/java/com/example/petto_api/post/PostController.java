@@ -1,23 +1,18 @@
 package com.example.petto_api.post;
 
 import com.example.petto_api.security.JwtTokenService;
-import com.example.petto_api.user.UserRepository;
 import com.example.petto_api.user.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/api")
@@ -40,16 +35,16 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<Map<String, Object>> post(PostRequest postRequest) {
+    public ResponseEntity<Map<String, Object>> post(PostCreatedRequest postCreatedRequest) {
         String message;
         HttpStatus httpStatus;
         Map<String, Object> response = new HashMap<>();
 
-        String jwt = postRequest.getJwt();
-        String title = postRequest.getTitle();
-        String content = postRequest.getContent();
-        String mode = postRequest.getMode();
-        String [] tags = postRequest.getTags();
+        String jwt = postCreatedRequest.getJwt();
+        String title = postCreatedRequest.getTitle();
+        String content = postCreatedRequest.getContent();
+        String mode = postCreatedRequest.getMode();
+        String [] tags = postCreatedRequest.getTags();
 
         if (!jwtTokenService.validateToken(jwt)) {
             message = "權限不足!";
