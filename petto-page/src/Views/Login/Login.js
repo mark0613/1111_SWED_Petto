@@ -1,18 +1,19 @@
 import { useState } from "react";
-    import {
+import {
     Form,
-    Button,
     Input,
     Space,
+    Button,
     Layout,
     Typography,
 } from "antd";
 import "./Login.css";
-import {OtherPageNavBarNoLogin} from "../../Components/NavBar/OtherPageNavBarNoLogin" ;
 import { CookieUtil } from "../../Utils";
+import {OtherPageNavBarNoLogin} from "../../Components/NavBar/OtherPageNavBarNoLogin" ;
 
-const { Title } = Typography;
+
 const api = "/api/login";
+const { Title } = Typography;
 
 function Login(props) {
     const [message, setMessage] = useState(null);
@@ -26,8 +27,8 @@ function Login(props) {
         fetch(
             api,
             {
-                method : "POST",
                 body : data,
+                method : "POST",
             }
         )
         .then((response) => {
@@ -57,12 +58,7 @@ function Login(props) {
 
     const LoginContentBlock = (
         <>
-        <Layout
-            
-            style={{
-                //backgroundColor:'aliceblue',
-            }}
-            >
+            <Layout>
                 <Space 
                     style={{
                         paddingTop:'20px',
@@ -71,105 +67,104 @@ function Login(props) {
                 >
                     <Title 
                         style={{
-                            textAlign:'center',
                             fontSize:'40px',
+                            textAlign:'center',
                         }}
                         level={3}
                     >
                         登入
                     </Title>
                 </Space>
+
                 <Space
                     style={{
                         justifyContent:'center',
                     }}
                 >
                     <Form
-                    name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    onFinish={onFinish}
+                        name="basic"
+                        labelCol={{
+                            span: 8,
+                        }}
+                        onFinish={onFinish}
+                        wrapperCol={{
+                            span: 16,
+                        }}
                     >
                         <Form.Item
-                            label="Account"
                             name={['user', 'account']}
-                            
+                            label="Account"
                             rules={[
-                            {
-                                required: true,
-                                message: 'Please enter your account!',
-                            },
+                                {
+                                    message: 'Please enter your account!',
+                                    required: true,
+                                },
                             ]}
                         >
                             <Input 
-                            style={{
-                                width:'250px',
-                            }}
-                            placeholder="請輸入帳號或名稱...." 
+                                style={{
+                                    width:'250px',
+                                }}
+                                placeholder="請輸入帳號或名稱...." 
                             />
                         </Form.Item>
     
                         <Form.Item
-                            label="Password"
                             name={['user', 'password']}
+                            label="Password"
                             rules={[
-                            {
-                                required: true,
-                                message: 'Please enter your password!',
-                            },
+                                {
+                                    message: 'Please enter your password!',
+                                    required: true,
+                                },
                             ]}
                         >
                             <Input.Password 
-                            style={{
-                                width:'250px',
-                            }}
-                            placeholder="請輸入密碼...."
+                                style={{
+                                    width:'250px',
+                                }}
+                                placeholder="請輸入密碼...."
                             />
                         </Form.Item>
     
-    
                         <Form.Item
-                            wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                            }}
                             style={{
-                                justifyContent:'center',
                                 display: 'flex',
-                            }} 
+                                justifyContent:'center',
+                            }}
+                            wrapperCol={{
+                                span: 16,
+                                offset: 8,
+                            }}
                         >
                             <Button 
                                 type="primary" 
-                                htmlType="submit"
                                 onClick={ () => Form.submit()}
+                                htmlType="submit"
                             >
                                 登入
                             </Button>
                         </Form.Item>
                     </Form>
                 </Space> 
+
                 <Space
-                
-                style={{
-                    justifyContent:'center',
-                    display: 'flex',
-                }}
+                    style={{
+                        display: 'flex',
+                        justifyContent:'center',
+                    }}
                 >
                     <div>
                         還沒有帳號?
                         <Button 
+                            type="link" size="20px"
                             style={{
                                 padding:'0px 0px 16px 2px',
-                                
                             }}
-                            type="link" size="20px">
-                                <a href="/register">
-                                    <u>立即註冊</u>
-                                </a>
+                        >
+                            <a href="/register">
+                                <u>立即註冊</u>
+                            </a>
                         </Button>
                     </div>
                 </Space>
@@ -178,7 +173,6 @@ function Login(props) {
     )
 
     return (
-        
         <OtherPageNavBarNoLogin 
             LoginContentBlock = { LoginContentBlock } 
             OtherPageNavBarNoLoginHeaderBlock = { OtherPageNavBarNoLoginHeaderBlock }

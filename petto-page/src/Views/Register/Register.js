@@ -1,22 +1,22 @@
 import { useState } from "react";
-    import {
+import {
     Form,
-    Button,
     Input,
     Space,
+    Button,
     Layout,
     Typography,
 } from "antd";
 import "./Register.css";
 import {OtherPageNavBarNoLogin} from "../../Components/NavBar/OtherPageNavBarNoLogin" ;
+
+
 const { Title } = Typography;
 const api = "/api/register";
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
 };
-
-/* eslint-disable no-template-curly-in-string */
 const validateMessages = {
     required: '${label} is required!',
     types: {
@@ -28,7 +28,6 @@ const validateMessages = {
         range: '${label} must be between ${min} and ${max}',
     },
 };
-
 
 function Register(props) {
     const [message, setMessage] = useState(null);
@@ -43,8 +42,8 @@ function Register(props) {
         fetch(
             api,
             {
-                method : "POST",
                 body : data,
+                method : "POST",
             }
         )
         .then((response) => {
@@ -53,7 +52,7 @@ function Register(props) {
         .then((data) => {
             console.log(data);
             alert(data.message)
-            if(data.message === "註冊成功!"){
+            if(data.message === "註冊成功!") {
                 window.location.href='/login';
             } 
         })
@@ -61,110 +60,118 @@ function Register(props) {
             console.log(`Error: ${error}`);
         })
     };
-
     const RegisterContentBlock = (
         <>
             <Layout>
-            <Space direction="vertical">
-                <Title 
-                    style={{
-                        textAlign:'center',
-                        fontSize:'40px',
-                    }}
-                    level={3}
-                >
-                    註冊
-                </Title>
-            </Space>
-            <Space
-                style={{
-                    justifyContent:'center',
-                }}
-            >
-                <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-     
-                    <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]}>
-                        <Input 
-                            style={{
-                                width:'250px',
-                            }}
-                            placeholder="請輸入帳號...." 
-                        />
-                    </Form.Item>
-
-                    <Form.Item name={['user', 'username']} label="Username" rules={[{ type: 'username' }]}>
-                        <Input 
-                            style={{
-                                width:'250px',
-                            }}
-                            placeholder="請輸入名稱...."
-                        />
-                    </Form.Item>
-
-                    <Form.Item name={['user', 'password']} label="Password">
-                        <Input.Password 
-                            style={{
-                                width:'250px',
-                            }}
-                            placeholder="請輸入密碼...."
-                        />
-                    </Form.Item>
-
-                    <Form.Item 
-                        wrapperCol={{ 
-                            ...layout.wrapperCol, 
-                            offset: 8 ,
-                        }}
+                <Space direction="vertical">
+                    <Title 
                         style={{
-                            justifyContent:'center',
-                            display: 'flex',
-                        }} 
+                            fontSize:'40px',
+                            textAlign:'center',
+                        }}
+                        level={3}
                     >
-                        <Button 
-                            type="primary" 
-                            htmlType="submit"
-                            onClick={ () => Form.submit()}
-                            ///onClick="location.href='/login'"
-                        >
-                            立即註冊
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </Space>  
-            <Space
-                style={{
-                    justifyContent:'center',
-                    display: 'flex',
-                }}
-            >
-                <div>
-                    已有帳號?
-                    <Button 
-                        style={{
-                            padding:'0px 0px 16px 2px',
-                            
-                        }}
+                        註冊
+                    </Title>
+                </Space>
 
-                        type="link" size="20px">
+                <Space
+                    style={{
+                        justifyContent:'center',
+                    }}
+                >
+
+                    <Form 
+                        {...layout} 
+                        name="nest-messages" 
+                        onFinish={onFinish} 
+                        validateMessages={validateMessages}
+                    >
+                        <Form.Item 
+                            name={['user', 'email']} 
+                            label="Email" 
+                            rules={[{ type: 'email' }]}
+                        >
+                            <Input 
+                                style={{
+                                    width:'250px',
+                                }}
+                                placeholder="請輸入帳號...." 
+                            />
+                        </Form.Item>
+
+                        <Form.Item name={['user', 'username']} label="Username" rules={[{ type: 'username' }]}>
+                            <Input 
+                                style={{
+                                    width:'250px',
+                                }}
+                                placeholder="請輸入名稱...."
+                            />
+                        </Form.Item>
+
+                        <Form.Item 
+                            name={['user', 'password']} 
+                            label="Password"
+                        >
+                            <Input.Password 
+                                style={{
+                                    width:'250px',
+                                }}
+                                placeholder="請輸入密碼...."
+                            />
+                        </Form.Item>
+
+                        <Form.Item 
+                            style={{
+                                justifyContent:'center',
+                                display: 'flex',
+                            }}
+                            wrapperCol={{ 
+                                ...layout.wrapperCol, 
+                                offset: 8 ,
+                            }}
+                        >
+                            <Button 
+                                type="primary" 
+                                htmlType="submit"
+                                onClick={ () => Form.submit()}
+                            >
+                                立即註冊
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Space>
+
+                <Space
+                    style={{
+                        display: 'flex',
+                        justifyContent:'center',
+                    }}
+                >
+                    <div>
+                        已有帳號?
+                        <Button
+                            type="link" size="20px"
+                            style={{
+                                padding:'0px 0px 16px 2px',
+                            }}
+                        >
                             <a href="/login">
                                 <u>立即登入</u>
                             </a>
-                    </Button>
-                </div>
-                
-            </Space>
-
-        </Layout>
+                        </Button>
+                    </div>
+                </Space>
+            </Layout>
         </>
     )
 
     return (
         <OtherPageNavBarNoLogin
+            RegisterContentBlock={ RegisterContentBlock }
             OtherPageNavBarNoLoginHeaderBlock={ OtherPageNavBarNoLoginHeaderBlock }
-            RegisterContentBlock={ RegisterContentBlock } 
         />
     );
-    
 };
 
 export { Register };
