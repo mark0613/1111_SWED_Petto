@@ -52,13 +52,4 @@ public class UserService {
         UserModel newUser = userRepository.save(user);
         return newUser.getId();
     }
-
-    public boolean login(String account, String password) {
-        UserModel user = this.findByEmailOrUsername(account);
-        if (user == null) {
-            return false;
-        }
-//        return passwordEncoder.equals(password);
-        return user.getPassword().equals(password);
-    }
 }
