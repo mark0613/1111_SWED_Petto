@@ -9,6 +9,7 @@ import { useState } from "react";
 } from "antd";
 import "./Login.css";
 import {OtherPageNavBarNoLogin} from "../../Components/NavBar/OtherPageNavBarNoLogin" ;
+import { CookieUtil } from "../../Utils";
 
 const { Title } = Typography;
 const api = "/api/login";
@@ -36,10 +37,8 @@ function Login(props) {
 
             if (data.hasOwnProperty("jwt")) {
                 console.log(data);
-                //console.log(data.jwt);
                 let token = data.jwt;
-                document.cookie = `token=${token}`;
-
+                CookieUtil.set("token", token);
                 alert("登入成功!");
                 if(data.message === "登入成功!"){
                     window.location.href='/HomePageNavBarLogin';
