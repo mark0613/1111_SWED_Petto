@@ -1,7 +1,7 @@
 import {
-    BrowserRouter,
-    Routes,
     Route,
+    Routes,
+    BrowserRouter,
 } from "react-router-dom";
 import { Login } from "../Views/Login";
 import { Register } from "../Views/Register";
