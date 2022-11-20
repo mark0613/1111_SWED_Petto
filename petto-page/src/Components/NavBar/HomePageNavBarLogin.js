@@ -11,6 +11,7 @@ import {
 import { Template } from "../../Views/Template";
 import { DownOutlined } from '@ant-design/icons';
 import Icon, {SmileTwoTone } from '@ant-design/icons';
+import { AuthUtil } from "../../Utils";
 
 
 const { Title } = Typography;
@@ -27,14 +28,6 @@ const HeartSvg = () => (
 const HeartIcon = (props) => <Icon component={HeartSvg} {...props} />;
 const { Search } = Input;
 const onSearch = (value) => console.log(value);
-
-function clearAllCookie() {
-    let keys = document.cookie.match(/[^ =;]+(?=\=)/g);
-    if(keys) {
-        for(var i = keys.length;i--;)
-        document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
-    }
-}
 
 function HomePageNavBarLogin() {
     const [open, setOpen] = useState(false);
@@ -61,7 +54,7 @@ function HomePageNavBarLogin() {
                         paddingBottom:'0px',
                         justifyContent:'center',
                     }} 
-                    onClick={ () => clearAllCookie()}
+                    onClick={ () => AuthUtil.logout()}
                     htmlType="submit"
                 >
                     <a 
