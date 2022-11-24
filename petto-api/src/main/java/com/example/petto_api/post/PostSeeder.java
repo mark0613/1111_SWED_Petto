@@ -5,7 +5,6 @@ import com.example.petto_api.tag.TagModel;
 import com.example.petto_api.tag.TagService;
 import com.example.petto_api.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
