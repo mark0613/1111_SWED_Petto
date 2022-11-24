@@ -17,7 +17,7 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
-    @PostMapping("/tags")
+    @PostMapping("/tags/add")
     public ResponseEntity<Map<String, Object>> addTags(TagsAddRequest request){
         ArrayList<String> invalidText = new ArrayList<>();
         for (String text : request.getTags()) {
