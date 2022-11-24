@@ -24,7 +24,7 @@ public class TagModel {
 
     @ManyToMany(
             fetch = FetchType.LAZY,
-            cascade = { CascadeType.REMOVE, CascadeType.ALL },
+            cascade = { CascadeType.REMOVE, CascadeType.MERGE },
             mappedBy = "tags"
     )
     @JsonIgnore

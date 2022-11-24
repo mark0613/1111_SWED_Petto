@@ -46,7 +46,7 @@ public class PostModel {
     private Boolean updated = false;
 
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="owner")
     private UserModel userModel;
 
@@ -57,7 +57,7 @@ public class PostModel {
 
     @ManyToMany(
             fetch = FetchType.LAZY,
-            cascade = { CascadeType.REMOVE, CascadeType.ALL }
+            cascade = { CascadeType.REMOVE, CascadeType.MERGE }
     )
     @JoinTable(
             name = "post_tags",

@@ -1,30 +1,29 @@
 package com.example.petto_api.emoji;
 
-import lombok.SneakyThrows;
+import com.example.petto_api.seeder.Seeder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class EmojiSeeder implements CommandLineRunner {
+public class EmojiSeeder implements Seeder {
     @Autowired
     private EmojiService emojiService;
 
-    @SneakyThrows
     @Override
-    public void run(String... args) throws Exception {
-        seedEmojiData();
-    }
-
-    public void seedEmojiData() throws DuplicateEmojiException {
+    public void seed() {
         String[] emojiTypes = {"good", "love", "funny" ,"sad", "angry"};
         if (emojiService.count() == 0) {
             EmojiModel emoji;
             for (String type : emojiTypes) {
                 emoji = new EmojiModel();
                 emoji.setType(type);
-                emojiService.addEmoji(emoji);
+                try {
+                    emojiService.addEmoji(emoji);
+                }
+                catch (DuplicateEmojiException ignored) {
+                    ;
+                }
             }
         }
     }
