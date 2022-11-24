@@ -29,4 +29,8 @@ public class PostService {
     public ArrayList<PostModel> getPosts(){
         return postRepository.findAll();
     }
+
+    public long count() {
+        return postRepository.count();
+    }
 }

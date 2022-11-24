@@ -44,12 +44,12 @@ public class UserModel {
     private String type = "member";
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userModel")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "userModel")
     @EqualsAndHashCode.Exclude
     private Set<PostModel> postModels;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userModel")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "userModel")
     @EqualsAndHashCode.Exclude
     private Set<ReplyModel> replyModels;
 
