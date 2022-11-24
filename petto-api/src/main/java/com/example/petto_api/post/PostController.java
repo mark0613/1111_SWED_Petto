@@ -40,7 +40,7 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<Map<String, Object>> post(PostCreatedRequest postCreatedRequest) {
+    public ResponseEntity<Map<String, Object>> createPost(PostCreatedRequest postCreatedRequest) {
         String message;
         HttpStatus httpStatus;
         Map<String, Object> response = new HashMap<>();
