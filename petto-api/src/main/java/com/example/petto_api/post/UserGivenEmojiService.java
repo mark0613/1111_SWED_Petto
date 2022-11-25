@@ -5,6 +5,8 @@ import com.example.petto_api.user.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class UserGivenEmojiService {
@@ -32,11 +34,11 @@ public class UserGivenEmojiService {
         userGivenEmojiRepository.delete(record);
     }
 
-    public long countEmojiByPost(PostModel post) {
+    public List<PostContainEmojis> countEmojiByPost(PostModel post) {
         if (post == null) {
-            return 0;
+            return null;
         }
-        return userGivenEmojiRepository.countEmojiByPost(post);
+        return userGivenEmojiRepository.countEmojiWithPost(post);
     }
 
     public void userGiveEmojiToPost(UserModel user, EmojiModel emoji, PostModel post) {

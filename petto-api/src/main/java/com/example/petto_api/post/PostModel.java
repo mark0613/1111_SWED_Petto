@@ -13,9 +13,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.*;
 
 @Entity
 @Table(name = "post")
@@ -53,7 +52,7 @@ public class PostModel {
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postModel")
     @EqualsAndHashCode.Exclude
-    private Set<ReplyModel> replyModels;
+    private List<ReplyModel> replies;
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -69,4 +68,7 @@ public class PostModel {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "post")
     private Set<UserGivenEmojiModel> givenEmojis;
+
+    @Transient
+    private List<PostContainEmojis> emojis = new ArrayList<>();
 }
