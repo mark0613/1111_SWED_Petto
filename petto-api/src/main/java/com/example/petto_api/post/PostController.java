@@ -44,6 +44,9 @@ public class PostController {
     public ResponseEntity<Map<String, Object>> getPost() {
         Map<String, Object> response = new HashMap<>();
         ArrayList<PostModel> posts = postService.getPosts();
+        for (PostModel post : posts) {
+            post.setEmojis(userGivenEmojiService.countEmojiByPost(post));
+        }
         response.put("posts", posts);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
