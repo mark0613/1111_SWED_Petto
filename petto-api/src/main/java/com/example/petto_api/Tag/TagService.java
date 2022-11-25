@@ -11,11 +11,11 @@ public class TagService {
     @Autowired
     private TagRepository tagRepository;
 
-    public TagModel findById(int id) {
+    public TagModel getTagById(int id) {
         return tagRepository.findById(id);
     }
 
-    public ArrayList<TagModel> findAllTags() {
+    public ArrayList<TagModel> getAllTags() {
         return tagRepository.findAll();
     }
 

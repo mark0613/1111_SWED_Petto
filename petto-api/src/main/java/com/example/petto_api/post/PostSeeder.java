@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -71,7 +70,7 @@ public class PostSeeder implements Seeder {
             Set<TagModel> tags = new HashSet<>();
             for (Object[] post : posts) {
                 postModel = new PostModel();
-                postModel.setUserModel(userService.findUserById((int)post[0]));
+                postModel.setUserModel(userService.getUserById((int)post[0]));
                 postModel.setTitle((String) post[1]);
                 postModel.setContent((String) post[2]);
                 postModel.setMode((String) post[3]);
@@ -82,7 +81,7 @@ public class PostSeeder implements Seeder {
                     ;
                 }
                 for (int tagId : (int[])post[5]) {
-                    tags.add(tagService.findById(tagId));
+                    tags.add(tagService.getTagById(tagId));
                 }
                 postModel.setTags(tags);
                 postService.addPost(postModel);
@@ -105,8 +104,8 @@ public class PostSeeder implements Seeder {
         PostModel post;
         UserGivenEmojiModel record;
         for (int[] row : userGivenEmojiOnPost) {
-            user = userService.findUserById(row[0]);
-            emoji = emojiService.findById(row[1]);
+            user = userService.getUserById(row[0]);
+            emoji = emojiService.getEmojiById(row[1]);
             post = postService.getPostById(row[2]);
             record = new UserGivenEmojiModel();
             record.setUser(user);

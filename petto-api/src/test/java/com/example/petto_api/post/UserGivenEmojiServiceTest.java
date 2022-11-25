@@ -32,8 +32,8 @@ class UserGivenEmojiServiceTest {
 
     @BeforeEach
     void setUp() {
-        user = userService.findUserById(1);
-        emoji = emojiService.findById(1);
+        user = userService.getUserById(1);
+        emoji = emojiService.getEmojiById(1);
         post = postService.getPostById(1);
         record = new UserGivenEmojiModel();
         record.setUser(user);
@@ -51,10 +51,10 @@ class UserGivenEmojiServiceTest {
     void testUpdateEmoji() {
         EmojiModel emoji;
         userGivenEmojiService.add(record);
-        record = userGivenEmojiService.findById(1);
-        emoji = emojiService.findById(2);
+        record = userGivenEmojiService.getRecordById(1);
+        emoji = emojiService.getEmojiById(2);
         userGivenEmojiService.updateEmoji(record, emoji);
-        record = userGivenEmojiService.findById(1);
+        record = userGivenEmojiService.getRecordById(1);
         assertEquals(emoji.getId(), record.getEmoji().getId());
     }
 
@@ -62,21 +62,21 @@ class UserGivenEmojiServiceTest {
     void testUserGiveEmojiToPost() {
         // first
         userGivenEmojiService.userGiveEmojiToPost(user, emoji, post);
-        record = userGivenEmojiService.findByUserAndPost(user, post);
+        record = userGivenEmojiService.getRecordByUserAndPost(user, post);
         assertEquals(record.getEmoji().getId(), emoji.getId());
 
         // duplicate [user, post] but different [emoji]
         long totalEmoji = emojiService.count();
-        EmojiModel newEmoji = emojiService.findById(3);
-        record = userGivenEmojiService.findByUserAndPost(user, post);
+        EmojiModel newEmoji = emojiService.getEmojiById(3);
+        record = userGivenEmojiService.getRecordByUserAndPost(user, post);
         userGivenEmojiService.userGiveEmojiToPost(user, newEmoji, post);
-        record = userGivenEmojiService.findByUserAndPost(user, post);
+        record = userGivenEmojiService.getRecordByUserAndPost(user, post);
         assertEquals(newEmoji.getId(), record.getEmoji().getId());
 
         // duplicate [user, post, emoji]
-        record = userGivenEmojiService.findByUserAndPost(user, post);
+        record = userGivenEmojiService.getRecordByUserAndPost(user, post);
         userGivenEmojiService.userGiveEmojiToPost(user, newEmoji, post);
-        record = userGivenEmojiService.findByUserAndPost(user, post);
+        record = userGivenEmojiService.getRecordByUserAndPost(user, post);
         assertNull(record);
     }
 }

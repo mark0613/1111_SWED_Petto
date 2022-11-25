@@ -43,7 +43,7 @@ public class PostController {
     @GetMapping("/posts")
     public ResponseEntity<Map<String, Object>> getPost() {
         Map<String, Object> response = new HashMap<>();
-        ArrayList<PostModel> posts = postService.getPosts();
+        ArrayList<PostModel> posts = postService.getAllPosts();
         for (PostModel post : posts) {
             post.setEmojis(userGivenEmojiService.countEmojiByPost(post));
         }
@@ -81,7 +81,7 @@ public class PostController {
 
         int userId = jwtTokenService.getUserIdFromToken(jwt);
         for (Integer tag_id : postCreatedRequest.getTags()) {
-            TagModel tag = tagService.findById(tag_id);
+            TagModel tag = tagService.getTagById(tag_id);
             if (tag == null) {
                 continue;
             }
@@ -91,7 +91,7 @@ public class PostController {
         PostModel postModel = new PostModel();
         postModel.setTitle(title);
         postModel.setContent(content);
-        postModel.setUserModel(userService.findUserById(userId));
+        postModel.setUserModel(userService.getUserById(userId));
         postModel.setMode(mode);
         postModel.setTimestamp(new Date());
         postModel.setTags(tags);
@@ -121,7 +121,7 @@ public class PostController {
         }
 
         PostModel post = postService.getPostById(postId);
-        EmojiModel emoji = emojiService.findById(emojiId);
+        EmojiModel emoji = emojiService.getEmojiById(emojiId);
         if (post == null || emoji == null) {
             if (post == null) {
                 message = "文章編號不存在";
@@ -135,8 +135,8 @@ public class PostController {
         }
 
         int userId = jwtTokenService.getUserIdFromToken(jwt);
-        UserModel user = userService.findUserById(userId);
-        UserGivenEmojiModel record = userGivenEmojiService.findByUserAndPost(user, post);
+        UserModel user = userService.getUserById(userId);
+        UserGivenEmojiModel record = userGivenEmojiService.getRecordByUserAndPost(user, post);
         userGivenEmojiService.userGiveEmojiToPost(user, emoji, post);
 
         message = "給予成功";

@@ -11,11 +11,11 @@ public class EmojiService {
     @Autowired
     private EmojiRepository emojiRepository;
 
-    public EmojiModel findById(int id) {
+    public EmojiModel getEmojiById(int id) {
         return emojiRepository.findById(id);
     }
 
-    public ArrayList<EmojiModel> findAllEmojis() {
+    public ArrayList<EmojiModel> getAllEmojis() {
         return emojiRepository.findAll();
     }
 

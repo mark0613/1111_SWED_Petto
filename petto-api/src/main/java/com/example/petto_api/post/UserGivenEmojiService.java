@@ -13,11 +13,11 @@ public class UserGivenEmojiService {
     @Autowired
     private UserGivenEmojiRepository userGivenEmojiRepository;
 
-    public UserGivenEmojiModel findById(int id) {
+    public UserGivenEmojiModel getRecordById(int id) {
         return userGivenEmojiRepository.findById(id);
     }
 
-    public UserGivenEmojiModel findByUserAndPost(UserModel user, PostModel post) {
+    public UserGivenEmojiModel getRecordByUserAndPost(UserModel user, PostModel post) {
         return userGivenEmojiRepository.findByUserAndPost(user, post);
     }
 

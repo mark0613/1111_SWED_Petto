@@ -16,11 +16,11 @@ public class ReplyService {
     ReplyModel newReply = replyRepository.save(reply);
     return newReply.getId();
   }
-  public ReplyModel findById(int id) {
+  public ReplyModel getReplyById(int id) {
     return replyRepository.findById(id);
   }
 
-  public ArrayList<ReplyModel> findAll() {
+  public ArrayList<ReplyModel> getAllReplies() {
     return replyRepository.findAll();
   }
 }

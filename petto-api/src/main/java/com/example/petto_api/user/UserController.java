@@ -56,7 +56,7 @@ public class UserController {
         String account = request.getAccount();
         String password = request.getPassword();
         Map<String, Object> response = new HashMap<>();
-        UserModel foundUser = userService.findByEmailOrUsername(account);
+        UserModel foundUser = userService.getUserByEmailOrUsername(account);
         try {
             Authentication authenticate = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(foundUser.getUsername(), password)
