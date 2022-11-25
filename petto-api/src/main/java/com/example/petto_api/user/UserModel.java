@@ -2,8 +2,11 @@ package com.example.petto_api.user;
 
 
 import java.util.*;
+
+import com.example.petto_api.post.UserGivenEmojiModel;
 import com.example.petto_api.post.PostModel;
 import com.example.petto_api.reply.ReplyModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.EqualsAndHashCode;
@@ -11,11 +14,8 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.*;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "user")
@@ -53,4 +53,7 @@ public class UserModel {
     @EqualsAndHashCode.Exclude
     private Set<ReplyModel> replyModels;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "user")
+    private Set<UserGivenEmojiModel> givenEmojis;
 }

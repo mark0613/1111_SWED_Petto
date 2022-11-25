@@ -1,9 +1,9 @@
 package com.example.petto_api.post;
 
-import com.example.petto_api.emoji.EmojiModel;
 import com.example.petto_api.tag.TagModel;
 import com.example.petto_api.reply.ReplyModel;
 import com.example.petto_api.user.UserModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -66,14 +66,7 @@ public class PostModel {
     )
     private Set<TagModel> tags = new HashSet<>();
 
-    @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = { CascadeType.REMOVE, CascadeType.ALL }
-    )
-    @JoinTable(
-            name = "post_emojis",
-            joinColumns = { @JoinColumn(name = "post_id") },
-            inverseJoinColumns = { @JoinColumn(name = "emoji_id") }
-    )
-    private Set<EmojiModel> emojis = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "post")
+    private Set<UserGivenEmojiModel> givenEmojis;
 }

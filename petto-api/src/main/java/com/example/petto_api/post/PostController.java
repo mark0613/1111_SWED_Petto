@@ -1,8 +1,11 @@
 package com.example.petto_api.post;
 
+import com.example.petto_api.emoji.EmojiModel;
+import com.example.petto_api.emoji.EmojiService;
 import com.example.petto_api.tag.TagModel;
 import com.example.petto_api.tag.TagService;
 import com.example.petto_api.security.JwtTokenService;
+import com.example.petto_api.user.UserModel;
 import com.example.petto_api.user.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +26,16 @@ public class PostController {
     private JwtTokenService jwtTokenService;
 
     @Autowired
+    private EmojiService emojiService;
+
+    @Autowired
     private PostService postService;
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private UserGivenEmojiService userGivenEmojiService;
 
     @Autowired
     private UserService userService;
@@ -87,6 +96,48 @@ public class PostController {
         message = "建立成功!";
         response.put("message", message);
         response.put("post_id", post_id);
+        httpStatus = HttpStatus.CREATED;
+        return ResponseEntity.status(httpStatus).body(response);
+    }
+
+    @PostMapping("/emoji")
+    public ResponseEntity<Map<String, Object>> giveEmoji(EmojiGivenRequest request) {
+        String message;
+        HttpStatus httpStatus;
+        Map<String, Object> response = new HashMap<>();
+
+        String jwt = request.getJwt();
+        int postId = request.getPostId();
+        int emojiId = request.getEmojiId();
+
+        if (!jwtTokenService.validateToken(jwt)) {
+            message = "權限不足!";
+            response.put("message", message);
+            httpStatus = HttpStatus.UNAUTHORIZED;
+            return ResponseEntity.status(httpStatus).body(response);
+        }
+
+        PostModel post = postService.getPostById(postId);
+        EmojiModel emoji = emojiService.findById(emojiId);
+        if (post == null || emoji == null) {
+            if (post == null) {
+                message = "文章編號不存在";
+            }
+            else {
+                message = "表情編號不存在";
+            }
+            response.put("message", message);
+            httpStatus = HttpStatus.BAD_REQUEST;
+            return ResponseEntity.status(httpStatus).body(response);
+        }
+
+        int userId = jwtTokenService.getUserIdFromToken(jwt);
+        UserModel user = userService.findUserById(userId);
+        UserGivenEmojiModel record = userGivenEmojiService.findByUserAndPost(user, post);
+        userGivenEmojiService.userGiveEmojiToPost(user, emoji, post);
+
+        message = "給予成功";
+        response.put("message", message);
         httpStatus = HttpStatus.CREATED;
         return ResponseEntity.status(httpStatus).body(response);
     }
