@@ -30,7 +30,7 @@ public class PostModel {
     @Size(max = 50, message = "文章標題不可超過50字")
     private String title;
 
-    @Column
+    @Column(columnDefinition="TEXT")
     @NotBlank(message = "文章內容不可為空!")
     private String content;
 
