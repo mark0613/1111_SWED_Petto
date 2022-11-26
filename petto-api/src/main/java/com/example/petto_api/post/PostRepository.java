@@ -8,6 +8,7 @@ import java.util.ArrayList;
 @Repository
 public interface PostRepository extends CrudRepository<PostModel, Integer> {
     PostModel findById(int id);
-    PostModel findByTitle(String title);
+    Boolean existsById(int id);
+    PostModel deleteById(int id);
     ArrayList<PostModel> findAll();
 }

@@ -9,20 +9,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class EmojiServiceTest {
-    EmojiModel emoji;
+    com.example.petto_api.emoji.EmojiModel emoji;
 
     @Autowired
-    EmojiService emojiService;
+    com.example.petto_api.emoji.EmojiService emojiService;
 
     @BeforeEach
     void setUp() {
-        emoji = new EmojiModel();
+        emoji = new com.example.petto_api.emoji.EmojiModel();
         emoji.setType("emoji" + System.currentTimeMillis());
     }
 
     @Test
-    void avoidDuplicateType() throws DuplicateEmojiException {
+    void avoidDuplicateType() throws com.example.petto_api.emoji.DuplicateEmojiException {
         emojiService.addEmoji(emoji);
-        assertThrowsExactly(DuplicateEmojiException.class, () -> { emojiService.addEmoji(emoji); });
+        assertThrowsExactly(com.example.petto_api.emoji.DuplicateEmojiException.class, () -> { emojiService.addEmoji(emoji); });
     }
 }

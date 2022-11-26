@@ -9,20 +9,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class TagServiceTest {
-    TagModel tag;
+    com.example.petto_api.tag.TagModel tag;
 
     @Autowired
-    TagService tagService;
+    com.example.petto_api.tag.TagService tagService;
 
     @BeforeEach
     void setUp() {
-        tag = new TagModel();
+        tag = new com.example.petto_api.tag.TagModel();
         tag.setText("tag" + System.currentTimeMillis());
     }
 
     @Test
-    void avoidDuplicateTag() throws DuplicateTagException {
+    void avoidDuplicateTag() throws com.example.petto_api.tag.DuplicateTagException {
         tagService.addTag(tag);
-        assertThrowsExactly(DuplicateTagException.class, () -> { tagService.addTag(tag); });
+        assertThrowsExactly(com.example.petto_api.tag.DuplicateTagException.class, () -> { tagService.addTag(tag); });
     }
 }
