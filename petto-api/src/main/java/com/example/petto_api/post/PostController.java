@@ -125,8 +125,16 @@ public class PostController {
         String message;
         HttpStatus httpStatus;
         Map<String, Object> response = new HashMap<>();
+        PostModel postModel = postService.getPostById(post_id);
 
         String jwt = postCreatedRequest.getJwt();
+        int userId = jwtTokenService.getUserIdFromToken(jwt);
+        if (!(userService.getUserById(userId) ==  postModel.getUserModel())) {
+            message = "你不是擁有者!";
+            response.put("message", message);
+            httpStatus = HttpStatus.UNAUTHORIZED;
+            return ResponseEntity.status(httpStatus).body(response);
+        }
         if (!jwtTokenService.validateToken(jwt)) {
             message = "權限不足!";
             response.put("message", message);
@@ -163,6 +171,14 @@ public class PostController {
         String mode = postCreatedRequest.getMode();
         Set<TagModel> tags = new HashSet<>();
 
+        int userId = jwtTokenService.getUserIdFromToken(jwt);
+        if (!(userService.getUserById(userId) ==  postModel.getUserModel())) {
+            message = "Fuck!";
+            response.put("message", message);
+            httpStatus = HttpStatus.UNAUTHORIZED;
+            return ResponseEntity.status(httpStatus).body(response);
+        }
+
         if (!jwtTokenService.validateToken(jwt)) {
             message = "權限不足!";
             response.put("message", message);
@@ -180,7 +196,6 @@ public class PostController {
             mode = "text";
         }
 
-        int userId = jwtTokenService.getUserIdFromToken(jwt);
         for (Integer tag_id : postCreatedRequest.getTags()) {
             TagModel tag = tagService.getTagById(tag_id);
             if (tag == null) {

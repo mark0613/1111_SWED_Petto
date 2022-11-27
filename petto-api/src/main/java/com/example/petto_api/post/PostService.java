@@ -20,7 +20,7 @@ public class PostService {
         return postRepository.findById(id);
     }
 
-    public PostModel deletePostById(int id) { return postRepository.deleteById(id); }
+    public void deletePostById(int id) {  postRepository.deleteById(id);}
 
     public ArrayList<PostModel> getAllPosts(){
         return postRepository.findAll();
