@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-
 import javax.annotation.Resource;
 
 @Slf4j
@@ -32,6 +31,7 @@ class PostControllerTest {
         ).andReturn();
         log.info(mvcResult.getResponse().getContentAsString());
     }
+
     @Test
     public void  getPost()throws Exception {
         MvcResult mvcResult = mockMvc.perform(
@@ -39,6 +39,7 @@ class PostControllerTest {
         ).andReturn();
         log.info(mvcResult.getResponse().getContentAsString());
     }
+
     @Test
     public void getPosts()throws Exception {
         MvcResult mvcResult = mockMvc.perform(
@@ -46,6 +47,7 @@ class PostControllerTest {
         ).andReturn();
         log.info(mvcResult.getResponse().getContentAsString());
     }
+
     @Test
     public void modifyPost() throws Exception {
         MvcResult mvcResult = mockMvc.perform(
@@ -53,6 +55,4 @@ class PostControllerTest {
         ).andReturn();
         log.info(mvcResult.getResponse().getContentAsString());
     }
-
-
 }

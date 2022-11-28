@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 @Controller
@@ -48,6 +47,7 @@ public class PostController {
         response.put("posts", posts);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
     @PostMapping("/post")
     public ResponseEntity<Map<String, Object>> createPost(PostCreatedRequest postCreatedRequest) {
         String message;
@@ -85,7 +85,6 @@ public class PostController {
             tags.add(tag);
         }
 
-
         PostModel postModel = new PostModel();
         postModel.setTitle(title);
         postModel.setContent(content);
@@ -113,6 +112,7 @@ public class PostController {
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
         }
+
         PostModel post = postService.getPostById(post_id);
         post.setEmojis(userGivenEmojiService.countEmojiByPost(post));
         response.put("post", post);
@@ -128,15 +128,17 @@ public class PostController {
         PostModel postModel = postService.getPostById(post_id);
 
         String jwt = postCreatedRequest.getJwt();
-        int userId = jwtTokenService.getUserIdFromToken(jwt);
-        if (!(userService.getUserById(userId) ==  postModel.getUserModel())) {
-            message = "你不是擁有者!";
+
+        if (!jwtTokenService.validateToken(jwt)) {
+            message = "權限不足!";
             response.put("message", message);
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
         }
-        if (!jwtTokenService.validateToken(jwt)) {
-            message = "權限不足!";
+
+        int userId = jwtTokenService.getUserIdFromToken(jwt);
+        if (!(userService.getUserById(userId) ==  postModel.getUserModel())) {
+            message = "你不是擁有者!";
             response.put("message", message);
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
@@ -147,22 +149,19 @@ public class PostController {
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
         }
+
         postService.deletePostById(post_id);
         message = "刪除成功";
         response.put("message", message);
         httpStatus = HttpStatus.OK;
         return ResponseEntity.status(httpStatus).body(response);
-
     }
-
-
 
     @PutMapping ("/post/{post_id}")
     public ResponseEntity<Map<String, Object>> modifyPost(@PathVariable("post_id") int post_id,PostCreatedRequest postCreatedRequest) {
         String message;
         HttpStatus httpStatus;
         Map<String, Object> response = new HashMap<>();
-
         PostModel postModel = postService.getPostById(post_id);
 
         String jwt = postCreatedRequest.getJwt();
@@ -171,16 +170,16 @@ public class PostController {
         String mode = postCreatedRequest.getMode();
         Set<TagModel> tags = new HashSet<>();
 
-        int userId = jwtTokenService.getUserIdFromToken(jwt);
-        if (!(userService.getUserById(userId) ==  postModel.getUserModel())) {
-            message = "Fuck!";
+        if (!jwtTokenService.validateToken(jwt)) {
+            message = "權限不足!";
             response.put("message", message);
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
         }
 
-        if (!jwtTokenService.validateToken(jwt)) {
-            message = "權限不足!";
+        int userId = jwtTokenService.getUserIdFromToken(jwt);
+        if (!(userService.getUserById(userId) ==  postModel.getUserModel())) {
+            message = "你不是擁有者!";
             response.put("message", message);
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
@@ -191,11 +190,9 @@ public class PostController {
             httpStatus = HttpStatus.BAD_REQUEST;
             return ResponseEntity.status(httpStatus).body(response);
         }
-
         if (StringUtils.isBlank(mode)) {
             mode = "text";
         }
-
         for (Integer tag_id : postCreatedRequest.getTags()) {
             TagModel tag = tagService.getTagById(tag_id);
             if (tag == null) {

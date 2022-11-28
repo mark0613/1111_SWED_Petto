@@ -15,8 +15,5 @@ public interface PostRepository extends CrudRepository<PostModel, Integer> {
     @Modifying
     @Query("delete from PostModel post  where post.id=:id")
     void deleteById(@Param("id") int id);
-
-
-
     ArrayList<PostModel> findAll();
 }
