@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,6 +17,14 @@ import java.util.Map;
 public class TagController {
     @Autowired
     private TagService tagService;
+
+    @GetMapping("/tags")
+    public ResponseEntity<Map<String, Object>> getAllTags() {
+        ArrayList<TagModel> tags = tagService.getAllTags();
+        Map<String, Object> response = new HashMap<>();
+        response.put("tags", tags);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 
     @PostMapping("/tags/add")
     public ResponseEntity<Map<String, Object>> addTags(TagsAddRequest request){

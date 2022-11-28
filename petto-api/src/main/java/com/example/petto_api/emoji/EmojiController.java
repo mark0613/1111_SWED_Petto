@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,6 +19,14 @@ import java.util.Map;
 public class EmojiController {
     @Autowired
     private EmojiService emojiService;
+
+    @GetMapping("/emojis")
+    public ResponseEntity<Map<String, Object>> getAllEmojis() {
+        ArrayList<EmojiModel> emojis = emojiService.getAllEmojis();
+        Map<String, Object> response = new HashMap<>();
+        response.put("emojis", emojis);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 
     @PostMapping("/emojis/add")
     public ResponseEntity<Map<String, Object>> addEmojis(EmojiAddRequest request) {
