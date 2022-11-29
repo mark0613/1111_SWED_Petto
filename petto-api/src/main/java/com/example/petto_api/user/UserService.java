@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import java.util.Set;
 
+
 @Service
 @Validated
 public class UserService {
@@ -22,19 +23,19 @@ public class UserService {
     @Autowired
     private Validator validator;
 
-    public UserModel findUserById(int id) {
+    public UserModel getUserById(int id) {
         return userRepository.findById(id);
     }
 
-    public UserModel findUserByEmail(String email) {
+    public UserModel getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    public UserModel findUserByUsername(String username) {
+    public UserModel getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public UserModel findByEmailOrUsername(String account) {
+    public UserModel getUserByEmailOrUsername(String account) {
         return userRepository.findByEmailOrUsername(account, account);
     }
 

@@ -1,23 +1,17 @@
 package com.example.petto_api.user;
 
-import lombok.SneakyThrows;
+import com.example.petto_api.seeder.Seeder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class UserSeeder implements CommandLineRunner {
+public class UserSeeder implements Seeder {
     @Autowired
     private UserService userService;
 
-    @SneakyThrows
     @Override
-    public void run(String... args) throws Exception {
-        seedUserData();
-    }
-
-    public void seedUserData() {
+    public void seed() {
         String [][]users = {
                 {"root@petto.com", "root", "aabbcc123", "admin"},
                 {"admin@petto.com", "admin", "aabbcc123", "admin"},

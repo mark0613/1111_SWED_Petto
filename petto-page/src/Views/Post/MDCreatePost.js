@@ -26,6 +26,7 @@ ReactDOM.render(
 )
 */
 
+
 const api = "/api/post";
 const { TextArea } = Input;
 const { Option } = Select;
@@ -42,8 +43,6 @@ const onChange = (e) => {
     console.log('Change:', e.target.value);
 };
 const { Header, Content } = Layout;
-
-
 function MDCreatePost(props) {
     const OtherPageNavBarLoginHeaderBlock = props.OtherPageNavBarLoginHeaderBlock;
     const [message, setMessage] = useState(null);

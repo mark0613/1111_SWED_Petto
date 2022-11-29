@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -45,7 +44,7 @@ class PostServiceTest {
 
     @Test
     void testGetAllPosts() {
-        ArrayList<PostModel> all = postService.getPosts();
+        ArrayList<PostModel> all = postService.getAllPosts();
         for(int i =0; i< all.size();i++){
             assertEquals(all.get(i).getTitle(), postService.getPostById(i+1).getTitle());
         }

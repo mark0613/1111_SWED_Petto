@@ -1,9 +1,9 @@
 package com.example.petto_api.post;
 
-import com.example.petto_api.emoji.EmojiModel;
 import com.example.petto_api.tag.TagModel;
 import com.example.petto_api.reply.ReplyModel;
 import com.example.petto_api.user.UserModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,9 +13,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.*;
 
 @Entity
 @Table(name = "post")
@@ -30,7 +29,7 @@ public class PostModel {
     @Size(max = 50, message = "文章標題不可超過50字")
     private String title;
 
-    @Column
+    @Column(columnDefinition="TEXT")
     @NotBlank(message = "文章內容不可為空!")
     private String content;
 
@@ -46,18 +45,18 @@ public class PostModel {
     private Boolean updated = false;
 
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="owner")
     private UserModel userModel;
 
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postModel")
     @EqualsAndHashCode.Exclude
-    private Set<ReplyModel> replyModels;
+    private List<ReplyModel> replies;
 
     @ManyToMany(
             fetch = FetchType.LAZY,
-            cascade = { CascadeType.REMOVE, CascadeType.ALL }
+            cascade = { CascadeType.REMOVE, CascadeType.MERGE }
     )
     @JoinTable(
             name = "post_tags",
@@ -66,14 +65,10 @@ public class PostModel {
     )
     private Set<TagModel> tags = new HashSet<>();
 
-    @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = { CascadeType.REMOVE, CascadeType.ALL }
-    )
-    @JoinTable(
-            name = "post_emojis",
-            joinColumns = { @JoinColumn(name = "post_id") },
-            inverseJoinColumns = { @JoinColumn(name = "emoji_id") }
-    )
-    private Set<EmojiModel> emojis = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "post")
+    private Set<UserGivenEmojiModel> givenEmojis;
+
+    @Transient
+    private List<PostContainEmojis> emojis = new ArrayList<>();
 }

@@ -30,8 +30,8 @@ class UserServiceTest {
     @Test
     void testAddUser() {
         userService.addUser(user);
-        assertNotNull(userService.findUserByEmail(user.getEmail()));
-        assertNotNull(userService.findUserByUsername(user.getUsername()));
+        assertNotNull(userService.getUserByEmail(user.getEmail()));
+        assertNotNull(userService.getUserByUsername(user.getUsername()));
     }
 
     @Test

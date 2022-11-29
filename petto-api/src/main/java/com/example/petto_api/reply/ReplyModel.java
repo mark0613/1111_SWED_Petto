@@ -18,7 +18,7 @@ public class ReplyModel {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @Column
+  @Column(columnDefinition="TEXT")
   @NotBlank(message = "內容不可為空!")
   private String content;
 

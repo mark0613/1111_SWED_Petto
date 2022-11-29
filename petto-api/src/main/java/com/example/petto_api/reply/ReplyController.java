@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -59,7 +57,7 @@ public class ReplyController {
     }
 
     ReplyModel replyModel = new ReplyModel();
-    replyModel.setUserModel(userService.findUserById(userId));
+    replyModel.setUserModel(userService.getUserById(userId));
     replyModel.setPostModel(postService.getPostById(post_id));
     replyModel.setContent(content);
     replyModel.setTimestamp(new Date());

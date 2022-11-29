@@ -276,7 +276,6 @@ function PostList(props) {
         </>
     )
 
-
     if (AuthUtil.isLogin()) {
         return (
             <HomePageNavBarLogin
