@@ -107,7 +107,7 @@ public class PostController {
         Map<String, Object> response = new HashMap<>();
 
         if(!postService.hasPostID(post_id)){
-            message = "此post_id不存在";
+            message = "文章編號不存在!";
             response.put("message", message);
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
@@ -129,6 +129,12 @@ public class PostController {
 
         String jwt = postCreatedRequest.getJwt();
 
+        if(!postService.hasPostID(post_id)){
+            message = "文章編號不存在!";
+            response.put("message", message);
+            httpStatus = HttpStatus.UNAUTHORIZED;
+            return ResponseEntity.status(httpStatus).body(response);
+        }
         if (!jwtTokenService.validateToken(jwt)) {
             message = "權限不足!";
             response.put("message", message);
@@ -143,15 +149,9 @@ public class PostController {
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
         }
-        if(!postService.hasPostID(post_id)){
-            message = "此post_id不存在";
-            response.put("message", message);
-            httpStatus = HttpStatus.UNAUTHORIZED;
-            return ResponseEntity.status(httpStatus).body(response);
-        }
 
         postService.deletePostById(post_id);
-        message = "刪除成功";
+        message = "刪除成功!";
         response.put("message", message);
         httpStatus = HttpStatus.OK;
         return ResponseEntity.status(httpStatus).body(response);
@@ -170,6 +170,12 @@ public class PostController {
         String mode = postCreatedRequest.getMode();
         Set<TagModel> tags = new HashSet<>();
 
+        if(!postService.hasPostID(post_id)){
+            message = "文章編號不存在!";
+            response.put("message", message);
+            httpStatus = HttpStatus.UNAUTHORIZED;
+            return ResponseEntity.status(httpStatus).body(response);
+        }
         if (!jwtTokenService.validateToken(jwt)) {
             message = "權限不足!";
             response.put("message", message);
@@ -208,7 +214,7 @@ public class PostController {
         postModel.setTimestamp(new Date());
         postModel.setTags(tags);
         postService.addPost(postModel);
-        message = "修改成功!!!";
+        message = "修改成功!";
         response.put("message", message);
         response.put("post_id", post_id);
         httpStatus = HttpStatus.CREATED;

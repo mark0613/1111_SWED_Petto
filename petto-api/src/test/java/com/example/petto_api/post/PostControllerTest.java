@@ -27,7 +27,7 @@ class PostControllerTest {
     @Test
     public void  deletePost() throws Exception {
         MvcResult mvcResult = mockMvc.perform(
-                MockMvcRequestBuilders.request(HttpMethod.DELETE,"/api/post/2")
+                MockMvcRequestBuilders.request(HttpMethod.DELETE,"/api/post/5")
         ).andReturn();
         log.info(mvcResult.getResponse().getContentAsString());
     }
