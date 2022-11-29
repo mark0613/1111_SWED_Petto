@@ -28,7 +28,7 @@ import ReactDOM from 'react-dom'
 import "./PostList.css"
 
 import "./0.good.png"
-
+//PostList.get('/', request, response => { response.send('I Love Treehouse!'); });
 const api = "/api/posts";
 const { TextArea } = Input;
 const { Option } = Select;
@@ -48,43 +48,26 @@ function PostList(props) {
     const HomePageNavBarNoLoginHeaderBlock = props.HomePageNavBarNoLoginHeaderBlock;
     const [message, setMessage] = useState(null);
     const [] = useState(false);
-    const onFinish = (values) => {
-        let userData = values.user;
-        let data = new FormData();
-        data.append("jwt", userData.jwt);
-        data.append("title", userData.title);
-        data.append("content", userData.content);
-        console.log(AuthUtil.isLogin);
-        fetch(
-            api,
-            {
-                body: data,
-                method: "GET",
-            }
-        )
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-
-                if (data.hasOwnProperty("jwt")) {
-                    console.log(data);
-                    alert(data.message);
-                    if (data.message === "建立成功!") {
-                        window.location.href = '/HomePageNavBarLogin';
-                    }
-                }
-                else {
-                    console.log(data);
-                    alert(data.message);
-                    setMessage(data.message)
-                }
-            })
-            .catch((error) => {
-                console.log(`Error: ${error}`);
-            })
-    };
-    const [rows] = useState(4);
+    fetch(
+        api,
+        {
+            method: "GET",
+            //headers: headers,
+        }
+    )
+    .then((response) => {
+        //console.log(response);
+        return response.json();
+    })
+    .then((data) => {
+        console.log(data);
+        //alert(data);
+    })
+    .catch((error) => {
+        console.log(`Error: ${error}`);
+    })
+    
+    const [rows] = useState(3);
     const article = "引入文章 Ant Design, a design language for background applications, is refined by Ant UED Team. AntDesign, a design language for background applications, is refined by Ant UED Team. AntDesign, a design language for background applications, is refined by Ant UED Team. AntDesign, a design language for background applications, is refined by Ant UED Team. AntDesign, a design language for background applications, is refined by Ant UED Team. AntDesign, a design language for background applications, is refined by Ant UED Team.";
     const PostListContentBlock = (
         <>
@@ -100,7 +83,6 @@ function PostList(props) {
                         labelCol={{
                             span: 8,
                         }}
-                        onFinish={onFinish}
                         wrapperCol={{
                             span: 16,
                         }}
@@ -157,6 +139,8 @@ function PostList(props) {
                                 paddingLeft: '20px',
                                 borderRadius: '12px',
                             }}
+                            onClick={ () => window.location.href='/Login'}
+                                    
                         >
                             <Form.Item >
                                 <Space direction="horizontal">
@@ -197,19 +181,14 @@ function PostList(props) {
                                     <Paragraph
                                         ellipsis={{
                                             rows,
-                                            expandable: true,
-                                            symbol: '...',
-                                            //suffix: '--William Shakespeare',
-                                            onEllipsis: (ellipsis) => {
-                                                console.log('Ellipsis changed:', ellipsis);
-                                            },
                                         }}
                                         style={{
                                             width:'820px',
                                             fontSize:'18px',
                                         }}
                                     >
-                                        {api.content}
+                                        {article}
+
                                     </Paragraph>
                                 </Space>
                             </Form.Item>
@@ -244,7 +223,6 @@ function PostList(props) {
                                     </Avatar.Group>
                                     
                                     <Row>
-                                        let count = 
                                         <Statistic value={api.reply} />
                                     </Row>
                                 </Space>
@@ -294,3 +272,4 @@ function PostList(props) {
 };
 
 export { PostList };
+// {api.content}
