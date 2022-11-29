@@ -49,21 +49,14 @@ function MDCreatePost(props) {
         let userData = values.user;
         let jwt = CookieUtil.getValue("token");
         let data = new FormData();
-        data.append("jwt", jwt);
+        userData.jwt = jwt;
+        userData.Content = editorState.toHTML();
+        data.append("jwt", userData.jwt);
         data.append("title", userData.title);
-        data.append("content", userData.content);
-        data.append("mode", userData.mode);
+        data.append("content", userData.Content);
+        data.append("mode", "md");
         data.append("tags", userData.tags);
-        //let token = CookieUtil.jwt;
-        // let title = data.title;
-        // let content = data.content;
-        // let mode = data.mode;
-        // let tags = data.tags;
-        // console.log(token);
-        //AuthUtil.isLogin();
-        //console.log(AuthUtil.isLogin());
         console.log(userData);
-        console.log(api.jwt);
         
         fetch(
             api,

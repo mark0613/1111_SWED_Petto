@@ -66,13 +66,14 @@ class CommonCreatePost extends React.Component {
             let userData = values.user;
             let jwt = CookieUtil.getValue("token");
             let data = new FormData();
-            data.append("jwt", jwt);
+            userData.jwt = jwt;
+            userData.Content = editorState.toHTML();
+            data.append("jwt", userData.jwt);
             data.append("title", userData.title);
-            data.append("content", editorState.toHTML());
+            data.append("content", userData.Content);
             data.append("mode", "md");
             data.append("tags", userData.tags);
-            //console.log(data.get("content"));
-            console.log(editorState.toHTML())
+            console.log(userData);
         
             fetch(
                 api,
