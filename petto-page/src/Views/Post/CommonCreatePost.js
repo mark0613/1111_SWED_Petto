@@ -21,11 +21,14 @@ import { CookieUtil } from '../../Utils';
 const api = "/api/post";
 const { TextArea } = Input;
 const { Option } = Select;
+var set1;
 const handleChange = (value) => {
     console.log(`selected ${value}`);
     //let valueArray =[];
     //valueArray.push(value);
     //console.log(valueArray)
+    set1 = new Set(value);
+    console.log(set1);
 };
 const onChange = (e) => {
     console.log('Change:', e.target.value);
@@ -68,10 +71,12 @@ class CommonCreatePost extends React.Component {
             let data = new FormData();
             userData.jwt = jwt;
             userData.Content = editorState.toHTML();
+            userData.mode = "md";
+            //userData.tags = set1;
             data.append("jwt", userData.jwt);
             data.append("title", userData.title);
             data.append("content", userData.Content);
-            data.append("mode", "md");
+            data.append("mode", userData.mode);
             data.append("tags", userData.tags);
             console.log(userData);
         
@@ -192,17 +197,17 @@ class CommonCreatePost extends React.Component {
                                     </div>
                                 </Form.Item>
 
-                                <Form.Item
-                                    name={['user', 'tags']}
+                                <Space 
                                     style={{
-                                        marginBottom:'0px',
+                                        paddingTop:'20px',
                                     }}
+                                    direction="horizontal"
                                 >
-                                    <Space 
+                                    <Form.Item
+                                        name={['user', 'tags']}
                                         style={{
-                                            paddingTop:'20px',
+                                            marginBottom:'0px',
                                         }}
-                                        direction="horizontal"
                                     >
                                         <Select
                                             mode="multiple"
@@ -215,62 +220,68 @@ class CommonCreatePost extends React.Component {
                                             onChange={handleChange}
                                             optionLabelProp="label"
                                         >
-                                            <Option value="china" label="China">
+                                            <Option value={1} label="犬">
                                                 <div className="demo-option-label-item">
-                                                    <span role="img" aria-label="China">
-                                                    🇨🇳
-                                                    </span>
-                                                    China (中国)
+                                                    犬
                                                 </div>
                                             </Option>
 
-                                            <Option value="usa" label="USA">
+                                            <Option value={2} label="貓">
                                                 <div className="demo-option-label-item">
-                                                    <span role="img" aria-label="USA">
-                                                    🇺🇸
-                                                    </span>
-                                                    USA (美国)
+                                                    貓
                                                 </div>
                                             </Option>
 
-                                            <Option value="japan" label="Japan">
+                                            <Option value={3} label="鳥">
                                                 <div className="demo-option-label-item">
-                                                    <span role="img" aria-label="Japan">
-                                                    🇯🇵
-                                                    </span>
-                                                    Japan (日本)
+                                                    鳥
                                                 </div>
                                             </Option>
 
-                                            <Option value="korea" label="Korea">
+                                            <Option value={4} label="烏龜">
                                                 <div className="demo-option-label-item">
-                                                    <span role="img" aria-label="Korea">
-                                                    🇰🇷
-                                                    </span>
-                                                    Korea (韩国)
+                                                    烏龜
+                                                </div>
+                                            </Option>
+
+                                            <Option value={5} label="守宮">
+                                                <div className="demo-option-label-item">
+                                                    守宮
+                                                </div>
+                                            </Option>
+                                            
+                                            <Option value={6} label="吉娃娃">
+                                                <div className="demo-option-label-item">
+                                                    吉娃娃
                                                 </div>
                                             </Option>
                                         </Select>
-                                    
+                                    </Form.Item>
+                                            
+                                    <Form.Item
+                                        style={{
+                                            marginBottom:'0px',
+                                        }}
+                                    >
                                         <div
                                             style={{
                                                 paddingLeft:'275px',
                                             }}
                                         >
-                                                <Button
-                                                    type="primary" 
-                                                    style={{
-                                                        width:'120px',
-                                                        borderRadius:'8px',
-                                                    }}
-                                                    onClick={ () => Form.submit()}
-                                                    htmlType="submit"
-                                                >
-                                                    發佈
-                                                </Button>
+                                            <Button
+                                                type="primary" 
+                                                style={{
+                                                    width:'120px',
+                                                    borderRadius:'8px',
+                                                }}
+                                                onClick={ () => Form.submit()}
+                                                htmlType="submit"
+                                            >
+                                                發佈
+                                            </Button>
                                         </div>
-                                    </Space>
-                                </Form.Item>
+                                    </Form.Item>
+                                </Space>
                             </Card>
                         </Form>
                     </Space>
