@@ -1,5 +1,7 @@
 package com.example.petto_api.post;
 
+import com.example.petto_api.user.UserModel;
+import com.example.petto_api.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
@@ -18,12 +20,14 @@ class PostServiceTest {
     @Autowired
     PostService postService;
 
+    @Autowired
+    UserService userService;
+
     @BeforeEach
     void setup() {
         long timestamp = System.currentTimeMillis();
         post = new PostModel();
         String content = "test" + timestamp + "@example.com";
-        String username = "test" + timestamp;
         String type = "text";
         Date date = new Date() ;
 
@@ -48,5 +52,12 @@ class PostServiceTest {
         for(int i =0; i< all.size();i++){
             assertEquals(all.get(i).getTitle(), postService.getPostById(i+1).getTitle());
         }
+    }
+
+    @Test
+    void testKeepPost() {
+        UserModel user = userService.getUserById(1);
+        PostModel post = postService.getPostById(1);
+        postService.keepPost(user, post);
     }
 }

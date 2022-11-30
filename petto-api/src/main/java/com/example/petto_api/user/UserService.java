@@ -54,6 +54,10 @@ public class UserService {
         return newUser.getId();
     }
 
+    public Integer updateUser(UserModel user) {
+        return userRepository.save(user).getId();
+    }
+
     public long count() {
         return userRepository.count();
     }
