@@ -42,9 +42,6 @@ public class PostController {
     public ResponseEntity<Map<String, Object>> getPosts() {
         Map<String, Object> response = new HashMap<>();
         ArrayList<PostModel> posts = postService.getAllPosts();
-        for (PostModel post : posts) {
-            post.setEmojis(userGivenEmojiService.countEmojiByPost(post));
-        }
         response.put("posts", posts);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -115,7 +112,6 @@ public class PostController {
         }
 
         PostModel post = postService.getPostById(post_id);
-        post.setEmojis(userGivenEmojiService.countEmojiByPost(post));
         response.put("post", post);
         httpStatus = HttpStatus.OK;
         return ResponseEntity.status(httpStatus).body(response);
@@ -262,6 +258,21 @@ public class PostController {
         response.put("message", message);
         httpStatus = HttpStatus.CREATED;
         return ResponseEntity.status(httpStatus).body(response);
+    }
+
+    @GetMapping("/keep")
+    public ResponseEntity<Map<String, Object>> getAllKeepingPost(PostKeepRequest request) {
+        HttpStatus httpStatus;
+        Map<String, Object> response = new HashMap<>();
+        List<PostModel> posts = new ArrayList<>();
+        String jwt = request.getJwt();
+        if (jwtTokenService.validateToken(jwt)) {
+            int userId = jwtTokenService.getUserIdFromToken(jwt);
+            UserModel user = userService.getUserById(userId);
+            posts = postService.getKeepingPost(user);
+        }
+        response.put("posts", posts);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping("/keep/{postId}")
