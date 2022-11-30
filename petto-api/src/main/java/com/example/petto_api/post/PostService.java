@@ -20,7 +20,7 @@ public class PostService {
         PostModel newPost = postRepository.save(post);
         return newPost.getId();
     }
-    public Boolean hasPostID(int id){return postRepository.existsById(id); }
+    public Boolean hasPostId(int id){return postRepository.existsById(id); }
 
     public PostModel getPostById(int id){
         return postRepository.findById(id);

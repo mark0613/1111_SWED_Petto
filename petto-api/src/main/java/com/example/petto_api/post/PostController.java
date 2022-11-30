@@ -107,7 +107,7 @@ public class PostController {
         HttpStatus httpStatus;
         Map<String, Object> response = new HashMap<>();
 
-        if(!postService.hasPostID(post_id)){
+        if(!postService.hasPostId(post_id)){
             message = "文章編號不存在!";
             response.put("message", message);
             httpStatus = HttpStatus.UNAUTHORIZED;
@@ -130,7 +130,7 @@ public class PostController {
 
         String jwt = postCreatedRequest.getJwt();
 
-        if(!postService.hasPostID(post_id)){
+        if(!postService.hasPostId(post_id)){
             message = "文章編號不存在!";
             response.put("message", message);
             httpStatus = HttpStatus.UNAUTHORIZED;
@@ -171,7 +171,7 @@ public class PostController {
         String mode = postCreatedRequest.getMode();
         Set<TagModel> tags = new HashSet<>();
 
-        if(!postService.hasPostID(post_id)){
+        if(!postService.hasPostId(post_id)){
             message = "文章編號不存在!";
             response.put("message", message);
             httpStatus = HttpStatus.UNAUTHORIZED;
