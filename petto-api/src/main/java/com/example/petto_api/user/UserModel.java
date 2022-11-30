@@ -56,4 +56,16 @@ public class UserModel {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "user")
     private Set<UserGivenEmojiModel> givenEmojis;
+
+    @JsonIgnore
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            cascade = { CascadeType.REMOVE }
+    )
+    @JoinTable(
+            name = "keep",
+            joinColumns = { @JoinColumn(name = "post_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    private List<PostModel> keepingPosts = new ArrayList<>();
 }

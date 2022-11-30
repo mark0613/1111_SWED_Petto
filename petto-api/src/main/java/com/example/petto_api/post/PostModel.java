@@ -71,4 +71,12 @@ public class PostModel {
 
     @Transient
     private List<PostContainEmojis> emojis = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            cascade = { CascadeType.REMOVE, CascadeType.MERGE },
+            mappedBy = "keepingPosts"
+    )
+    private Set<UserModel> users;
 }

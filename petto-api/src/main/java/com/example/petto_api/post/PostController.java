@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @Controller
@@ -260,6 +261,35 @@ public class PostController {
         message = "給予成功";
         response.put("message", message);
         httpStatus = HttpStatus.CREATED;
+        return ResponseEntity.status(httpStatus).body(response);
+    }
+
+    @PostMapping("/keep/{postId}")
+    public ResponseEntity<Map<String, Object>> keepPost(@PathVariable("postId") int postId, PostKeepRequest request) {
+        String message;
+        HttpStatus httpStatus;
+        Map<String, Object> response = new HashMap<>();
+        String jwt = request.getJwt();
+        if (!jwtTokenService.validateToken(jwt)) {
+            message = "權限不足!";
+            response.put("message", message);
+            httpStatus = HttpStatus.UNAUTHORIZED;
+            return ResponseEntity.status(httpStatus).body(response);
+        }
+        int userId = jwtTokenService.getUserIdFromToken(jwt);
+        boolean postExist = postService.getPostById(postId) != null;
+        if (postExist) {
+            UserModel user = userService.getUserById(userId);
+            PostModel post = postService.getPostById(postId);
+            postService.keepPost(user, post);
+            message = "收藏成功";
+            httpStatus = HttpStatus.OK;
+        }
+        else {
+            message = "文章不存在!";
+            httpStatus = HttpStatus.BAD_REQUEST;
+        }
+        response.put("message", message);
         return ResponseEntity.status(httpStatus).body(response);
     }
 }
