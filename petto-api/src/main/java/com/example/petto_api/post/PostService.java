@@ -14,6 +14,9 @@ public class PostService {
     private PostRepository postRepository;
 
     @Autowired
+    private UserGivenEmojiService userGivenEmojiService;
+
+    @Autowired
     private UserService userService;
 
     public Integer addPost(PostModel post) {
@@ -22,14 +25,24 @@ public class PostService {
     }
     public Boolean hasPostId(int id){return postRepository.existsById(id); }
 
+    public void countEmojis(PostModel post) {
+        post.setEmojis(userGivenEmojiService.countEmojiByPost(post));
+    }
+
     public PostModel getPostById(int id){
-        return postRepository.findById(id);
+        PostModel post = postRepository.findById(id);
+        this.countEmojis(post);
+        return post;
     }
 
     public void deletePostById(int id) {  postRepository.deleteById(id);}
 
     public ArrayList<PostModel> getAllPosts(){
-        return postRepository.findAll();
+        ArrayList<PostModel> posts = postRepository.findAll();
+        for (PostModel post : posts) {
+            this.countEmojis(post);
+        }
+        return posts;
     }
 
     public boolean userHasKeptPost(UserModel user, PostModel post) {
@@ -40,6 +53,14 @@ public class PostService {
             }
         }
         return false;
+    }
+
+    public List<PostModel> getKeepingPost(UserModel user) {
+        List<PostModel> posts = user.getKeepingPosts();
+        for (PostModel post : posts) {
+            this.countEmojis(post);
+        }
+        return posts;
     }
 
     public void keepPost(UserModel user, PostModel post) {
