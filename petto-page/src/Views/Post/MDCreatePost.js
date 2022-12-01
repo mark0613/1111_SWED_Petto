@@ -1,30 +1,17 @@
-import { useState, useEffect, } from "react";
-import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
-import { 
+import { useState, useEffect } from "react";
+import {
     Layout,
     Card,
-    Form, 
+    Form,
     Input,
-    Space, 
+    Space,
+    Avatar,
     Button,
     Select,
-    Avatar,
-    Tooltip,
 } from "antd";
 import React from 'react'
-import {OtherPageNavBarLogin} from "../../Components/NavBar/OtherPageNavBarLogin" ;
-import { AuthUtil } from '../../Utils'
 import { CookieUtil } from '../../Utils';
-import ReactDOM from 'react-dom'
-//import ReactMarkdown from 'react-markdown'
-//import rehypeHighlight from 'rehype-highlight'
-//import MyFancyRule from './components/my-fancy-rule.js'
-/*
-ReactDOM.render(
-  <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{'# Your markdown here'}</ReactMarkdown>,
-  document.querySelector('#content')
-)
-*/
+import { OtherPageNavBarLogin } from "../../Components/NavBar/OtherPageNavBarLogin";
 
 
 const api = "/api/post";
@@ -33,16 +20,13 @@ const { Option } = Select;
 var set1;
 const handleChange = (value) => {
     console.log(`selected ${value}`);
-    //let valueArray =[];
-    //valueArray.push(value);
-    //console.log(valueArray)
     set1 = new Set(value);
     console.log(set1);
 };
 const onChange = (e) => {
     console.log('Change:', e.target.value);
 };
-const { Header, Content } = Layout;
+
 function MDCreatePost(props) {
     const OtherPageNavBarLoginHeaderBlock = props.OtherPageNavBarLoginHeaderBlock;
     const [message, setMessage] = useState(null);
@@ -53,19 +37,18 @@ function MDCreatePost(props) {
         let data = new FormData();
         userData.jwt = jwt;
         userData.mode = "md";
-        //userData.tags = set1;
         data.append("jwt", userData.jwt);
         data.append("title", userData.title);
-        data.append("content", userData.Content);
+        data.append("content", userData.content);
         data.append("mode", userData.mode);
         data.append("tags", userData.tags);
         console.log(userData);
-        
+
         fetch(
             api,
             {
-                body : data,
-                method : "POST",
+                body: data,
+                method: "POST",
             }
         )
         .then((response) => {
@@ -76,9 +59,9 @@ function MDCreatePost(props) {
             if (data.hasOwnProperty("jwt")) {
                 console.log(data);
                 alert(data.message);
-                if(data.message === "建立成功!"){
-                    window.location.href='/HomePageNavBarLogin';
-                } 
+                if (data.message === "建立成功!") {
+                    window.location.href = '/HomePageNavBarLogin';
+                }
             }
             else {
                 console.log(data);
@@ -95,8 +78,8 @@ function MDCreatePost(props) {
             <Layout>
                 <Space
                     style={{
-                        marginTop:'30px',
-                        justifyContent:'center',
+                        marginTop: '30px',
+                        justifyContent: 'center',
                     }}
                 >
                     <Form
@@ -111,29 +94,30 @@ function MDCreatePost(props) {
                     >
                         <Card
                             style={{
-                                width:'910px',
-                                border:'1px solid',
-                                paddingLeft:'20px',
-                                borderRadius:'12px',
+                                width: '910px',
+                                border: '1px solid',
+                                paddingLeft: '20px',
+                                borderRadius: '12px',
                             }}
                         >
                             <Form.Item>
                                 <Space direction="horizontal">
                                     <Space
                                         style={{
-                                            width:'675px',
+                                            width: '675px',
                                         }}
                                     >
-                                        <Avatar 
+                                        <Avatar
                                             src="https://joeschmoe.io/api/v1/random"
                                             style={{
-                                                width:'60px',
-                                                height:'60px',
+                                                width: '60px',
+                                                height: '60px',
                                             }}
-                                         />
+                                        />
+
                                         <h
                                             style={{
-                                                fontSize:'24px',
+                                                fontSize: '24px',
                                             }}
                                         >
                                             Name
@@ -141,23 +125,21 @@ function MDCreatePost(props) {
                                     </Space>
 
                                     <Space>
-                                        <Button 
-                                            type="primary" 
+                                        <Button
+                                            type="primary"
                                             style={{
-                                                borderRadius:'8px',
+                                                borderRadius: '8px',
                                             }}
-                                            //onClick={ () => Form.submit()}
                                             htmlType="submit"
                                         >
                                             編輯
                                         </Button>
 
-                                        <Button 
-                                            type="primary" 
+                                        <Button
+                                            type="primary"
                                             style={{
-                                                borderRadius:'8px',
+                                                borderRadius: '8px',
                                             }}
-                                            //onClick={ () => Form.submit()}
                                             htmlType="submit"
                                         >
                                             預覽
@@ -165,18 +147,18 @@ function MDCreatePost(props) {
                                     </Space>
                                 </Space>
                             </Form.Item>
-                            
+
                             <Form.Item
                                 name={['user', 'title']}
                                 style={{
-                                        marginBottom:'20px',
-                                    }}
+                                    marginBottom: '20px',
+                                }}
                             >
-                                <Input 
+                                <Input
                                     style={{
-                                        width:'820px',
-                                        borderColor:'gray',
-                                        borderWidth:'0 0 1px 0',
+                                        width: '820px',
+                                        borderColor: 'gray',
+                                        borderWidth: '0 0 1px 0',
                                     }}
                                     placeholder="請輸入文章標題"
                                 />
@@ -185,20 +167,20 @@ function MDCreatePost(props) {
                             <Form.Item
                                 name={['user', 'content']}
                                 style={{
-                                    marginBottom:'8px',
+                                    marginBottom: '8px',
                                 }}
                             >
                                 <Space
                                     style={{
-                                        marginTop:'0px',
+                                        marginTop: '0px',
                                     }}
                                 >
                                     <TextArea
                                         style={{
-                                            width:'820px',
+                                            width: '820px',
                                             height: 320,
                                             resize: 'none',
-                                            borderColor:'black',
+                                            borderColor: 'black',
                                         }}
                                         onChange={onChange}
                                         placeholder="請輸入文章內容.."
@@ -206,27 +188,27 @@ function MDCreatePost(props) {
                                 </Space>
                             </Form.Item>
 
-                            <Space 
+                            <Space
                                 style={{
-                                    paddingTop:'20px',
+                                    paddingTop: '20px',
                                 }}
                                 direction="horizontal"
                             >
                                 <Form.Item
                                     name={['user', 'tags']}
                                     style={{
-                                        marginBottom:'0px',
+                                        marginBottom: '0px',
                                     }}
                                 >
                                     <Select
                                         mode="multiple"
                                         style={{
                                             width: '415px',
-                                            borderColor:'black ',
+                                            borderColor: 'black ',
                                         }}
                                         showArrow
-                                        placeholder="選擇標籤.."
                                         onChange={handleChange}
+                                        placeholder="選擇標籤.."
                                         optionLabelProp="label"
                                     >
                                         <Option value={1} label="犬">
@@ -266,24 +248,24 @@ function MDCreatePost(props) {
                                         </Option>
                                     </Select>
                                 </Form.Item>
-                                        
+
                                 <Form.Item
                                     style={{
-                                        marginBottom:'0px',
+                                        marginBottom: '0px',
                                     }}
                                 >
                                     <div
                                         style={{
-                                            paddingLeft:'275px',
+                                            paddingLeft: '275px',
                                         }}
                                     >
                                         <Button
-                                            type="primary" 
+                                            type="primary"
                                             style={{
-                                                width:'120px',
-                                                borderRadius:'8px',
+                                                width: '120px',
+                                                borderRadius: '8px',
                                             }}
-                                            onClick={ () => Form.submit()}
+                                            onClick={() => Form.submit()}
                                             htmlType="submit"
                                         >
                                             發佈
@@ -299,9 +281,9 @@ function MDCreatePost(props) {
     )
 
     return (
-        <OtherPageNavBarLogin 
-            MDCreatePostContentBlock = { MDCreatePostContentBlock } 
-            OtherPageNavBarLoginHeaderBlock = { OtherPageNavBarLoginHeaderBlock }
+        <OtherPageNavBarLogin
+            MDCreatePostContentBlock={MDCreatePostContentBlock}
+            OtherPageNavBarLoginHeaderBlock={OtherPageNavBarLoginHeaderBlock}
         />
     )
 };
