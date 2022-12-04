@@ -52,6 +52,7 @@ class CommonCreatePost extends React.Component {
     state = {
         placeholder: '請輸入文章標題',
         editorState: BraftEditor.createEditorState(''), 
+        outputHTML: '<p></p>'
     }
     componentWillUnmount() {
         this.isLivinig = false
@@ -59,7 +60,7 @@ class CommonCreatePost extends React.Component {
     handleChange = (editorState) => {
         this.setState({
             editorState: editorState,
-            outputHTML: editorState.toHTML()
+            output: editorState.toHTML()
         })
     }
     setEditorContentAsync = () => {
@@ -135,14 +136,13 @@ class CommonCreatePost extends React.Component {
             .then((data) => {
                 if (data.hasOwnProperty("jwt")) {
                     console.log(data);
-                    alert(data.message);
-                    if (data.message === "建立成功!") {
-                        window.location.href = '/HomePageNavBarLogin';
-                    }
                 }
                 else {
                     console.log(data);
                     alert(data.message);
+                    if (data.message === "建立成功!") {
+                        window.location.href = '/PostList';
+                    }
                 }
             })
             .catch((error) => {

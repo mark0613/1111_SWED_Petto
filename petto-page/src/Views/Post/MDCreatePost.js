@@ -58,15 +58,14 @@ function MDCreatePost(props) {
 
             if (data.hasOwnProperty("jwt")) {
                 console.log(data);
-                alert(data.message);
-                if (data.message === "建立成功!") {
-                    window.location.href = '/HomePageNavBarLogin';
-                }
             }
             else {
                 console.log(data);
                 alert(data.message);
                 setMessage(data.message)
+                if (data.message === "建立成功!") {
+                    window.location.href = '/PostList';
+                }
             }
         })
         .catch((error) => {
