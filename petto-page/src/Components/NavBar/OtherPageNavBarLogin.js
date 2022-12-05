@@ -159,9 +159,16 @@ function OtherPageNavBarLogin(props) {
             </Layout>
         </>
     )
+    
+    const PostListContentBlock = props.PostListContentBlock;
+    const MDCreatePostContentBlock = props.MDCreatePostContentBlock;
+    const CommonCreatePostContentBlock = props.CommonCreatePostContentBlock;
 
     return (
         <Template 
+            PostListContentBlock = { PostListContentBlock }
+            MDCreatePostContentBlock = { MDCreatePostContentBlock }
+            CommonCreatePostContentBlock = { CommonCreatePostContentBlock }
             OtherPageNavBarLoginHeaderBlock={ OtherPageNavBarLoginHeaderBlock } 
         />
     );

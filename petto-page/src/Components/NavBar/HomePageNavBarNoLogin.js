@@ -34,7 +34,7 @@ const suffix = (
 );
 const onSearch = (value) => console.log(value);
 
-function HomePageNavBarNoLogin() {
+function HomePageNavBarNoLogin(props) {
   const [] = useState(false);
   const HomePageNavBarNoLoginHeaderBlock =(
     <>
@@ -94,9 +94,11 @@ function HomePageNavBarNoLogin() {
       </Layout>
     </>
   )
+  const PostListContentBlock = props.PostListContentBlock;
 
   return (
 	<Template 
+		PostListContentBlock ={ PostListContentBlock }
         HomePageNavBarNoLoginHeaderBlock={ HomePageNavBarNoLoginHeaderBlock } 
     />
   );
