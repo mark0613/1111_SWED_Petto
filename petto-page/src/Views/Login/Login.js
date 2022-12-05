@@ -42,7 +42,7 @@ function Login(props) {
                 CookieUtil.set("token", token);
                 alert("登入成功!");
                 if(data.message === "登入成功!"){
-                    window.location.href='/HomePageNavBarLogin';
+                    window.location.href='/PostList';
                 } 
             }
             else {

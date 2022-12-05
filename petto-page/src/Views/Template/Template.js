@@ -6,7 +6,10 @@ import "./Template.css";
 const { Header, Content } = Layout;
 function Template(props) {
     const LoginContentBlock = props.LoginContentBlock;
+    const PostListContentBlock = props.PostListContentBlock;
     const RegisterContentBlock = props.RegisterContentBlock;
+    const MDCreatePostContentBlock = props.MDCreatePostContentBlock;
+    const CommonCreatePostContentBlock = props.CommonCreatePostContentBlock;
     const HomePageNavBarLoginHeaderBlock = props.HomePageNavBarLoginHeaderBlock;
     const OtherPageNavBarLoginHeaderBlock = props.OtherPageNavBarLoginHeaderBlock;
     const HomePageNavBarNoLoginHeaderBlock = props.HomePageNavBarNoLoginHeaderBlock;
@@ -34,7 +37,10 @@ function Template(props) {
                     }}
                 >
                     { LoginContentBlock }
-                    { RegisterContentBlock }   
+                    { PostListContentBlock }
+                    { RegisterContentBlock } 
+                    { MDCreatePostContentBlock }
+                    { CommonCreatePostContentBlock }
                 </Content>
             </Layout>
         </>

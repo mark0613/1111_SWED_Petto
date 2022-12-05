@@ -29,7 +29,7 @@ const HeartIcon = (props) => <Icon component={HeartSvg} {...props} />;
 const { Search } = Input;
 const onSearch = (value) => console.log(value);
 
-function HomePageNavBarLogin() {
+function HomePageNavBarLogin(props) {
     const [open, setOpen] = useState(false);
     const items = [
         {
@@ -175,9 +175,12 @@ function HomePageNavBarLogin() {
         </>
     )
 
+    const PostListContentBlock = props.PostListContentBlock;
+
     return (
         <Template 
-            HomePageNavBarLoginHeaderBlock={ HomePageNavBarLoginHeaderBlock } 
+            PostListContentBlock ={ PostListContentBlock } 
+            HomePageNavBarLoginHeaderBlock={ HomePageNavBarLoginHeaderBlock }
         />
     );
 };
