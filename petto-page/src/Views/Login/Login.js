@@ -1,9 +1,7 @@
 import {
     Form,
     Input,
-    Space,
     Button,
-    Layout,
     Typography,
 } from "antd";
 
@@ -64,7 +62,7 @@ function Login() {
             <Form
                 name="basic"
                 labelCol={{ span: 8 }}
-                onFinish={onFinish}
+                onFinish={ onFinish }
                 wrapperCol={{ span: 16 }}
                 
             >
@@ -124,7 +122,7 @@ function Login() {
                 >
                     <Button
                         type="primary"
-                        onClick={() => Form.submit()}
+                        onClick={ () => Form.submit() }
                         htmlType="submit"
                     >
                         登入
@@ -149,7 +147,7 @@ function Login() {
         </>
     )
     return (
-        <PageTemplate contentBlock={contentBlock} />
+        <PageTemplate contentBlock={ contentBlock } />
     )
 }
 
