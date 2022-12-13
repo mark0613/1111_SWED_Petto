@@ -174,7 +174,6 @@ function HomePageNavBarLogin(props) {
             </Layout>
         </>
     )
-
     const PostListContentBlock = props.PostListContentBlock;
 
     return (
