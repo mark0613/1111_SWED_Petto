@@ -32,7 +32,7 @@ const onFinish = (data) => {
     fetch(
         "/api/register",
         {
-            body : data,
+            body : formData,
             method : "POST",
         }
     )
