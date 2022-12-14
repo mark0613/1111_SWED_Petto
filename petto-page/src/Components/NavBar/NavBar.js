@@ -27,6 +27,9 @@ const onSelectChange = (option) => {
 }
 
 function NavBar(props) {
+    let username;
+    if (AuthUtil.isLogin()) 
+        username = AuthUtil.getUserDetails().username
     const dropdownOptions = [
         {
             label : <a href="">我的文章</a>,
@@ -80,14 +83,15 @@ function NavBar(props) {
                 <Col span={ 3 }>
                     {
                         AuthUtil.isLogin() ?
-                        <Select
-                            style={{
-                                width: 70,
-                            }}
-                            defaultValue="name"
-                            options={ dropdownOptions }
-                            onChange={ onSelectChange }
-                        /> :
+                            <Select
+                                style={{
+                                    width: 70,
+                                }}
+                                defaultValue={ username }
+                                options={ dropdownOptions }
+                                onChange={ onSelectChange }
+                            />
+                         :
                         <Space>
                             <Button>
                                 <a href="/register">
