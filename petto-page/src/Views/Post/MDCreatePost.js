@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState, useEffect } from "react";
 import {
     Layout,
@@ -9,8 +10,11 @@ import {
     Button,
     Select,
 } from "antd";
-import React from 'react'
-import { CookieUtil } from '../../Utils';
+
+import { 
+    AuthUtil,
+    CookieUtil,
+} from '../../Utils';
 import { OtherPageNavBarLogin } from "../../Components/NavBar/OtherPageNavBarLogin";
 
 
@@ -119,7 +123,7 @@ function MDCreatePost(props) {
                                                 fontSize: '24px',
                                             }}
                                         >
-                                            Name
+                                            { AuthUtil.getUserDetails().username }
                                         </h>
                                     </Space>
 
