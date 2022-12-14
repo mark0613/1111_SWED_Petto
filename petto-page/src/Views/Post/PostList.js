@@ -2,6 +2,7 @@ import { useState, useEffect, } from "react";
 import {
     Col,
     Row,
+    Tag,
     Card,
     Form,
     Input,
@@ -42,10 +43,8 @@ function fetchApi(api, callback) {
 function getCard(post) {
     let countEmoji = 0;
     for (let emoji of post.emojis) {
-        console.log(emoji.type);
         countEmoji += emoji.count;
     }
-    console.log(countEmoji);
     return (
         <Card
             style={{
@@ -72,7 +71,7 @@ function getCard(post) {
                                 fontSize: '24px',
                             }}
                         >
-                            Name
+                            { post.username }
                         </h>
 
                         <p
@@ -83,16 +82,15 @@ function getCard(post) {
                                 marginBottom:'0px',
                             }}
                         >
-                            {post.timestamp.substring(0, 10)}
+                            { post.timestamp.substring(0, 10) }
                         </p>
 
                     </Space>
                 </Space>
             </Form.Item>
-
             <Form.Item>
                 <Space direction="vertical">
-                    <Title level={3}>{post.title}</Title>
+                    <Title level={3}>{ post.title }</Title>
                     <Paragraph
                         style={{
                             width: '820px',
@@ -102,8 +100,9 @@ function getCard(post) {
                             rows: 3,
                         }}
                         onClick={() => window.location.href = '/Login'}
+                        
                     >
-                        {post.content}
+                        <div dangerouslySetInnerHTML={{__html: post.content}} />
                     </Paragraph>
                 </Space>
             </Form.Item>
@@ -134,7 +133,7 @@ function getCard(post) {
                         <Col>
                             <Statistic
                                 value={ post.replies.length }
-                                prefix={<MessageOutlined />}
+                                prefix={ <MessageOutlined /> }
                             />
                         </Col>
                     </Row>
@@ -165,7 +164,6 @@ function PostList(props) {
             }
         });
     }, []);
-    console.log(data);
     const PostListContentBlock = (
         <>
             <Layout>

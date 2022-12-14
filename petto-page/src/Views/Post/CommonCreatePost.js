@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Card,
     Form,
@@ -9,18 +10,23 @@ import {
     Select,
     Dropdown,
 } from "antd";
-import React from 'react'
-import 'braft-editor/dist/index.css'
-import BraftEditor from 'braft-editor'
-import "./CommonCreatePost.css"
+import { AudioOutlined, DownOutlined } from '@ant-design/icons';
 import Icon from '@ant-design/icons';
-import { CookieUtil } from '../../Utils';
-import { DownOutlined } from '@ant-design/icons';
-import { AudioOutlined } from '@ant-design/icons';
+import BraftEditor from 'braft-editor';
+
+import { 
+    AuthUtil,
+    CookieUtil,
+} from '../../Utils';
+
+ import 'braft-editor/dist/index.css';
+ import "./CommonCreatePost.css"
 
 
 const api = "/api/post";
+
 const { Option } = Select;
+
 var set1;
 const handleChange = (value) => {
     console.log(`selected ${value}`);
@@ -262,7 +268,6 @@ class CommonCreatePost extends React.Component {
                                         }}
                                     >
                                         <Avatar
-                                            src="https://joeschmoe.io/api/v1/random"
                                             style={{
                                                 width: '60px',
                                                 height: '60px',
@@ -274,7 +279,7 @@ class CommonCreatePost extends React.Component {
                                                 fontSize: '24px',
                                             }}
                                         >
-                                            Name
+                                            { AuthUtil.getUserDetails().username }
                                         </h>
                                     </Space>
                                 </Form.Item>
