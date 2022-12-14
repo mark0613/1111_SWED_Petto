@@ -28,7 +28,6 @@ const onFinish = (values) => {
     })
     .then((data) => {
         if (data.hasOwnProperty("jwt")) {
-            console.log(data);
             let token = data.jwt;
             CookieUtil.set("token", token);
             alert("登入成功!");
@@ -37,7 +36,6 @@ const onFinish = (values) => {
             }
         }
         else {
-            console.log(data);
             alert("帳號或密碼錯誤!");
         }
     })
