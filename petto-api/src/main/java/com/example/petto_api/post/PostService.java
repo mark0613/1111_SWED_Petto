@@ -32,6 +32,7 @@ public class PostService {
     public PostModel getPostById(int id){
         PostModel post = postRepository.findById(id);
         this.countEmojis(post);
+        post.setUsername(post.getUserModel().getUsername());
         return post;
     }
 
@@ -41,6 +42,7 @@ public class PostService {
         ArrayList<PostModel> posts = postRepository.findAll();
         for (PostModel post : posts) {
             this.countEmojis(post);
+            post.setUsername(post.getUserModel().getUsername());
         }
         return posts;
     }
@@ -59,6 +61,7 @@ public class PostService {
         List<PostModel> posts = user.getKeepingPosts();
         for (PostModel post : posts) {
             this.countEmojis(post);
+            post.setUsername(post.getUserModel().getUsername());
         }
         return posts;
     }

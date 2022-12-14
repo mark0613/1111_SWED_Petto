@@ -49,6 +49,8 @@ public class PostModel {
     @JoinColumn(name="owner")
     private UserModel userModel;
 
+    private String username;
+
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postModel")
     @EqualsAndHashCode.Exclude
