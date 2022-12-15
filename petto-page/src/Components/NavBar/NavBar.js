@@ -85,7 +85,8 @@ function NavBar(props) {
                         AuthUtil.isLogin() ?
                             <Select
                                 style={{
-                                    width: 70,
+                                    textAlign: "center",
+                                    width: 100,
                                 }}
                                 defaultValue={ username }
                                 options={ dropdownOptions }
