@@ -8,7 +8,7 @@ import {
 
 import { CookieUtil } from "../../Utils";
 import { PageTemplate } from "../Template";
-import "./Login.css";
+
 
 const { Title } = Typography;
 

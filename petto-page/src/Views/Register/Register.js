@@ -7,7 +7,6 @@ import {
 } from "antd";
 
 import { PageTemplate } from "../Template";
-import "./Register.css";
 
 
 const { Title } = Typography;
