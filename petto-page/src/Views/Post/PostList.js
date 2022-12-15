@@ -207,7 +207,10 @@ function PostList() {
         </>
     )
     return (
-        <PageTemplate contentBlock={ contentBlock } />
+        <PageTemplate 
+            type = "home"
+            contentBlock={ contentBlock } 
+        />
     )
 }
 
