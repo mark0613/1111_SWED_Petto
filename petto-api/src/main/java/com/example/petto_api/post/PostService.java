@@ -2,10 +2,15 @@ package com.example.petto_api.post;
 
 import com.example.petto_api.user.UserModel;
 import com.example.petto_api.user.UserService;
+import com.example.petto_api.vote.VoteModel;
+import com.example.petto_api.vote.VoteOptionStatistics;
+import com.example.petto_api.vote.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -19,6 +24,9 @@ public class PostService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private VoteService voteService;
+
     public Integer addPost(PostModel post) {
         PostModel newPost = postRepository.save(post);
         return newPost.getId();
@@ -29,10 +37,40 @@ public class PostService {
         post.setEmojis(userGivenEmojiService.countEmojiByPost(post));
     }
 
+    public void setOwner(PostModel post) {
+        post.setUsername(post.getUserModel().getUsername());
+    }
+
+    public void setVoteOptions(PostModel post) {
+        if (!post.getMode().equals("vote")) {
+            return ;
+        }
+        Map<String, Integer> voteResult = new HashMap<>();
+        List<VoteModel> allOptions = post.getOptions();
+        List<VoteOptionStatistics> result = voteService.countOptionResult(post);
+        for (VoteModel option : allOptions) {
+            String text = option.getText();
+            int count = 0;
+            for (VoteOptionStatistics s : result) {
+                if (option.getId() == s.getId()) {
+                    count = (int) s.getCount();
+                    break;
+                }
+            }
+            voteResult.put(text, count);
+        }
+        post.setVoteResult(voteResult);
+    }
+
+    public void setPostAttributes(PostModel post) {
+        this.countEmojis(post);
+        this.setOwner(post);
+        this.setVoteOptions(post);
+    }
+
     public PostModel getPostById(int id){
         PostModel post = postRepository.findById(id);
-        this.countEmojis(post);
-        post.setUsername(post.getUserModel().getUsername());
+        this.setPostAttributes(post);
         return post;
     }
 
@@ -41,8 +79,7 @@ public class PostService {
     public ArrayList<PostModel> getAllPosts(){
         ArrayList<PostModel> posts = postRepository.findAll();
         for (PostModel post : posts) {
-            this.countEmojis(post);
-            post.setUsername(post.getUserModel().getUsername());
+            this.setPostAttributes(post);
         }
         return posts;
     }
@@ -60,8 +97,7 @@ public class PostService {
     public List<PostModel> getKeepingPost(UserModel user) {
         List<PostModel> posts = user.getKeepingPosts();
         for (PostModel post : posts) {
-            this.countEmojis(post);
-            post.setUsername(post.getUserModel().getUsername());
+            this.setPostAttributes(post);
         }
         return posts;
     }

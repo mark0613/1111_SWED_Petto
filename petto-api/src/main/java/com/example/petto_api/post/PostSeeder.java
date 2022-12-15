@@ -7,12 +7,16 @@ import com.example.petto_api.tag.TagModel;
 import com.example.petto_api.tag.TagService;
 import com.example.petto_api.user.UserModel;
 import com.example.petto_api.user.UserService;
+import com.example.petto_api.vote.VoteModel;
+import com.example.petto_api.vote.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -33,6 +37,9 @@ public class PostSeeder implements Seeder {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private VoteService voteService;
+
     @Override
     public void seed() {
         seedPostsData();
@@ -47,6 +54,7 @@ public class PostSeeder implements Seeder {
             // mode
             // timestamp
             // tags
+            // *vote options (if mode is 'vote')
             {
                 1,
                 "走失",
@@ -62,18 +70,44 @@ public class PostSeeder implements Seeder {
                 "text",
                 "2022-11-20 11:20:41",
                 new int[] {2},
+            },
+            {
+                3,
+                "取名",
+                "我養了一隻法鬥，大家覺得名字要叫什麼咧",
+                "vote",
+                "2022-12-14 16:15:14",
+                new int[] {1},
+                new String[] {
+                    "牛牛",
+                    "黑妞",
+                    "阿牛",
+                    "小笨狗"
+                }
             }
         };
 
         if (postService.count() == 0) {
             PostModel postModel;
-            Set<TagModel> tags = new HashSet<>();
+            Set<TagModel> tags;
             for (Object[] post : posts) {
+                tags = new HashSet<>();
                 postModel = new PostModel();
                 postModel.setUserModel(userService.getUserById((int)post[0]));
                 postModel.setTitle((String) post[1]);
                 postModel.setContent((String) post[2]);
                 postModel.setMode((String) post[3]);
+                List<VoteModel> vote = new ArrayList<>();
+                if (post[3].equals("vote")) {
+                    VoteModel option;
+                    for (String text : (String[]) post[6]) {
+                        option = new VoteModel();
+                        option.setPost(postModel);
+                        option.setText(text);
+                        vote.add(option);
+                    }
+                    postModel.setOptions(vote);
+                }
                 try {
                     postModel.setTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse((String)post[4]));
                 }
