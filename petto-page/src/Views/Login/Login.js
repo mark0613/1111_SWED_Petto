@@ -1,7 +1,8 @@
 import {
+    Button,
+    Card,
     Form,
     Input,
-    Button,
     Typography,
 } from "antd";
 
@@ -49,99 +50,107 @@ function Login() {
         <>
             <Title
                 style={{
+                    color: '#4691ee',
                     fontSize: '40px',
                     textAlign: 'center',
                 }}
-                level={3}
+                level={ 3 }
             >
                 登入
             </Title>
 
-            <Form
-                name="basic"
-                labelCol={{ span: 8 }}
-                onFinish={ onFinish }
-                wrapperCol={{ span: 16 }}
-                
+            <Card 
+                style={{
+                    borderRadius: 20,
+                    padding: '3%',
+                    backgroundColor: '#edf8ff',
+                }}
             >
-                <Form.Item
-                    name={['user', 'account']}
-                    label="Account"
-                    rules={[
-                        {
-                            message: 'Please enter your account!',
-                            required: true,
-                        },
-                    ]}
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
+                <Form
+                    name="basic"
+                    labelCol={{ span: 7 }}
+                    onFinish={ onFinish }
+                    wrapperCol={{ span: 16 }}
+                    
                 >
-                    <Input
+                    <Form.Item
+                        name={['user', 'account']}
+                        label="Account"
+                        rules={[
+                            {
+                                message: 'Please enter your account!',
+                                required: true,
+                            },
+                        ]}
                         style={{
-                            width: '250px',
+                            display: 'flex',
+                            justifyContent: 'center',
                         }}
-                        placeholder="請輸入帳號或名稱...."
-                    />
-                </Form.Item>
-
-                <Form.Item
-                    name={['user', 'password']}
-                    label="Password"
-                    rules={[
-                        {
-                            message: 'Please enter your password!',
-                            required: true,
-                        },
-                    ]}
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Input.Password
-                        style={{
-                            width: '250px',
-                        }}
-                        placeholder="請輸入密碼...."
-                    />
-                </Form.Item>
-
-                <Form.Item
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                        offset: 8,
-                    }}
-                >
-                    <Button
-                        type="primary"
-                        onClick={ () => Form.submit() }
-                        htmlType="submit"
                     >
-                        登入
-                    </Button>
-                </Form.Item>
-            </Form>
+                        <Input
+                            style={{
+                                width: '250px',
+                            }}
+                            placeholder="請輸入帳號或名稱...."
+                        />
+                    </Form.Item>
 
-            <div style={{ textAlign: "center" }}>
-                還沒有帳號?
-                <Button
-                    type="link"
-                    size="20px"
-                    style={{
-                        padding: '0px 0px 16px 2px',
-                    }}
-                >
-                    <a href="/register">
-                        <u>立即註冊</u>
-                    </a>
-                </Button>
-            </div>
+                    <Form.Item
+                        name={['user', 'password']}
+                        label="Password"
+                        rules={[
+                            {
+                                message: 'Please enter your password!',
+                                required: true,
+                            },
+                        ]}
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Input.Password
+                            style={{
+                                width: '250px',
+                            }}
+                            placeholder="請輸入密碼...."
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            textAlign: "center",
+                        }}
+                    >
+                        <Button
+                            type="primary"
+                            onClick={ () => Form.submit() }
+                            htmlType="submit"
+                        >
+                            登入
+                        </Button>
+                    </Form.Item>
+                </Form>
+
+                <div style={{ 
+                    textAlign: "center",
+                }}>
+                    還沒有帳號?
+                    <Button
+                        type="link"
+                        size="20px"
+                        style={{
+                            padding: '0px 0px 16px 2px',
+                        }}
+                    >
+                        <a href="/register">
+                            <u>立即註冊</u>
+                        </a>
+                    </Button>
+                </div>
+            </Card>
         </>
     )
     return (
