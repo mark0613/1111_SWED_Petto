@@ -7,6 +7,7 @@ import com.example.petto_api.tag.TagService;
 import com.example.petto_api.security.JwtTokenService;
 import com.example.petto_api.user.UserModel;
 import com.example.petto_api.user.UserService;
+import com.example.petto_api.vote.VoteModel;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,7 @@ public class PostController {
         String content = postCreatedRequest.getContent();
         String mode = postCreatedRequest.getMode();
         Set<TagModel> tags = new HashSet<>();
+        List<VoteModel> vote = new ArrayList<>();
 
         if (!jwtTokenService.validateToken(jwt)) {
             message = "權限不足!";
@@ -84,12 +86,28 @@ public class PostController {
         }
 
         PostModel postModel = new PostModel();
+        if (mode.equals("vote")) {
+            if (postCreatedRequest.getOptions().size() != 4) {
+                message = "要建立投票，必須且只能設定4個選項";
+                response.put("message", message);
+                httpStatus = HttpStatus.BAD_REQUEST;
+                return ResponseEntity.status(httpStatus).body(response);
+            }
+            for (String text : postCreatedRequest.getOptions()) {
+                VoteModel option = new VoteModel();
+                option.setPost(postModel);
+                option.setText(text);
+                vote.add(option);
+            }
+        }
+
         postModel.setTitle(title);
         postModel.setContent(content);
         postModel.setUserModel(userService.getUserById(userId));
         postModel.setMode(mode);
         postModel.setTimestamp(new Date());
         postModel.setTags(tags);
+        postModel.setOptions(vote);
         int post_id = postService.addPost(postModel);
         message = "建立成功!";
         response.put("message", message);

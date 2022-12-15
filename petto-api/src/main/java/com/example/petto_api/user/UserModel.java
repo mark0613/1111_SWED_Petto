@@ -6,6 +6,7 @@ import java.util.*;
 import com.example.petto_api.post.UserGivenEmojiModel;
 import com.example.petto_api.post.PostModel;
 import com.example.petto_api.reply.ReplyModel;
+import com.example.petto_api.vote.VoteModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -64,8 +65,20 @@ public class UserModel {
     )
     @JoinTable(
             name = "keep",
-            joinColumns = { @JoinColumn(name = "post_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "post_id") }
     )
     private List<PostModel> keepingPosts = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            cascade = { CascadeType.REMOVE }
+    )
+    @JoinTable(
+            name = "user_vote",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "option_id") }
+    )
+    private Set<VoteModel> votingOption = new HashSet<>();
 }

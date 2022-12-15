@@ -3,6 +3,9 @@ package com.example.petto_api.post;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -12,5 +15,6 @@ public class PostCreatedRequest {
     String title;
     String content;
     String mode;
-    Set<Integer> tags;
+    Set<Integer> tags = new HashSet<>();
+    List<String> options = new ArrayList<>();
 }

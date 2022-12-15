@@ -3,6 +3,7 @@ package com.example.petto_api.post;
 import com.example.petto_api.tag.TagModel;
 import com.example.petto_api.reply.ReplyModel;
 import com.example.petto_api.user.UserModel;
+import com.example.petto_api.vote.VoteModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
@@ -81,4 +82,12 @@ public class PostModel {
             mappedBy = "keepingPosts"
     )
     private Set<UserModel> users;
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @EqualsAndHashCode.Exclude
+    private List<VoteModel> options = new ArrayList<>();
+
+    @Transient @ElementCollection
+    private Map<String, Integer> voteResult = new HashMap<>();
 }
