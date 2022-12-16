@@ -48,17 +48,6 @@ const onFinish = (data) => {
 function Register() {
     const contentBlock = (
         <>
-            <Title 
-                style={{
-                    color: '#4691ee',
-                    fontSize: '40px',
-                    textAlign: 'center',
-                }}
-                level={ 3 }
-            >
-                註冊
-            </Title>
-
             <Card 
                 style={{
                     borderRadius: 20,
@@ -66,6 +55,16 @@ function Register() {
                     backgroundColor: '#edf8ff',
                 }}
             >
+                <Title 
+                    style={{
+                        color: '#4691ee',
+                        fontSize: '40px',
+                        textAlign: 'center',
+                    }}
+                    level={ 3 }
+                >
+                    註冊
+                </Title>
                     
                 <Form 
                     labelCol={{ span: 10 }}
