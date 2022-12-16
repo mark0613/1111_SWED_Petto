@@ -18,26 +18,62 @@ import {
 import { MessageOutlined } from '@ant-design/icons';
 
 import { PageTemplate } from "../Template";
+import { 
+    AuthUtil,
+    Request 
+} from "../../Utils";
 import 'antd/dist/antd.css';
 import "./PostList.css"
 
 
 const { Paragraph, Title } = Typography;
 
-const api = "/api/posts";
+const createButton = (
+    <>
+        <div
+            style={{
+                textAlign: "center",
+                margin: 5,
+            }}
+        >
+            <Button
+                type="primary"
+                style={{
+                    width: '120px',
+                    borderRadius: '8px',
+                    margin: 10,
+                }}
+                onClick={ () => window.location.href = '/CommonCreatePost' }
+            >
+                建立一般文章
+            </Button>
 
-function fetchApi(api, callback) {
-    fetch(api)
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            callback(data)
-        })
-        .catch((error) => {
-            console.log(`Error: ${error}`);
-        })
-}
+            <Button
+                type="primary"
+                style={{
+                    width: '120px',
+                    borderRadius: '8px',
+                    margin: 10,
+                }}
+                onClick={ () => window.location.href = '/MDCreatePost' }
+            >
+                建立MD文章
+            </Button>
+
+            <Button
+                type="primary"
+                style={{
+                    width: '120px',
+                    borderRadius: '8px',
+                    margin: 10,
+                }}
+                onClick={ () => window.location.href = '/HomePageNavBarLogin' }
+            >
+                建立投票
+            </Button>
+        </div>
+    </>
+)
 
 function getCard(post) {
     let countEmoji = 0;
@@ -135,75 +171,30 @@ function getCard(post) {
 }
 
 function PostList() {
-    const [data, setData] = useState(null);
     const [list, setList] = useState([]);
-    const [] = useState(false);
     useEffect(() => {
-        fetchApi(api, (resp) => {
-            setData(_ => resp);
-            for (let post of resp.posts) {
-                setList(card => [...card, getCard(post)]);
+        Request.get(
+            "/api/posts",
+            {
+                success : (response) => {
+                    for (let post of response.posts) {
+                        setList(card => [...card, getCard(post)]);
+                    } 
+                }
             }
-        });
+        )
     }, []);
+
     const contentBlock = (
         <>
-            <Form
-                name="basic"
-                labelCol={{
-                    span: 8,
-                }}
-                wrapperCol={{
-                    span: 16,
-                }}
-            >
-                <Form.Item
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Space>
-                        <Button
-                            type="primary"
-                            style={{
-                                width: '120px',
-                                borderRadius: '8px',
-                            }}
-                            onClick={ () => window.location.href = '/CommonCreatePost' }
-                            htmlType="submit"
-                        >
-                            建立一般文章
-                        </Button>
-
-                        <Button
-                            type="primary"
-                            style={{
-                                width: '120px',
-                                borderRadius: '8px',
-                            }}
-                            onClick={ () => window.location.href = '/MDCreatePost' }
-                            htmlType="submit"
-                        >
-                            建立MD文章
-                        </Button>
-
-                        <Button
-                            type="primary"
-                            style={{
-                                width: '120px',
-                                borderRadius: '8px',
-                            }}
-                            onClick={ () => window.location.href = '/HomePageNavBarLogin' }
-                            htmlType="submit"
-                        >
-                            建立投票
-                        </Button>
-                    </Space>
-                </Form.Item>
-
-                { list }
-            </Form>
+            <Row>
+                <Col span={ 3 } />
+                <Col span={ 18 }>
+                    { AuthUtil.isLogin() ? createButton : <></> }
+                    { list }    
+                </Col>
+                <Col span={ 3 } />
+            </Row>
         </>
     )
     return (
