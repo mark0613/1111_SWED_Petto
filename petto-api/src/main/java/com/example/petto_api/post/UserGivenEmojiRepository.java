@@ -3,6 +3,7 @@ package com.example.petto_api.post;
 import com.example.petto_api.user.UserModel;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,5 +21,5 @@ public interface UserGivenEmojiRepository extends CrudRepository<UserGivenEmojiM
         "AND r.post = :post " +
         "GROUP BY r.post, r.emoji "
     )
-    List<PostContainEmojis> countEmojiWithPost(PostModel post);
+    List<PostContainEmojis> countEmojiWithPost(@Param("post") PostModel post);
 }
