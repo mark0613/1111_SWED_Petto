@@ -48,17 +48,6 @@ const onFinish = (values) => {
 function Login() {
     const contentBlock = (
         <>
-            <Title
-                style={{
-                    color: '#4691ee',
-                    fontSize: '40px',
-                    textAlign: 'center',
-                }}
-                level={ 3 }
-            >
-                登入
-            </Title>
-
             <Card 
                 style={{
                     borderRadius: 20,
@@ -66,6 +55,17 @@ function Login() {
                     backgroundColor: '#edf8ff',
                 }}
             >
+                <Title
+                    style={{
+                        color: '#4691ee',
+                        fontSize: '40px',
+                        textAlign: 'center',
+                    }}
+                    level={ 3 }
+                >
+                    登入
+                </Title>
+
                 <Form
                     name="basic"
                     labelCol={{ span: 7 }}
