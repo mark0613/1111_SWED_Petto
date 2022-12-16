@@ -15,9 +15,8 @@ function getOptions(tagsList) {
     for (let tag of tagsList.tags) {
         options.push(
             {
-                id: tag.id,
                 label: tag.text,
-                value: tag.text, 
+                value: tag.id,
             }
         )
     }
@@ -25,14 +24,17 @@ function getOptions(tagsList) {
 }
 
 
-function TagSelect() {
+function TagSelect(props) {
     const [options, setOptions] = useState([]);
+    const handleSelectChange = props.onChange;
+
     useEffect(() => {
         Request.get(
             "/api/tags",
-            (response) => {
-                console.log(response);
-                setOptions(_ => getOptions(response));
+            {
+                success : (response) => {
+                    setOptions(_ => getOptions(response));
+                }
             }
         );
     }, []);
@@ -41,13 +43,14 @@ function TagSelect() {
         <Select
             mode="multiple"
             style={{
-                width: '424px',
-                borderColor: 'black ',
+                width: "100%",
+                borderColor: "black",
             }}
             showArrow
             placeholder="選擇標籤.."
             optionLabelProp="label"
             options={ options }
+            onChange={ handleSelectChange }
         />
     );
 }

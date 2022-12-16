@@ -1,25 +1,26 @@
 class Request {
-    static get(api, success, fail=console.log) {
+    static get(url, args) {
         fetch(
-            api,
+            url,
         )
         .then((response) => {
             return response.json();
         })
         .then((data) => {
-            success(data);
+            args.success(data);
         })
         .catch((error) => {
-            fail(error);
+            args.fail = (typeof args.fail !== 'undefined') ?  args.fail : console.log;
+            args.fail(error);
         })
     
     }
     
-    static post(api, success, fail, config) {
+    static post(url, args) {
         fetch(
-            api,
+            url,
             {
-                body : config.body,
+                body : args.body,
                 method : "POST",
             }
         )
@@ -27,11 +28,11 @@ class Request {
             return response.json();
         })
         .then((data) => {
-            success(data);
+            args.success(data);
         })
         .catch((error) => {
-            console.log(`Error: ${error}`);
-            fail(error);
+            args.fail = (typeof args.fail !== 'undefined') ?  args.fail : console.log;
+            args.fail(error);
         })
     }
 
