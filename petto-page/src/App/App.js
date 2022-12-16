@@ -7,8 +7,8 @@ import {
 import { PageTemplate } from "../Views/Template";
 import { Register } from "../Views/Register";
 import { Login } from "../Views/Login";
+import { PostEditor } from "../Views/Post/PostEditor";
 import { PostList } from "../Views/Post/PostList";
-import { MDCreatePost } from "../Views/Post/MDCreatePost";
 import { CommonCreatePost } from "../Views/Post/CommonCreatePost";
 
 import 'antd/dist/antd.min.css';
@@ -22,9 +22,9 @@ function App() {
                 <Route path="/home" element={ <PageTemplate type="home" /> } />
                 <Route path="/register" element={ <Register /> } />
                 <Route path="/login" element={ <Login/> } />
+                <Route path="/post/new/md" element={ <PostEditor type="md" /> } />
 
                 <Route path="/postList" element={ <PostList/> } />
-                <Route path="/MDCreatePost" element={ <MDCreatePost/> } />
                 <Route path="/CommonCreatePost" element={ <CommonCreatePost/> } />
                 <Route path="*" element={ <></> } />
             </Routes>
