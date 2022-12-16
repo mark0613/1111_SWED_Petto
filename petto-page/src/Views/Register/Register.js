@@ -49,31 +49,46 @@ const onFinish = (data) => {
 
 function Register() {
     const contentBlock = (
-        <>
+        <> 
             <Row>
                 <Col span={ 6 }></Col>
                 <Col span={ 12 }>
+                    <div 
+                        style={{
+                            textAlign: "center",
+                        }}
+                    >
+                        <img 
+                            style={{
+                                width: 300,
+                            }}
+                            src="https://i.imgur.com/YenWz4J.png" 
+                        />
+                    </div>
+
                     <Card 
                         style={{
                             borderRadius: 20,
-                            padding: '3%',
                             backgroundColor: '#edf8ff',
+                            textAlign: "center",
                         }}
-                    >
+                    >    
                         <Title 
                             style={{
                                 color: '#4691ee',
-                                fontSize: '40px',
+                                fontSize: '30px',
                                 textAlign: 'center',
                             }}
                             level={ 3 }
-                        >
+                        >    
                             註冊
                         </Title>
                             
-                        <Form 
-                            labelCol={{ span: 10 }}
-                            onFinish={ onFinish } 
+                        <Form
+                            name="basic"
+                            labelCol={{ span: 7 }}
+                            onFinish={ onFinish }
+                            wrapperCol={{ span: 16 }} 
                             validateMessages={ validateMessages }
                         >
                             <Form.Item 
@@ -84,6 +99,10 @@ function Register() {
                                         type: 'email' 
                                     }
                                 ]}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                }}
                             > 
                                 <Input 
                                     style={{
@@ -102,6 +121,10 @@ function Register() {
                                         required: true,
                                     },
                                 ]}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                }}
                             >
                                 <Input 
                                     style={{
@@ -120,6 +143,10 @@ function Register() {
                                         required: true,
                                     },
                                 ]}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                }}
                             >
                                 <Input.Password 
                                     style={{
@@ -131,6 +158,8 @@ function Register() {
 
                             <Form.Item 
                                 style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
                                     textAlign: "center",
                                 }}
                             >
