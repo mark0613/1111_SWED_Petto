@@ -16,3 +16,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### batch files ###
+**/*.bat
