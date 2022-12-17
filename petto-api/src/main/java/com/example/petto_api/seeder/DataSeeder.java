@@ -1,9 +1,5 @@
 package com.example.petto_api.seeder;
 
-import com.example.petto_api.emoji.EmojiSeeder;
-import com.example.petto_api.post.PostSeeder;
-import com.example.petto_api.tag.TagSeeder;
-import com.example.petto_api.user.UserSeeder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,6 +14,9 @@ public class DataSeeder implements CommandLineRunner {
     private PostSeeder postSeeder;
 
     @Autowired
+    private ReplySeeder replySeeder;
+
+    @Autowired
     private TagSeeder tagSeeder;
 
     @Autowired
@@ -29,5 +28,6 @@ public class DataSeeder implements CommandLineRunner {
         emojiSeeder.seed();
         tagSeeder.seed();
         postSeeder.seed();
+        replySeeder.seed();
     }
 }
