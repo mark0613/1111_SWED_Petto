@@ -1,6 +1,7 @@
 import {
     Button,
     Col,
+    Image,
     Input,
     Row,
     Select,
@@ -40,8 +41,8 @@ function NavBar(props) {
             key: '1',
         },
         {
-            label : <a href="">會員資料</a>,
-            key: '3',
+            label : <a href="">聊天室</a>,
+            key: '2',
         },
         {
             label : (
@@ -65,7 +66,7 @@ function NavBar(props) {
                     </a>
                 </Button>
             ),
-            key: '4',
+            key: '3',
         },
     ];
 
@@ -74,17 +75,18 @@ function NavBar(props) {
             <Row>
                 <Col span={ 3 } >
                     <a href="/posts">
+
                         <Image 
                             src="https://i.imgur.com/YenWz4J.png"
                             preview={ false }
                         />
                     </a>
                 </Col>
-                <Col span={ 1 }></Col>
-                <Col span={ 6 }>
+                <Col span={ 3 } />
+                <Col span={ 10 }>
                     { (props.type == "home") ? searchBar : <></> }
                 </Col>
-                <Col span={ 8 }></Col>
+                <Col span={ 5 } />
                 <Col span={ 3 }>
                     {
                         AuthUtil.isLogin() ?

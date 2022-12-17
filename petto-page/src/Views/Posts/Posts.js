@@ -25,11 +25,13 @@ const createButton = (
             }}
         >
             <Button
-                type="primary"
                 style={{
+                    color: 'white',
                     width: '120px',
                     borderRadius: '8px',
                     margin: 10,
+                    backgroundColor: '#306fc7',
+                    border: '0px', 
                 }}
                 onClick={ () => window.location.href = '/post/new/text' }
             >
@@ -37,23 +39,28 @@ const createButton = (
             </Button>
 
             <Button
-                type="primary"
                 style={{
+                    color: 'white',
                     width: '120px',
                     borderRadius: '8px',
                     margin: 10,
+                    backgroundColor: '#306fc7',
+                    border: '0px',
                 }}
+
                 onClick={ () => window.location.href = '/post/new/md' }
             >
                 建立MD文章
             </Button>
 
             <Button
-                type="primary"
                 style={{
+                    color: 'white',
                     width: '120px',
                     borderRadius: '8px',
                     margin: 10,
+                    backgroundColor: '#306fc7',
+                    border: '0px', 
                 }}
                 onClick={ () => window.location.href = '/post/new/vote' }
             >
