@@ -26,7 +26,7 @@
 - petto-page 
     ```
     cd petto-page
-    npm install
+    npm install --legacy-peer-deps
     ```
 
 ## Run Server
