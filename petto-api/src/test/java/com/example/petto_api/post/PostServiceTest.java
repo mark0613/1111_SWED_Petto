@@ -5,17 +5,24 @@ import com.example.petto_api.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.method.P;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class PostServiceTest {
-    PostModel post;
 
     @Autowired
     PostService postService;
@@ -23,27 +30,15 @@ class PostServiceTest {
     @Autowired
     UserService userService;
 
-    @BeforeEach
-    void setup() {
-        long timestamp = System.currentTimeMillis();
-        post = new PostModel();
-        String content = "test" + timestamp + "@example.com";
-        String type = "text";
-        Date date = new Date() ;
+    @Autowired
+    private PostRepository postRepository;
 
-        String title = "test" + timestamp +"title";
-        post.setContent(content);
-        post.setTitle(title);
-        post.setTimestamp(date);
-        post.setMode(type);
-        post.setUpdated(true);
-    }
 
     @Test
     void testAddPost() {
+        PostModel post = new PostModel();
         postService.addPost(post);
-        assertEquals(post.getContent(), postService.getPostById(post.getId()).getContent());
-        assertEquals(post.getTitle(), postService.getPostById(post.getId()).getTitle());
+        assertNotNull(postService.getPostById(post.getId()));
     }
 
     @Test
@@ -52,6 +47,21 @@ class PostServiceTest {
         for(int i =0; i< all.size();i++){
             assertEquals(all.get(i).getTitle(), postService.getPostById(i+1).getTitle());
         }
+    }
+    @Test
+    void testDeletePost() {
+        assertEquals(postService.hasPostId(5),false);//偵測有無5號編號的post(資料庫無回傳false)
+
+        assertEquals(postService.hasPostId(1),true);//偵測有無1號編號的post(有，回傳true)
+        postService.deletePostById(1);
+        assertEquals(postService.hasPostId(1),false);//檢查編號1的post是否還在(已被刪除回傳false)
+
+        assertEquals(postService.hasPostId(3),true);///偵測有無3號編號的post(有，回傳true)
+        postService.deletePostById(3);//刪除編號3的文章
+        assertEquals(postService.hasPostId(3),false);//檢查編號3的post是否還在(已被刪除回傳false)
+
+        assertEquals(postService.isOwner(2,2),true);//檢查2號編號的文章的userid是否跟請求刪除的相同
+        assertEquals(postService.isOwner(1,2),false);//檢查2號編號的文章的userid是否跟請求刪除的相同
     }
 
     @Test
