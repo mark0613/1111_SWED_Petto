@@ -22,6 +22,10 @@ function TextEditor(props) {
             value={ editorState }
             onChange={ handleBraftEditorChange }
             placeholder="開始撰寫文章!"
+            style={{
+                width: '100%',
+                backgroundColor: "white",
+            }}
         />
     )
 }

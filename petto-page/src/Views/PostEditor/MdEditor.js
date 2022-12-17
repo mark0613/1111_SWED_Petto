@@ -6,7 +6,10 @@ import {
 } from "antd";
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
-
+import { 
+    EditOutlined,
+    EyeOutlined,
+} from '@ant-design/icons'
 import "./Editor.css";
 
 
@@ -31,9 +34,14 @@ function MarkdownEditor(props) {
 
     return (
         <>
-            <Button type="primary" onClick={ changeMode }>
+            <Button 
+                style={{
+                    margin: '0% 0% 1% 95%',
+                }}
+                type="primary"
+                onClick={ changeMode }>
                 {
-                    (mode === "read") ? "編輯" : "預覽"
+                    (mode === "read") ? <EditOutlined /> : <EyeOutlined />
                 }
             </Button>
             {

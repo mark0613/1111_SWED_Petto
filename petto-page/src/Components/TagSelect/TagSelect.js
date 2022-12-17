@@ -45,9 +45,10 @@ function TagSelect(props) {
             style={{
                 width: "100%",
                 borderColor: "black",
+                textAlign: "left",
             }}
             showArrow
-            placeholder="選擇標籤.."
+            placeholder="請選擇標籤.."
             optionLabelProp="label"
             options={ options }
             onChange={ handleSelectChange }
