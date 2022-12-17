@@ -13,7 +13,8 @@ import {
 } from "../../Utils";
 import { PageTemplate } from "../Template";
 import { MarkdownEditor } from "./MdEditor";
-import { TextEditor } from "./TextEditor";;
+import { TextEditor } from "./TextEditor";
+import { VoteEditor } from "./VoteEditor";
 
 
 function PostEditor(props) {
@@ -27,7 +28,7 @@ function PostEditor(props) {
         editor = <MarkdownEditor onChange={ onEditorChange } />
     }
     else if (type === "vote") {
-
+        editor = <VoteEditor onChange={ onEditorChange } />
     }
     else {
         editor = <TextEditor onChange={ onEditorChange } />
@@ -37,6 +38,10 @@ function PostEditor(props) {
         let formData = new FormData();
         console.log(tags);
         formData.append("title", data.title);
+        if (type === "vote") {
+            formData.append("options", content[1]);
+            content = content[0]
+        }
         formData.append("content", content);
         formData.append("mode", type);
         formData.append("tags", tags);
