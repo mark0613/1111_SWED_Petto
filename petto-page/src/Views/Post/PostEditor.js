@@ -6,14 +6,14 @@ import {
     Row,
 } from "antd";
 
-import { MarkdownEditor } from "./MdEditor";
-import { TextEditor } from "./TextEditor";;
-import { PageTemplate } from "../Template";
 import { TagSelect } from "../../Components/TagSelect";
 import { 
     CookieUtil,
     Request,
 } from "../../Utils";
+import { PageTemplate } from "../Template";
+import { MarkdownEditor } from "./MdEditor";
+import { TextEditor } from "./TextEditor";;
 
 
 function PostEditor(props) {
