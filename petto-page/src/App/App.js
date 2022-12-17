@@ -9,7 +9,6 @@ import { Register } from "../Views/Register";
 import { Login } from "../Views/Login";
 import { PostEditor } from "../Views/Post/PostEditor";
 import { PostList } from "../Views/Post/PostList";
-import { CommonCreatePost } from "../Views/Post/CommonCreatePost";
 
 import 'antd/dist/antd.min.css';
 
@@ -24,9 +23,9 @@ function App() {
                 <Route path="/login" element={ <Login/> } />
                 <Route path="/post/new/text" element={ <PostEditor type="text" /> } />
                 <Route path="/post/new/md" element={ <PostEditor type="md" /> } />
+                <Route path="/post/new/vote" element={ <PostEditor type="vote" /> } />
 
                 <Route path="/postList" element={ <PostList/> } />
-                <Route path="/CommonCreatePost" element={ <CommonCreatePost/> } />
                 <Route path="*" element={ <></> } />
             </Routes>
         </BrowserRouter>
