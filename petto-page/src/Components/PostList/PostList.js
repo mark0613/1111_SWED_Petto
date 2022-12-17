@@ -123,7 +123,7 @@ function getPost(post) {
     )
 }
 
-function PostLists() {
+function PostList() {
     const [list, setList] = useState([]);
     useEffect(() => {
         Request.get(
@@ -157,4 +157,4 @@ function PostLists() {
     )
 }
 
-export { PostLists }
+export { PostList }
