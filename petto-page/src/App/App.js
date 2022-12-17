@@ -22,6 +22,7 @@ function App() {
                 <Route path="/home" element={ <PageTemplate type="home" /> } />
                 <Route path="/register" element={ <Register /> } />
                 <Route path="/login" element={ <Login/> } />
+                <Route path="/post/new/text" element={ <PostEditor type="text" /> } />
                 <Route path="/post/new/md" element={ <PostEditor type="md" /> } />
 
                 <Route path="/postList" element={ <PostList/> } />
