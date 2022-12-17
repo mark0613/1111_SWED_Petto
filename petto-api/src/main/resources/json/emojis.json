@@ -1,0 +1,17 @@
+[
+    {
+        "type" : "good"
+    },
+    {
+        "type" : "love"
+    },
+    {
+        "type" : "funny"
+    },
+    {
+        "type" : "sad"
+    },
+    {
+        "type" : "angry"
+    }
+]

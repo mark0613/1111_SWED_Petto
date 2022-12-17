@@ -1,0 +1,26 @@
+[
+    {
+        "email" : "root@petto.com",
+        "username" : "root",
+        "password" : "aabbcc123",
+        "type" : "admin"
+    },
+    {
+        "email" : "admin@petto.com",
+        "username" : "admin",
+        "password" : "aabbcc123",
+        "type" : "admin"
+    },
+    {
+        "email" : "demo@petto.com",
+        "username" : "demo",
+        "password" : "aabbcc123",
+        "type" : "member"
+    },
+    {
+        "email" : "test@petto.com",
+        "username" : "test",
+        "password" : "aabbcc123",
+        "type" : "member"
+    }
+]
