@@ -6,6 +6,8 @@ import com.example.petto_api.vote.VoteModel;
 import com.example.petto_api.vote.VoteOptionStatistics;
 import com.example.petto_api.vote.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContextException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +37,11 @@ public class PostService {
 
     public void countEmojis(PostModel post) {
         post.setEmojis(userGivenEmojiService.countEmojiByPost(post));
+    }
+
+    public Boolean isOwner(int userId,int postId){
+        PostModel post = postRepository.findById(postId);
+        return post.getUserModel().getId() == userId;
     }
 
     public void setOwner(PostModel post) {
@@ -74,7 +81,14 @@ public class PostService {
         return post;
     }
 
-    public void deletePostById(int id) {  postRepository.deleteById(id);}
+    public void deletePostById(int id) {
+        try{
+            postRepository.deleteById(id);
+        }
+            catch(DataAccessException e){
+            throw new ApplicationContextException("error",e);
+            }
+    }
 
     public ArrayList<PostModel> getAllPosts(){
         ArrayList<PostModel> posts = postRepository.findAll();

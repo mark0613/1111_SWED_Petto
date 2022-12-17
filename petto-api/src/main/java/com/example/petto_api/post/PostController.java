@@ -140,7 +140,6 @@ public class PostController {
         String message;
         HttpStatus httpStatus;
         Map<String, Object> response = new HashMap<>();
-        PostModel postModel = postService.getPostById(post_id);
 
         String jwt = postCreatedRequest.getJwt();
 
@@ -150,6 +149,7 @@ public class PostController {
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
         }
+
         if (!jwtTokenService.validateToken(jwt)) {
             message = "權限不足!";
             response.put("message", message);
@@ -158,7 +158,7 @@ public class PostController {
         }
 
         int userId = jwtTokenService.getUserIdFromToken(jwt);
-        if (!(userService.getUserById(userId) ==  postModel.getUserModel())) {
+        if (!(postService.isOwner(userId,post_id))) {
             message = "你不是擁有者!";
             response.put("message", message);
             httpStatus = HttpStatus.UNAUTHORIZED;
@@ -177,7 +177,6 @@ public class PostController {
         String message;
         HttpStatus httpStatus;
         Map<String, Object> response = new HashMap<>();
-        PostModel postModel = postService.getPostById(post_id);
 
         String jwt = postCreatedRequest.getJwt();
         String title = postCreatedRequest.getTitle();
@@ -191,6 +190,8 @@ public class PostController {
             httpStatus = HttpStatus.UNAUTHORIZED;
             return ResponseEntity.status(httpStatus).body(response);
         }
+
+        PostModel postModel = postService.getPostById(post_id);
         if (!jwtTokenService.validateToken(jwt)) {
             message = "權限不足!";
             response.put("message", message);
@@ -199,7 +200,7 @@ public class PostController {
         }
 
         int userId = jwtTokenService.getUserIdFromToken(jwt);
-        if (!(userService.getUserById(userId) ==  postModel.getUserModel())) {
+        if (!(postService.isOwner(userId,post_id))) {
             message = "你不是擁有者!";
             response.put("message", message);
             httpStatus = HttpStatus.UNAUTHORIZED;
