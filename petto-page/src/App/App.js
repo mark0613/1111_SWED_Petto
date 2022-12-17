@@ -7,8 +7,8 @@ import {
 import { PageTemplate } from "../Views/Template";
 import { Register } from "../Views/Register";
 import { Login } from "../Views/Login";
-import { PostEditor } from "../Views/Post/PostEditor";
-import { PostList } from "../Views/Post/PostList";
+import { PostEditor } from "../Views/PostEditor";
+import { PostList } from "../Views/Posts";
 
 import 'antd/dist/antd.min.css';
 

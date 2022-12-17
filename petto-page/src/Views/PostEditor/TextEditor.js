@@ -1,6 +1,7 @@
 import BraftEditor from 'braft-editor';
 
 import "./Editor.css";
+import "./TextEditor.css";
 
 
 function TextEditor(props) {
