@@ -8,11 +8,11 @@ import {
     Row,
 } from "antd";
 
-import { PostLists } from "../../Components/PostLists"
+import { PostList } from "../../Components/PostList"
 import { AuthUtil } from "../../Utils";
 import { PageTemplate } from "../Template";
 
-import "./PostList.css"
+import "./Posts.css"
 import 'antd/dist/antd.css';
 
 
@@ -63,14 +63,14 @@ const createButton = (
     </>
 )
 
-function PostList() {
+function Posts() {
     const contentBlock = (
         <>
             <Row>
                 <Col span={ 3 } />
                 <Col span={ 18 }>
                     { AuthUtil.isLogin() ? createButton : <></> }
-                    < PostLists />
+                    < PostList />
                 </Col>
                 <Col span={ 3 } />
             </Row>
@@ -85,4 +85,4 @@ function PostList() {
     )
 }
 
-export { PostList };
+export { Posts };

@@ -8,7 +8,7 @@ import { PageTemplate } from "../Views/Template";
 import { Register } from "../Views/Register";
 import { Login } from "../Views/Login";
 import { PostEditor } from "../Views/PostEditor";
-import { PostList } from "../Views/Posts";
+import { Posts } from "../Views/Posts";
 
 import 'antd/dist/antd.min.css';
 
@@ -25,7 +25,7 @@ function App() {
                 <Route path="/post/new/md" element={ <PostEditor type="md" /> } />
                 <Route path="/post/new/vote" element={ <PostEditor type="vote" /> } />
 
-                <Route path="/postList" element={ <PostList/> } />
+                <Route path="/postList" element={ <Posts/> } />
                 <Route path="*" element={ <></> } />
             </Routes>
         </BrowserRouter>
