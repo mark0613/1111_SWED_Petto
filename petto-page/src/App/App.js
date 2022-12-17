@@ -7,6 +7,7 @@ import {
 import { PageTemplate } from "../Views/Template";
 import { Register } from "../Views/Register";
 import { Login } from "../Views/Login";
+import { Post } from "../Views/Post";
 import { PostEditor } from "../Views/PostEditor";
 import { Posts } from "../Views/Posts";
 
@@ -24,8 +25,8 @@ function App() {
                 <Route path="/post/new/text" element={ <PostEditor type="text" /> } />
                 <Route path="/post/new/md" element={ <PostEditor type="md" /> } />
                 <Route path="/post/new/vote" element={ <PostEditor type="vote" /> } />
-
                 <Route path="/posts" element={ <Posts/> } />
+                <Route path="/post/:id" element={ <Post /> } />
                 <Route path="*" element={ <></> } />
             </Routes>
         </BrowserRouter>
