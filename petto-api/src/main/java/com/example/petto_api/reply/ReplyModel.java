@@ -27,12 +27,12 @@ public class ReplyModel {
   private Date timestamp;
 
   @JsonBackReference
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name="post_id")
   private PostModel postModel;
 
   @JsonBackReference
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name="owner")
   private UserModel userModel;
 }

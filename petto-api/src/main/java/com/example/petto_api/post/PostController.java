@@ -58,7 +58,7 @@ public class PostController {
         String content = postCreatedRequest.getContent();
         String mode = postCreatedRequest.getMode();
         Set<TagModel> tags = new HashSet<>();
-        List<VoteModel> vote = new ArrayList<>();
+        Set<VoteModel> vote = new HashSet<>();
 
         if (!jwtTokenService.validateToken(jwt)) {
             message = "權限不足!";

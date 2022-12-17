@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 
 @Service
@@ -53,7 +51,7 @@ public class PostService {
             return ;
         }
         Map<String, Integer> voteResult = new HashMap<>();
-        List<VoteModel> allOptions = post.getOptions();
+        Set<VoteModel> allOptions = post.getOptions();
         List<VoteOptionStatistics> result = voteService.countOptionResult(post);
         for (VoteModel option : allOptions) {
             String text = option.getText();

@@ -53,7 +53,7 @@ public class PostModel {
     private String username;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postModel")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "postModel")
     @EqualsAndHashCode.Exclude
     private List<ReplyModel> replies;
 
@@ -84,9 +84,9 @@ public class PostModel {
     private Set<UserModel> users;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "post")
     @EqualsAndHashCode.Exclude
-    private List<VoteModel> options = new ArrayList<>();
+    private Set<VoteModel> options = new HashSet<>();
 
     @Transient @ElementCollection
     private Map<String, Integer> voteResult = new HashMap<>();
