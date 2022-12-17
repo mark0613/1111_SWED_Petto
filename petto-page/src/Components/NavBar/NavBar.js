@@ -72,8 +72,13 @@ function NavBar(props) {
     return (
         <>
             <Row>
-                <Col span={ 6 }>
-                    <div className="logo" />
+                <Col span={ 3 } >
+                    <a href="/posts">
+                        <Image 
+                            src="https://i.imgur.com/YenWz4J.png"
+                            preview={ false }
+                        />
+                    </a>
                 </Col>
                 <Col span={ 1 }></Col>
                 <Col span={ 6 }>

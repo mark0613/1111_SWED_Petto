@@ -25,7 +25,7 @@ function App() {
                 <Route path="/post/new/md" element={ <PostEditor type="md" /> } />
                 <Route path="/post/new/vote" element={ <PostEditor type="vote" /> } />
 
-                <Route path="/postList" element={ <Posts/> } />
+                <Route path="/posts" element={ <Posts/> } />
                 <Route path="*" element={ <></> } />
             </Routes>
         </BrowserRouter>
