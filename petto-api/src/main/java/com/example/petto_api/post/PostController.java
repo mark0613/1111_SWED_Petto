@@ -130,7 +130,7 @@ public class PostController {
         }
 
         PostModel post = postService.getPostById(post_id);
-        response.put("post", post);
+        response.put("posts", post);
         httpStatus = HttpStatus.OK;
         return ResponseEntity.status(httpStatus).body(response);
     }
