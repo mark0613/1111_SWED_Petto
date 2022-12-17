@@ -7,6 +7,8 @@ import {
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 
+import "./Editor.css";
+
 
 const { TextArea } = Input;
 
@@ -37,9 +39,8 @@ function MarkdownEditor(props) {
             {
                 (mode === "read") ? 
                 <Card
+                    className="editor"
                     style={{
-                        border: "1px solid #d9d9d9",
-                        height: "450px",
                         overflowY: "scroll",
                     }}
                 >
@@ -51,13 +52,13 @@ function MarkdownEditor(props) {
                 </Card> :
                 <TextArea 
                     id="textarea-md" 
+                    className="editor"
                     onChange={ handleTextAreaChange } 
                     value={ text } 
-                    style={{
-                        height: "450px",
-                        resize: 'none',
-                    }}
                     placeholder="可以使用 Markdown 語法!"
+                    style={{ 
+                        resize: "none"
+                    }}
                 />
             }
         </>
