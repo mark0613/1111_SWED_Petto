@@ -7,10 +7,13 @@ import {
 } from "antd";
 
 import { MarkdownEditor } from "./MdEditor";
+import { TextEditor } from "./TextEditor";;
 import { PageTemplate } from "../Template";
 import { TagSelect } from "../../Components/TagSelect";
-import { CookieUtil, Request } from "../../Utils";
-
+import { 
+    CookieUtil,
+    Request,
+} from "../../Utils";
 
 
 function PostEditor(props) {
@@ -18,9 +21,16 @@ function PostEditor(props) {
     let content;
     let tags;
     let editor;
+    const onEditorChange = (text) => { content=text };
 
     if (type === "md") {
-        editor = <MarkdownEditor onChange={ value => content=value } />
+        editor = <MarkdownEditor onChange={ onEditorChange } />
+    }
+    else if (type === "vote") {
+
+    }
+    else {
+        editor = <TextEditor onChange={ onEditorChange } />
     }
 
     const onFinish = (data) => {
@@ -38,6 +48,7 @@ function PostEditor(props) {
                 body : formData,
                 success : (response) => {
                     console.log(response);
+                    alert(response.message);
                 }
             }
         )
