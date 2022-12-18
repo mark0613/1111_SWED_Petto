@@ -90,14 +90,14 @@ const createButton = (
     </>
 )
 
-function Posts() {
+function Posts(props) {
     const contentBlock = (
         <>
             <Row>
                 <Col span={ 3 } />
                 <Col span={ 18 }>
                     { AuthUtil.isLogin() ? createButton : <></> }
-                    < PostList />
+                    < PostList type={ props.type } />
                 </Col>
                 <Col span={ 3 } />
             </Row>

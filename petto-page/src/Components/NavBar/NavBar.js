@@ -33,11 +33,11 @@ function NavBar(props) {
         username = AuthUtil.getUserDetails().username
     const dropdownOptions = [
         {
-            label : <a href="">我的文章</a>,
+            label : <a href="/posts/mine">我的文章</a>,
             key: '0',
         },
         {
-            label : <a href="">我的收藏</a>,
+            label : <a href="/posts/keep">我的收藏</a>,
             key: '1',
         },
         {
