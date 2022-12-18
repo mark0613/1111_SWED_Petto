@@ -109,6 +109,14 @@ public class PostService {
         return posts;
     }
 
+    public ArrayList<PostModel> getAllPosts(UserModel user){
+        ArrayList<PostModel> posts = postRepository.findByUserModel(user);
+        for (PostModel post : posts) {
+            this.setPostAttributes(post);
+        }
+        return posts;
+    }
+
     public boolean userHasKeptPost(UserModel user, PostModel post) {
         List<PostModel> userKeepingPosts = user.getKeepingPosts();
         for (PostModel p : userKeepingPosts) {
