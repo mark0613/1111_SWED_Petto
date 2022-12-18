@@ -14,28 +14,28 @@ import java.util.Date;
 @Table(name="reply")
 @Getter @Setter
 public class ReplyModel {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-  @Column(columnDefinition="TEXT")
-  @NotBlank(message = "內容不可為空!")
-  private String content;
+    @Column(columnDefinition="TEXT")
+    @NotBlank(message = "內容不可為空!")
+    private String content;
 
-  @Column
-  @NotBlank(message = "時戳不可為空!")
-  private Date timestamp;
+    @Column
+    @NotBlank(message = "時戳不可為空!")
+    private Date timestamp;
 
-  @JsonBackReference
-  @ManyToOne(cascade = CascadeType.MERGE)
-  @JoinColumn(name="post_id")
-  private PostModel postModel;
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="post_id")
+    private PostModel postModel;
 
-  @JsonBackReference
-  @ManyToOne(cascade = CascadeType.MERGE)
-  @JoinColumn(name="owner")
-  private UserModel userModel;
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="owner")
+    private UserModel userModel;
 
-  @Transient
-  private String username;
+    @Transient
+    private String username;
 }

@@ -18,55 +18,55 @@ import java.util.Map;
 @Controller
 @RequestMapping("/api")
 public class ReplyController {
-  @Autowired
-  private JwtTokenService jwtTokenService;
+    @Autowired
+    private JwtTokenService jwtTokenService;
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
-  @Autowired
-  private ReplyService replyService;
+    @Autowired
+    private ReplyService replyService;
 
-  @Autowired
-  private PostService postService;
+    @Autowired
+    private PostService postService;
 
-  @PostMapping("/reply")
-  public ResponseEntity<Map<String, Object>> post(ReplyRequest replyRequest) {
-    String message;
-    HttpStatus httpStatus;
-    Map<String, Object> response = new HashMap<>();
+    @PostMapping("/reply")
+    public ResponseEntity<Map<String, Object>> post(ReplyRequest replyRequest) {
+        String message;
+        HttpStatus httpStatus;
+        Map<String, Object> response = new HashMap<>();
 
-    String jwt = replyRequest.getJwt();
-    int post_id = replyRequest.getPost_id();
-    String content = replyRequest.getContent();
+        String jwt = replyRequest.getJwt();
+        int post_id = replyRequest.getPost_id();
+        String content = replyRequest.getContent();
 
-    if (!jwtTokenService.validateToken(jwt)) {
-      message = "權限不足!";
-      response.put("message", message);
-      httpStatus = HttpStatus.UNAUTHORIZED;
-      return ResponseEntity.status(httpStatus).body(response);
+        if (!jwtTokenService.validateToken(jwt)) {
+            message = "權限不足!";
+            response.put("message", message);
+            httpStatus = HttpStatus.UNAUTHORIZED;
+            return ResponseEntity.status(httpStatus).body(response);
+        }
+
+        int userId = jwtTokenService.getUserIdFromToken(jwt);
+
+        if (StringUtils.isAnyBlank(content)) {
+            message = "內容不能為空!";
+            response.put("message", message);
+            httpStatus = HttpStatus.BAD_REQUEST;
+            return ResponseEntity.status(httpStatus).body(response);
+        }
+
+        ReplyModel replyModel = new ReplyModel();
+        replyModel.setUserModel(userService.getUserById(userId));
+        replyModel.setPostModel(postService.getPostById(post_id));
+        replyModel.setContent(content);
+        replyModel.setTimestamp(new Date());
+        int reply_id = replyService.addReply(replyModel);
+        message = "留言成功!";
+        response.put("message", message);
+        response.put("reply_id", reply_id);
+        httpStatus = HttpStatus.CREATED;
+        return ResponseEntity.status(httpStatus).body(response);
     }
-
-    int userId = jwtTokenService.getUserIdFromToken(jwt);
-
-    if (StringUtils.isAnyBlank(content)) {
-      message = "內容不能為空!";
-      response.put("message", message);
-      httpStatus = HttpStatus.BAD_REQUEST;
-      return ResponseEntity.status(httpStatus).body(response);
-    }
-
-    ReplyModel replyModel = new ReplyModel();
-    replyModel.setUserModel(userService.getUserById(userId));
-    replyModel.setPostModel(postService.getPostById(post_id));
-    replyModel.setContent(content);
-    replyModel.setTimestamp(new Date());
-    int reply_id = replyService.addReply(replyModel);
-    message = "留言成功!";
-    response.put("message", message);
-    response.put("reply_id", reply_id);
-    httpStatus = HttpStatus.CREATED;
-    return ResponseEntity.status(httpStatus).body(response);
-  }
 
 }

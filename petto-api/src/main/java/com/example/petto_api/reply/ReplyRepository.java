@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 @Repository
 public interface ReplyRepository extends CrudRepository<ReplyModel, Integer> {
-  ReplyModel findById(int id);
-  ArrayList<ReplyModel> findAll();
-
+    ReplyModel findById(int id);
+    ArrayList<ReplyModel> findAll();
 }

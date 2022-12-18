@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class ReplyRequest {
-  String jwt;
-  int post_id;
-  String content;
+    String jwt;
+    int post_id;
+    String content;
 }
