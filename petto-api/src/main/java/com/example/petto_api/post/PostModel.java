@@ -85,8 +85,7 @@ public class PostModel {
     private Set<UserModel> users;
 
     @JsonManagedReference
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "post")
-    @EqualsAndHashCode.Exclude
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "post")
     private Set<VoteModel> options = new HashSet<>();
 
     @Transient @ElementCollection
