@@ -26,12 +26,13 @@ import rehypeHighlight from 'rehype-highlight'
 
 import { getEmojiIcons } from "../../Components/Emoji";
 import { 
+    DateFormatter,
     Request,
 } from "../../Utils";
 import { PageTemplate } from '../Template';
 import { DeleteButton } from "./Delete";
 import { Keep } from "./Keep";
-import { Reply } from "./Reply";
+import { Reply, UserReplies } from "./Reply";
 
 
 const { Meta } = Card;
@@ -125,20 +126,20 @@ function generatePost(data) {
                     <Meta
                         avatar={ <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} /> }
                         title={ data.username }
-                        description={ Moment(data.timestamp).format('YYYY-MM-DD HH:mm:ss') }
+                        description={ DateFormatter.datetime(data.timestamp) }
                     />
-                    <p style={{marginLeft: "95%"}}>
+                    <div style={{marginLeft: "95%"}}>
                         <DeleteButton 
                             username={ data.username }
                             id={ data.id } 
                         />
-                    </p>
+                    </div>
                     <Title>
                         { data.title }
                     </Title>
-                    <p style={{ minHeight: "200px" }}>
+                    <div style={{ minHeight: "200px" }}>
                         { generateContent(data.mode, data.content, data.options) }
-                    </p>
+                    </div>
                     <Divider />
                     <div>
                         { generateTags(data.tags) }
@@ -148,6 +149,8 @@ function generatePost(data) {
                     </div>
                 </Card>
                 <Card>
+                    <UserReplies data={ data.replies } />
+                    <br />
                     <Reply />
                 </Card>
             </Col>
