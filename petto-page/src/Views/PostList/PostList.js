@@ -37,11 +37,6 @@ function PostList(props) {
         let jwt = AuthUtil.isLogin() ? CookieUtil.getValue("token") : "";
         url = `/api/keep?jwt=${ jwt }`;
     }
-    else if (props.type === "search") {
-        title = "搜尋結果";
-        let keyword = searchParams.has("keyword") ? searchParams.get("keyword") : "";
-        url = `/api/posts?keyword=${ keyword }`;
-    }
     else if (props.type === "tag") {
         title = "搜尋結果";
         url = "/api/posts";
@@ -55,7 +50,11 @@ function PostList(props) {
         url = `/api/posts/${ userId }`;
     }
     else {
-        ;
+        if (searchParams.has("keyword")) {
+            title = "搜尋結果";
+            let keyword = searchParams.get("keyword");
+            url = `/api/posts?keyword=${ keyword }`;
+        }
     }
 
     useEffect(() => {

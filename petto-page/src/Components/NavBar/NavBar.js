@@ -12,7 +12,7 @@ import { AuthUtil } from "../../Utils";
 
 const { Search } = Input;
 const onSearch = (text) => {
-    console.log(text);
+    window.location.href = `/posts?keyword=${text}`;
 }
 const searchBar = (
     <Search 
