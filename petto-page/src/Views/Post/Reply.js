@@ -2,10 +2,16 @@ import { useState } from "react";
 import {
     Avatar,
     Button,
+    Col,
     Form,
     Input,
     List,
+    Row,
 } from "antd";
+import { 
+    SendOutlined,
+} from '@ant-design/icons';
+
 import { 
     AuthUtil, 
     CookieUtil, 
@@ -19,21 +25,38 @@ const { TextArea } = Input;
 function ReplyEditor({ onChange, onSubmit, submitting, value }) {
     return (
         <>
-            <Form.Item>
-                <TextArea 
-                rows={ 4 } 
-                onChange={ onChange } 
-                value={ value } 
-                style={{
-                    resize: "none",
-                }}
-            />
-            </Form.Item>
-            <Form.Item>
-                <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-                    Add Comment
-                </Button>
-            </Form.Item>
+            <Row>
+                <Col span={ 22 }>
+                    <Form.Item>
+                        <TextArea 
+                            rows={ 4 } 
+                            onChange={ onChange } 
+                            value={ value } 
+                            style={{
+                                resize: "none",
+                            }}
+                            placeholder="說點甚麼吧!"
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={ 2 }>
+                    <Form.Item>
+                        <Button 
+                            htmlType="submit" 
+                            loading={ submitting }
+                            onClick={ onSubmit }
+                            type="primary"
+                            style={{
+                                marginLeft: "40%",
+                                marginTop: "100%",
+                            }}
+                        >
+                            <SendOutlined />
+                        </Button>
+                    </Form.Item>
+                </Col>
+            </Row>
+            
         </>
     );
 }
@@ -88,14 +111,39 @@ function Reply(props) {
 function generateReply(reply) {
     return (
         <List.Item
+            style={{ 
+                backgroundColor: "#edf8ff",
+                borderRadius: "1%",
+                padding: "3%",
+                marginBottom: "1%",
+                border: "1px solid #306fc7"
+            }}
             key={ `reply-${reply.id}` }
         >
             <List.Item.Meta
                 avatar={ <Avatar src={ `${process.env.PUBLIC_URL}/images/head.jpg` } /> }
-                title={ reply.username }
-                description={ DateFormatter.datetime(reply.timestamp) }
+                title={
+                    <Row>
+                        <Col span={ 17 }>
+                            { reply.username }
+                        </Col>
+                        <Col span={ 7 }
+                            style={{
+                                color: "#bfbfbf",
+                            }}
+                        >
+                            { DateFormatter.datetime(reply.timestamp) } 
+                        </Col>
+                    </Row> 
+                }
             />
-            { reply.content }
+            <span
+                style={{
+                    paddingLeft: "8%",
+                }}
+            >
+                { reply.content }
+            </span>
         </List.Item>
     )
 }

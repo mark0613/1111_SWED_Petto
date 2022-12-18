@@ -103,7 +103,7 @@ function PostItem(props) {
                         width: '50px',
                         height: '50px',
                     }}
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjLF1bThQuAsw3u0oFraBB3oXn_DXnbxSvM3hb-MCnKKqR7suZdhsEe2wdM1lcScYembA&usqp=CAU"
+                    src={ `${process.env.PUBLIC_URL}/images/head.jpg` }
                 />
                 
                 <span
@@ -129,6 +129,7 @@ function PostItem(props) {
             <div
                 style={{
                     paddingLeft: '10px',
+                    marginTop: '3%',
                 }}
             >
                 <Title level={3}>

@@ -135,13 +135,17 @@ function Vote(props) {
     }, [])
 
     return (
-        <>
+        <div
+            style={{
+                padding: "3%",
+            }}
+        >
             {
                 hasVoted ?
                 <Result data={ result } /> :
                 <Options data={ options } post={ postId } onClick={ render } />
             }
-        </>
+        </div>
     );
 }
 

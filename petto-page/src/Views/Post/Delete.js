@@ -30,9 +30,15 @@ function DeleteButton(props) {
     }
     if (props.username === name) {
         return (
-            <DeleteOutlined 
-                onClick={ () => onClick(props.id) }
-            />
+            <>
+                <DeleteOutlined 
+                    style={{
+                        marginLeft: "90%",
+                        fontSize: '30px'
+                    }}
+                    onClick={ () => onClick(props.id) }
+                />
+            </>
         )
     }
     else {
