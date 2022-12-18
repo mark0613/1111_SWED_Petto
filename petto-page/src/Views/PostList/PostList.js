@@ -5,6 +5,7 @@ import {
 import {
     BackTop,
     Col,
+    Empty,
     Row,
     Typography,
 } from "antd";
@@ -26,7 +27,7 @@ const { Title } = Typography;
 
 function PostList(props) {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [postList, setPostList] = useState([]);
+    const [postList, setPostList] = useState(<Empty />);
 
     let title = "";
     let url = "/api/posts";
@@ -75,7 +76,8 @@ function PostList(props) {
                         }
                     })
                     for (let post of posts) {
-                        setPostList(cards => [...cards, <PostItem key={ `post-item-${cards.length}` } data={ post } />]);
+                        let list = posts.map(item => <PostItem key={ `post-item-${item.length}` } data={ post } />);
+                        setPostList(_ => list);
                     } 
                 }
             }
