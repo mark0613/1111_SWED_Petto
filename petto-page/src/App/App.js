@@ -25,7 +25,10 @@ function App() {
                 <Route path="/post/new/text" element={ <PostEditor type="text" /> } />
                 <Route path="/post/new/md" element={ <PostEditor type="md" /> } />
                 <Route path="/post/new/vote" element={ <PostEditor type="vote" /> } />
-                <Route path="/posts" element={ <Posts/> } />
+                <Route path="/posts" element={ <Posts /> } />
+                <Route path="/posts/mine" element={ <Posts type="mine"/> } />
+                <Route path="/posts/keep" element={ <Posts type="keep"/> } />
+                <Route path="/posts/tag" element={ <Posts type="tag"/> } />
                 <Route path="/post/:id" element={ <Post /> } />
                 <Route path="*" element={ <></> } />
             </Routes>
