@@ -25,7 +25,7 @@ class CookieUtil {
     }
 
     static remove(key) {
-        cookies.remove(key);
+        cookies.remove(key, { path: '/' });
     }
 }
 
