@@ -40,9 +40,15 @@ public class PostController {
     private UserService userService;
 
     @GetMapping("/posts")
-    public ResponseEntity<Map<String, Object>> getPosts() {
+    public ResponseEntity<Map<String, Object>> getPosts(@RequestParam(required=false) String keyword) {
         Map<String, Object> response = new HashMap<>();
-        ArrayList<PostModel> posts = postService.getAllPosts();
+        ArrayList<PostModel> posts;
+        if (StringUtils.isBlank(keyword)) {
+            posts = postService.getAllPosts();
+        }
+        else {
+            posts = postService.getAllPosts(keyword);
+        }
         response.put("posts", posts);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
