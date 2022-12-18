@@ -13,7 +13,9 @@ import {
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 
-import { 
+import {
+    AuthUtil,
+    CookieUtil, 
     DateFormatter,
     Request,
 } from "../../Utils";
@@ -41,7 +43,7 @@ function generateContent(mode, content) {
     }
 }
 
-function getPost(post) {
+function generatePost(post) {
     let countEmoji = 0;
     for (let emoji of post.emojis) {
         countEmoji += emoji.count;
@@ -149,15 +151,28 @@ function getPost(post) {
     )
 }
 
-function PostList() {
+function PostList(props) {
     const [list, setList] = useState([]);
+    let url = "/api/posts";
+    if (props.type === "tag") {
+        url = "/api/posts";
+    }
+    else if (props.type === "mine") {
+        url = `/api/posts/${AuthUtil.getUserDetails().id}`
+    }
+    else if (props.type === "keep") {
+        url = `/api/keep?jwt=${CookieUtil.getValue("token")}`
+    }
     useEffect(() => {
         Request.get(
-            "/api/posts",
+            url,
             {
                 success : (response) => {
+                    console.log(response)
+                    console.log(url)
+                    console.log(formData.getAll("jwt"));
                     for (let post of response.posts) {
-                        setList(card => [...card, getPost(post)]);
+                        setList(card => [...card, generatePost(post)]);
                     } 
                 }
             }
