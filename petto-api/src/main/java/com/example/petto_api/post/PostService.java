@@ -120,6 +120,18 @@ public class PostService {
         return posts;
     }
 
+    public ArrayList<PostModel> getAllPosts(String keyword){
+        ArrayList<PostModel> posts = new ArrayList<>();
+        ArrayList<PostModel> posts1 = postRepository.findByTitleContainingIgnoreCase(keyword);
+        ArrayList<PostModel> posts2 = postRepository.findByContentContainingIgnoreCase(keyword);
+        posts.addAll(posts1);
+        posts.addAll(posts2);
+        for (PostModel post : posts) {
+            this.setPostAttributes(post);
+        }
+        return posts;
+    }
+
     public boolean userHasKeptPost(UserModel user, PostModel post) {
         Set<PostModel> userKeepingPosts = user.getKeepingPosts();
         for (PostModel p : userKeepingPosts) {

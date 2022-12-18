@@ -15,6 +15,8 @@ public interface PostRepository extends CrudRepository<PostModel, Integer> {
     Boolean existsById(int id);
     ArrayList<PostModel> findAll();
     ArrayList<PostModel> findByUserModel(UserModel user);
+    ArrayList<PostModel> findByTitleContainingIgnoreCase(String title);
+    ArrayList<PostModel> findByContentContainingIgnoreCase(String content);
 
     @Modifying
     @Query("delete from PostModel post  where post.id=:id")
