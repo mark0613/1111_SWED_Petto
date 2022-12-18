@@ -4,6 +4,7 @@ import {
     Card,
     Col,
     Divider,
+    message,
     Row,
     Space,
     Tag,
@@ -112,10 +113,15 @@ function generatePost(data, renderPage) {
                     actions={[
                         <EmojiTooltip
                             post={ data.id }
-                            onClick={ () => {renderPage()} }
+                            onClick={ () => { renderPage() } }
                         />,
                         <Keep id={ data.id } />,
-                        <ShareAltOutlined key="share" />,
+                        <ShareAltOutlined key="share"
+                            onClick={() => {
+                                navigator.clipboard.writeText(`http://localhost:3000/post/${ data.id }`)
+                                message.success('succesfully copied ');
+                            }} 
+                        />,
                     ]}
                 >
                     <Meta
@@ -146,7 +152,7 @@ function generatePost(data, renderPage) {
                 <Card>
                     <UserReplies data={ data.replies } />
                     <br />
-                    <Reply post={ data.id } onSubmit={ (response) => {renderPage()} } />
+                    <Reply post={ data.id } onSubmit={ (response) => { renderPage() } } />
                 </Card>
             </Col>
             <Col span={ 6 }></Col>
