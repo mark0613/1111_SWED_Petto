@@ -29,12 +29,13 @@ import { DeleteButton } from "./Delete";
 import { EmojiTooltip } from "./EmojiTooltip";
 import { Keep } from "./Keep";
 import { Reply, UserReplies } from "./Reply";
+import { Vote } from "./Vote";
 
 
 const { Meta } = Card;
 const { Title } = Typography;
 
-function generateContent(mode, content) {
+function generateContent(postId, mode, content, vote) {
     if (mode === "md") {
         return (
             <ReactMarkdown 
@@ -45,7 +46,14 @@ function generateContent(mode, content) {
         )
     }
     else if (mode === "vote") {
-
+        return (
+            <Vote 
+                post={ postId }
+                options={ vote.options }
+                result={ vote.result }
+            />
+        );
+        
     }
     else {
         return (
@@ -103,6 +111,19 @@ function generateEmojis(emojis) {
 }
 
 function generatePost(data, renderPage) {
+    const result = [];
+    for (let key in data.voteResult) {
+        result.push({
+            text : key,
+            count : data.voteResult[key],
+        })
+    }
+    let vote = {
+        options : data.options,
+        result : result,
+    };
+    console.log(data);
+
     return (
         <Row>
             <Col span={ 6 }></Col>
@@ -133,7 +154,7 @@ function generatePost(data, renderPage) {
                         { data.title }
                     </Title>
                     <div style={{ minHeight: "200px" }}>
-                        { generateContent(data.mode, data.content, data.options) }
+                        { generateContent(data.id, data.mode, data.content, vote) }
                     </div>
                     <Divider />
                     <div>
