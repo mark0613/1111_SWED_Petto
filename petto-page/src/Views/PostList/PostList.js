@@ -102,10 +102,10 @@ function PostList(props) {
                         }}
                     >
                         <Col span={ 2 } />
-                        <Col span={ 12 }>
+                        <Col span={ 20 }>
                             { postList }
                         </Col>
-                        <Col span={ 10 } />
+                        <Col span={ 2 } />
                     </Row>
                 </Col>
                 <Col span={ 3 } />
