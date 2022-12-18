@@ -10,11 +10,36 @@ import {
     Row,
     Typography,
 } from "antd";
+import ReactMarkdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
 
-import { Request } from "../../Utils";
+import { 
+    DateFormatter,
+    Request,
+} from "../../Utils";
 
 
 const { Paragraph, Title } = Typography;
+
+function generateContent(mode, content) {
+    if (mode === "md") {
+        return (
+            <ReactMarkdown 
+                rehypePlugins={[ rehypeHighlight ]}
+            >
+                { content }
+            </ReactMarkdown>
+        )
+    }
+    else if (mode === "vote") {
+
+    }
+    else {
+        return (
+            <div dangerouslySetInnerHTML={{ __html: content }} />
+        );
+    }
+}
 
 function getPost(post) {
     let countEmoji = 0;
@@ -32,6 +57,8 @@ function getPost(post) {
                     margin: '40px',
                     backgroundColor: '#f0f9ff',
                 }}
+                hoverable = { true }
+                onClick={ () => window.location.href = `/post/${post.id}` }
             >
                 <p>
                     <Avatar
@@ -59,7 +86,7 @@ function getPost(post) {
                             marginBottom: '0px',
                         }}
                     >
-                        { post.timestamp.substring(0, 10) }
+                        { DateFormatter.datetime(post.timestamp) }
                     </span>
                 </p>
                 <p
@@ -79,9 +106,8 @@ function getPost(post) {
                         ellipsis={{
                             rows: 3,
                         }}
-                        onClick={ () => window.location.href = '/' }
                     >
-                        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                        { generateContent(post.mode, post.content) }
                     </Paragraph>
                 </p>
                 <p>

@@ -1,3 +1,7 @@
 .site-back-top-basic {
     color: rgba(64, 64, 64, 0.6);
 }
+#button >.btn:hover {
+    background-color: #70b3fa !important;
+    color: black !important;
+}
