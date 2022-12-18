@@ -11,6 +11,7 @@ import {
     Typography,
 } from "antd";
 import { 
+    DeleteOutlined,
     ShareAltOutlined,
     SmileOutlined,
     TagOutlined,
@@ -24,10 +25,13 @@ import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 
 import { getEmojiIcons } from "../../Components/Emoji";
-import { Request } from "../../Utils";
+import { 
+    Request,
+} from "../../Utils";
 import { PageTemplate } from '../Template';
+import { DeleteBtn } from "./Delete";
+import { Keep } from "./Keep";
 import { Reply } from "./Reply";
-
 
 
 const { Meta } = Card;
@@ -47,7 +51,9 @@ function generateContent(mode, content) {
 
     }
     else {
-        return content;
+        return (
+            <div dangerouslySetInnerHTML={{ __html: content }} />
+        );
     }
 }
 
@@ -109,7 +115,10 @@ function generatePost(data) {
                     className="post"
                     actions={[
                         <SmileOutlined key="emoji" />,
-                        <TagOutlined key="keep" />,
+                        <TagOutlined 
+                            key="keep"
+                            onClick={ () => Keep(data.id) }
+                        />,
                         <ShareAltOutlined key="share" />,
                     ]}
                 >
@@ -118,6 +127,12 @@ function generatePost(data) {
                         title={ data.username }
                         description={ Moment(data.timestamp).format('YYYY-MM-DD HH:mm:ss') }
                     />
+                    <p style={{marginLeft: "95%"}}>
+                        <DeleteBtn 
+                            username={ data.username }
+                            id={ data.id } 
+                        />
+                    </p>
                     <Title>
                         { data.title }
                     </Title>
