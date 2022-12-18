@@ -47,6 +47,15 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/posts/{user_id}")
+    public ResponseEntity<Map<String, Object>> getUserPosts(@PathVariable("user_id") int user_id) {
+        Map<String, Object> response = new HashMap<>();
+        UserModel user = userService.getUserById(user_id);
+        ArrayList<PostModel> posts = postService.getAllPosts(user);
+        response.put("posts", posts);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @PostMapping("/post")
     public ResponseEntity<Map<String, Object>> createPost(PostCreatedRequest postCreatedRequest) {
         String message;
