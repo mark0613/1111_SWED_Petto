@@ -9,10 +9,12 @@ import {
 
 
 function keepPost(id) {
-    let formData = new FormData();
-    if (AuthUtil.isLogin()) {
-        formData.append("jwt", CookieUtil.getValue("token"));    
+    if (!AuthUtil.isLogin()) {
+        alert("要先登入喔!");
+        return;
     }
+    let formData = new FormData();
+    formData.append("jwt", CookieUtil.getValue("token"));    
     Request.post(
         `/api/keep/${id}`,
         {
