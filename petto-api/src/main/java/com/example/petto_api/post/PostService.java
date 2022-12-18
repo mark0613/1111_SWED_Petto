@@ -121,7 +121,7 @@ public class PostService {
     }
 
     public boolean userHasKeptPost(UserModel user, PostModel post) {
-        List<PostModel> userKeepingPosts = user.getKeepingPosts();
+        Set<PostModel> userKeepingPosts = user.getKeepingPosts();
         for (PostModel p : userKeepingPosts) {
             if (p.getId() == post.getId()) {
                 return true;
@@ -130,8 +130,8 @@ public class PostService {
         return false;
     }
 
-    public List<PostModel> getKeepingPost(UserModel user) {
-        List<PostModel> posts = user.getKeepingPosts();
+    public Set<PostModel> getKeepingPost(UserModel user) {
+        Set<PostModel> posts = user.getKeepingPosts();
         for (PostModel post : posts) {
             this.setPostAttributes(post);
         }

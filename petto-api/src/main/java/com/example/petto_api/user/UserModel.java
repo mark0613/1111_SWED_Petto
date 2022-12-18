@@ -68,7 +68,7 @@ public class UserModel {
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "post_id") }
     )
-    private List<PostModel> keepingPosts = new ArrayList<>();
+    private Set<PostModel> keepingPosts = new HashSet<>();
 
     @JsonIgnore
     @ManyToMany(

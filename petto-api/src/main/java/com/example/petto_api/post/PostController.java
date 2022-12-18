@@ -306,7 +306,7 @@ public class PostController {
     @GetMapping("/keep")
     public ResponseEntity<Map<String, Object>> getAllKeepingPost(@RequestParam String jwt) {
         Map<String, Object> response = new HashMap<>();
-        List<PostModel> posts = new ArrayList<>();
+        Set<PostModel> posts = new HashSet<>();
         if (jwtTokenService.validateToken(jwt)) {
             int userId = jwtTokenService.getUserIdFromToken(jwt);
             UserModel user = userService.getUserById(userId);
