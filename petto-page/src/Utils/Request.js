@@ -13,7 +13,6 @@ class Request {
             args.fail = (typeof args.fail !== 'undefined') ?  args.fail : console.log;
             args.fail(error);
         })
-    
     }
     
     static post(url, args) {
@@ -40,8 +39,24 @@ class Request {
 
     }
 
-    static delete() {
-
+    static delete(url, args) {
+        fetch(
+            url,
+            {
+                body : args.body,
+                method : "DELETE",
+            }
+        )
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            args.success(data);
+        })
+        .catch((error) => {
+            args.fail = (typeof args.fail !== 'undefined') ?  args.fail : console.log;
+            args.fail(error);
+        })
     }
 }
 
