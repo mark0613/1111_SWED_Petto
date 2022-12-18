@@ -116,10 +116,7 @@ function generatePost(data, renderPage) {
                     className="post"
                     actions={[
                         <SmileOutlined key="emoji" />,
-                        <TagOutlined 
-                            key="keep"
-                            onClick={ () => Keep(data.id) }
-                        />,
+                        <Keep id={ data.id } />,
                         <ShareAltOutlined key="share" />,
                     ]}
                 >
