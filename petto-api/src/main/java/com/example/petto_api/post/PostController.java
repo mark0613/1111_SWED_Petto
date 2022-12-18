@@ -288,6 +288,21 @@ public class PostController {
         return ResponseEntity.status(httpStatus).body(response);
     }
 
+    @GetMapping("/emoji-record")
+    public ResponseEntity<Map<String, Object>> getEmojiRecordOnPost(@RequestParam int post, @RequestParam int user) {
+        PostModel p = postService.getPostById(post);
+        UserModel u = userService.getUserById(user);
+        UserGivenEmojiModel record = userGivenEmojiService.getRecordByUserAndPost(u, p);
+        Map<String, Object> response = new HashMap<>();
+        if (record == null) {
+            response.put("emoji", null);
+        }
+        else {
+            response.put("emoji", record.getEmoji());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @GetMapping("/keep")
     public ResponseEntity<Map<String, Object>> getAllKeepingPost(PostKeepRequest request) {
         HttpStatus httpStatus;
