@@ -1,25 +1,37 @@
 [
     {
-        "email" : "root@petto.com",
-        "username" : "root",
+        "email" : "Mary@petto.com",
+        "username" : "Mary",
         "password" : "aabbcc123",
         "type" : "admin"
     },
     {
-        "email" : "admin@petto.com",
-        "username" : "admin",
+        "email" : "Kevin@petto.com",
+        "username" : "Kevin",
         "password" : "aabbcc123",
         "type" : "admin"
     },
     {
-        "email" : "demo@petto.com",
-        "username" : "demo",
+        "email" : "Christine@petto.com",
+        "username" : "Christine",
         "password" : "aabbcc123",
         "type" : "member"
     },
     {
-        "email" : "test@petto.com",
-        "username" : "test",
+        "email" : "Benjamin@petto.com",
+        "username" : "Benjamin",
+        "password" : "aabbcc123",
+        "type" : "member"
+    },
+    {
+        "email" : "Enyu@petto.com",
+        "username" : "Enyu",
+        "password" : "aabbcc123",
+        "type" : "member"
+    },
+    {
+        "email" : "YoYoWei@petto.com",
+        "username" : "YoYoWei",
         "password" : "aabbcc123",
         "type" : "member"
     }

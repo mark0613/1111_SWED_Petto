@@ -5,8 +5,13 @@
         "post" : 1
     },
     {
+        "user" : 1,
+        "emoji" : 3,
+        "post" : 2
+    },
+    {
         "user" : 2,
-        "emoji" : 1,
+        "emoji" : 2,
         "post" : 1
     },
     {
@@ -15,18 +20,28 @@
         "post" : 1
     },
     {
-        "user" : 1,
-        "emoji" : 1,
-        "post" : 2
-    },
-    {
-        "user" : 3,
-        "emoji" : 1,
-        "post" : 2
-    },
-    {
         "user" : 4,
         "emoji" : 4,
+        "post" : 1
+    },
+    {
+        "user" : 5,
+        "emoji" : 5,
         "post" : 2
+    },
+    {
+        "user" : 6,
+        "emoji" : 6,
+        "post" : 2
+    },
+    {
+        "user" : 6,
+        "emoji" : 5,
+        "post" : 4
+    },
+    {
+        "user" : 5,
+        "emoji" : 5,
+        "post" : 4
     }
 ]
