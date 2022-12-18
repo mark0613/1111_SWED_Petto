@@ -70,8 +70,16 @@ function generateTags(tags) {
     for (let tag of tags) {
         result.push(
             <Tag
+                id={ `tag-${tag.id}` }
                 key={ `tag-${tag.id}` }
-                color={colors[tag.id % colorSize]}
+                color={ colors[tag.id % colorSize] }
+                onClick={(e) => {
+                    let tagId = e.currentTarget.id.split("-").slice(-1)[0];
+                    window.location.href = `/posts?tag=${tagId}`;
+                }}
+                style={{
+                    cursor: "pointer",
+                }}
             >
                 { tag.text }
             </Tag>

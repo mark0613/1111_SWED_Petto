@@ -31,19 +31,10 @@ function PostList(props) {
 
     let title = "";
     let url = "/api/posts";
-    let method = "get";
-    let formData = new FormData();
     if (props.type === "keep") {
         title = "我的收藏";
         let jwt = AuthUtil.isLogin() ? CookieUtil.getValue("token") : "";
         url = `/api/keep?jwt=${ jwt }`;
-    }
-    else if (props.type === "tag") {
-        title = "搜尋結果";
-        url = "/api/posts";
-        let tags = props.tags === undefined ? [] : props.tags;
-        formData.append("tags", tags);
-        method = "post";
     }
     else if (props.type === "mine") {
         title = "我的文章";
@@ -55,6 +46,11 @@ function PostList(props) {
             title = "搜尋結果";
             let keyword = searchParams.get("keyword");
             url = `/api/posts?keyword=${ keyword }`;
+        }
+        if (searchParams.has("tag")) {
+            title = "搜尋結果";
+            let tag = searchParams.get("tag");
+            url = `/api/posts?tag=${tag}`;
         }
     }
 
@@ -75,10 +71,8 @@ function PostList(props) {
                             return 0;
                         }
                     })
-                    for (let post of posts) {
-                        let list = posts.map(item => <PostItem key={ `post-item-${item.length}` } data={ post } />);
-                        setPostList(_ => list);
-                    } 
+                    let list = posts.map(item => <PostItem key={ `post-item-${item.length}` } data={ item } />);
+                    setPostList(_ => list);
                 }
             }
         )
