@@ -158,10 +158,13 @@ function PostList(props) {
         url = "/api/posts";
     }
     else if (props.type === "mine") {
-        url = `/api/posts/${AuthUtil.getUserDetails().id}`
+        url = `/api/posts/${ AuthUtil.getUserDetails().id }`
     }
     else if (props.type === "keep") {
-        url = `/api/keep?jwt=${CookieUtil.getValue("token")}`
+        url = `/api/keep?jwt=${ CookieUtil.getValue("token") }`
+    }
+    else if (props.type === "search") {
+        url = `/api/posts?keyword=${ props.keyword }`
     }
     useEffect(() => {
         Request.get(
