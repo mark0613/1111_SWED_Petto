@@ -12,7 +12,6 @@ import {
 } from "antd";
 import { 
     ShareAltOutlined,
-    UserOutlined,
 } from '@ant-design/icons';
 import {
     useParams,
@@ -154,7 +153,7 @@ function generatePost(data, renderPage) {
                     ]}
                 >
                     <Meta
-                        avatar={ <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} /> }
+                        avatar={ <Avatar style={{ backgroundColor: '#87d068' }} src={ `${process.env.PUBLIC_URL}/images/head.jpg` } /> }
                         title={ data.username }
                         description={ DateFormatter.datetime(data.timestamp) }
                     />
