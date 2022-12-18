@@ -71,8 +71,10 @@ function PostList(props) {
                             return 0;
                         }
                     })
-                    let list = posts.map(item => <PostItem key={ `post-item-${item.length}` } data={ item } />);
-                    setPostList(_ => list);
+                    if (posts.length > 0) {
+                        let list = posts.map(item => <PostItem key={ `post-item-${item.length}` } data={ item } />);
+                        setPostList(_ => list);
+                    }
                 }
             }
         )
