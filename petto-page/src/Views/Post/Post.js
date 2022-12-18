@@ -7,17 +7,12 @@ import {
     Row,
     Space,
     Tag,
-    Tooltip,
     Typography,
 } from "antd";
 import { 
-    DeleteOutlined,
     ShareAltOutlined,
-    SmileOutlined,
-    TagOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import Moment from 'moment';
 import {
     useParams,
 } from "react-router-dom";
@@ -31,6 +26,7 @@ import {
 } from "../../Utils";
 import { PageTemplate } from '../Template';
 import { DeleteButton } from "./Delete";
+import { EmojiTooltip } from "./EmojiTooltip";
 import { Keep } from "./Keep";
 import { Reply, UserReplies } from "./Reply";
 
@@ -107,7 +103,6 @@ function generateEmojis(emojis) {
 }
 
 function generatePost(data, renderPage) {
-    console.log(data);
     return (
         <Row>
             <Col span={ 6 }></Col>
@@ -115,7 +110,9 @@ function generatePost(data, renderPage) {
                 <Card 
                     className="post"
                     actions={[
-                        <SmileOutlined key="emoji" />,
+                        <EmojiTooltip
+                            post={ data.id }
+                        />,
                         <Keep id={ data.id } />,
                         <ShareAltOutlined key="share" />,
                     ]}
