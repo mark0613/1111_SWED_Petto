@@ -60,8 +60,8 @@ function PostEditor(props) {
             {
                 body : formData,
                 success : (response) => {
-                    console.log(response);
                     alert(response.message);
+                    window.location.href = `/post/${response.post_id}`;
                 }
             }
         )
