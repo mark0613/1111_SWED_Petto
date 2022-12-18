@@ -50,12 +50,13 @@ public class PostModel {
     @JoinColumn(name="owner")
     private UserModel userModel;
 
+    @Transient
     private String username;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "postModel")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "postModel")
     @EqualsAndHashCode.Exclude
-    private List<ReplyModel> replies;
+    private Set<ReplyModel> replies;
 
     @ManyToMany(
             fetch = FetchType.LAZY,
