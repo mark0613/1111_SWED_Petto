@@ -6,7 +6,12 @@ import {
     Input,
     List,
 } from "antd";
-import { DateFormatter } from "../../Utils";
+import { 
+    AuthUtil, 
+    CookieUtil, 
+    DateFormatter,
+    Request,
+} from "../../Utils";
 
 
 const { TextArea } = Input;
@@ -33,18 +38,41 @@ function ReplyEditor({ onChange, onSubmit, submitting, value }) {
     );
 }
 
-function Reply() {
-    const [value, setValue] = useState('');
+function Reply(props) {
+    const postId = props.post;
+    const onSubmit = props.onSubmit;
+    const [text, setText] = useState("");
     const [submitting, setSubmitting] = useState(false);
     const handleSubmit = () => {
-        if (!value) {
+        if (!text) {
+            alert("說點什麼吧!");
+            return;
+        }
+        if (!AuthUtil.isLogin()) {
+            alert("要先登入喔!");
             return;
         }
         setSubmitting(true);
+        let formData = new FormData();
+        formData.append("jwt", CookieUtil.getValue("token"));
+        formData.append("post_id", postId);
+        formData.append("content", text)
+        Request.post(
+            "/api/reply",
+            {
+                body: formData,
+                success: (response) => {
+                    alert(response.message)
+                    setText(_ => "");
+                    setSubmitting(_ => false);
+                    onSubmit(response.message);
+                    window.scrollTo(0, window.pageYOffset-350);
+                },
+            }
+        )
     };
     const handleChange = (e) => {
-        console.log(e.target.value);
-        setValue(_ => e.target.value);
+        setText(_ => e.target.value);
     };
 
     return (
@@ -52,7 +80,7 @@ function Reply() {
             onChange={ handleChange }
             onSubmit={ handleSubmit }
             submitting={ submitting }
-            value={ value }
+            value={ text }
         />
     )
 }

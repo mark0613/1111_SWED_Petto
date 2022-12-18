@@ -106,7 +106,7 @@ function generateEmojis(emojis) {
     )
 }
 
-function generatePost(data) {
+function generatePost(data, renderPage) {
     console.log(data);
     return (
         <Row>
@@ -151,7 +151,7 @@ function generatePost(data) {
                 <Card>
                     <UserReplies data={ data.replies } />
                     <br />
-                    <Reply />
+                    <Reply post={ data.id } onSubmit={ (response) => {renderPage()} } />
                 </Card>
             </Col>
             <Col span={ 6 }></Col>
@@ -161,18 +161,20 @@ function generatePost(data) {
 
 function Post() {
     const { id } = useParams();
+    const [render, setRender] = useState(0);
     const [contentBlock, setContentBlock] = useState(<></>);
+    const renderPage = () => { setRender(v => v + 1) };
     useEffect(() => {
         Request.get(
             `/api/post/${id}`,
             {
                 success: (response) => {
-                    let post = generatePost(response["posts"]);
+                    let post = generatePost(response["posts"], renderPage);
                     setContentBlock(_ => post);
                 }
             }
         )
-    }, []);
+    }, [render]);
 
     return (
         <PageTemplate contentBlock={ contentBlock } />
