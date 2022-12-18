@@ -1,5 +1,7 @@
 package com.example.petto_api.post;
 
+import com.example.petto_api.reply.ReplyModel;
+import com.example.petto_api.reply.ReplyService;
 import com.example.petto_api.user.UserModel;
 import com.example.petto_api.user.UserService;
 import com.example.petto_api.vote.VoteModel;
@@ -17,6 +19,9 @@ import java.util.*;
 public class PostService {
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private ReplyService replyService;
 
     @Autowired
     private UserGivenEmojiService userGivenEmojiService;
@@ -46,6 +51,13 @@ public class PostService {
         post.setUsername(post.getUserModel().getUsername());
     }
 
+    public void setReplyOwner(PostModel post) {
+        Set<ReplyModel> replies = post.getReplies();
+        for (ReplyModel reply : replies) {
+            replyService.setOwner(reply);
+        }
+    }
+
     public void setVoteOptions(PostModel post) {
         if (!post.getMode().equals("vote")) {
             return ;
@@ -71,6 +83,7 @@ public class PostService {
         this.countEmojis(post);
         this.setOwner(post);
         this.setVoteOptions(post);
+        this.setReplyOwner(post);
     }
 
     public PostModel getPostById(int id){

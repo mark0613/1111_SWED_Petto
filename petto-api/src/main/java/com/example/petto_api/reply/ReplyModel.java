@@ -35,4 +35,7 @@ public class ReplyModel {
   @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name="owner")
   private UserModel userModel;
+
+  @Transient
+  private String username;
 }

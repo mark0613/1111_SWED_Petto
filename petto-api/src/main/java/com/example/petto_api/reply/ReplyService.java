@@ -16,11 +16,22 @@ public class ReplyService {
     ReplyModel newReply = replyRepository.save(reply);
     return newReply.getId();
   }
+
+  public void setOwner(ReplyModel reply) {
+    reply.setUsername(reply.getUserModel().getUsername());
+  }
+
   public ReplyModel getReplyById(int id) {
-    return replyRepository.findById(id);
+    ReplyModel reply = replyRepository.findById(id);
+    setOwner(reply);
+    return reply;
   }
 
   public ArrayList<ReplyModel> getAllReplies() {
-    return replyRepository.findAll();
+    ArrayList<ReplyModel> replies = replyRepository.findAll();
+    for (ReplyModel reply : replies) {
+      setOwner(reply);
+    }
+    return replies;
   }
 }
