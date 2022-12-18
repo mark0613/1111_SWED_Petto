@@ -77,7 +77,7 @@ function NavBar(props) {
                 <Col span={ 3 } >
                     <a href="/posts">
                         <Image 
-                            src="https://i.imgur.com/YenWz4J.png"
+                            src={ `${process.env.PUBLIC_URL}/images/logo.png` }
                             preview={ false }
                         />
                     </a>
@@ -97,11 +97,12 @@ function NavBar(props) {
                                     height: '40px',
                                     marginRight: '10%',
                                     border: '1px solid black',
+                                    borderRadius: '50%',
                                 }}
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjLF1bThQuAsw3u0oFraBB3oXn_DXnbxSvM3hb-MCnKKqR7suZdhsEe2wdM1lcScYembA&usqp=CAU"
+                                src={ `${process.env.PUBLIC_URL}/images/head.jpg` }
                             />
                             <Select
-                                style={{
+                                style={{ 
                                     textAlign: "center",
                                     width: 100,
                                 }}
