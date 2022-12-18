@@ -31,6 +31,8 @@ import { Keep } from "./Keep";
 import { Reply, UserReplies } from "./Reply";
 import { Vote } from "./Vote";
 
+import "./Post.css";
+
 
 const { Meta } = Card;
 const { Title } = Typography;
@@ -137,6 +139,12 @@ function generatePost(data, renderPage) {
             <Col span={ 6 }></Col>
             <Col span={ 12 }>
                 <Card 
+                    style={{
+                        border: '1px solid #4691ee',
+                        padding: '8px',
+                        borderRadius: '12px',
+                        backgroundColor: '#f0f9ff',
+                    }}
                     className="post"
                     actions={[
                         <EmojiTooltip
@@ -144,29 +152,40 @@ function generatePost(data, renderPage) {
                             onClick={ () => { renderPage() } }
                         />,
                         <Keep id={ data.id } />,
-                        <ShareAltOutlined key="share"
+                        <ShareAltOutlined 
+                            key="share"
                             onClick={() => {
                                 navigator.clipboard.writeText(`http://localhost:3000/post/${ data.id }`)
                                 message.success('succesfully copied ');
-                            }} 
+                            }}
                         />,
                     ]}
                 >
                     <Meta
-                        avatar={ <Avatar style={{ backgroundColor: '#87d068' }} src={ `${process.env.PUBLIC_URL}/images/head.jpg` } /> }
-                        title={ data.username }
-                        description={ DateFormatter.datetime(data.timestamp) }
+                        avatar={ <Avatar src={ `${process.env.PUBLIC_URL}/images/head.jpg` } /> }
+                        title={ 
+                            <div>
+                                { data.username }
+                                <DeleteButton 
+                                    username={ data.username }
+                                    id={ data.id } 
+                                />
+                            </div>
+                        }
+                        description={ <p> { DateFormatter.datetime(data.timestamp) }</p> }
                     />
-                    <div style={{marginLeft: "95%"}}>
-                        <DeleteButton 
-                            username={ data.username }
-                            id={ data.id } 
-                        />
-                    </div>
-                    <Title>
+                    
+                    <Title level={ 3 }>
                         { data.title }
                     </Title>
-                    <div style={{ minHeight: "200px" }}>
+                    <div 
+                        style={{ 
+                            minHeight: "200px",
+                            backgroundColor: "#c4e5ff",
+                            borderRadius: "5%",
+                            padding: "5%",
+                        }
+                    }>
                         { generateContent(data.id, data.mode, data.content, vote) }
                     </div>
                     <Divider />
@@ -177,7 +196,13 @@ function generatePost(data, renderPage) {
                         { generateEmojis(data.emojis) }
                     </div>
                 </Card>
-                <Card>
+                <Card
+                style={{
+                    backgroundColor: "#c4e5ff",
+                    padding: '8px',
+                    marginTop: '3%',
+                    borderRadius: '12px',
+                }}>
                     <UserReplies data={ data.replies } />
                     <br />
                     <Reply post={ data.id } onSubmit={ (response) => { renderPage() } } />

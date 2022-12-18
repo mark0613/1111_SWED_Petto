@@ -42,10 +42,6 @@ function NavBar(props) {
             key: '1',
         },
         {
-            label : <a href="">聊天室</a>,
-            key: '2',
-        },
-        {
             label : (
                 <Button 
                     type="text"
@@ -67,7 +63,7 @@ function NavBar(props) {
                     </a>
                 </Button>
             ),
-            key: '3',
+            key: '2',
         },
     ];
 
