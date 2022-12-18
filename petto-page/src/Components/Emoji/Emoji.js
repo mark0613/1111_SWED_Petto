@@ -23,13 +23,16 @@ function getAllEmojis() {
 
 function getEmojiIcons(size=25) {
     const emojiIcons = {};
+    let index = 0;
     for (let emoji in emojiUrl) {
         emojiIcons[emoji] = (
-            <Avatar 
+            <Avatar
+                key={ `emoji-icon-${index}` }
                 size={ size } 
                 src={ emojiUrl[emoji] } 
             />
         );
+        index++;
     }
     return emojiIcons;
 }
