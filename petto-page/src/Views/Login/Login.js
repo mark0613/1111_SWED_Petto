@@ -63,6 +63,7 @@ function Login() {
                                 width: 300,
                             }}
                             src="https://i.imgur.com/YenWz4J.png" 
+                            alt="logo"
                         />
                     </div>
 

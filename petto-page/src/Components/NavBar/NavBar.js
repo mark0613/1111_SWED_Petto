@@ -84,7 +84,7 @@ function NavBar(props) {
                 </Col>
                 <Col span={ 3 } />
                 <Col span={ 10 }>
-                    { (props.type == "home") ? searchBar : <></> }
+                    { (props.type === "home") ? searchBar : <></> }
                 </Col>
                 <Col span={ 5 } />
                 <Col span={ 3 }>
