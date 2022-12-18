@@ -16,7 +16,7 @@ class AuthUtil {
     }
 
     static logout() {
-        CookieUtil.clearAll()
+        CookieUtil.remove("token");
     }
 
     static getUserDetails() {

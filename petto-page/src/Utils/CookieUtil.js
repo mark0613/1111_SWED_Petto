@@ -23,6 +23,10 @@ class CookieUtil {
     static contains(key) {
         return cookies.getAll().hasOwnProperty(key);
     }
+
+    static remove(key) {
+        cookies.remove(key);
+    }
 }
 
 export { CookieUtil };
