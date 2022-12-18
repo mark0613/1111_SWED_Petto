@@ -304,11 +304,10 @@ public class PostController {
     }
 
     @GetMapping("/keep")
-    public ResponseEntity<Map<String, Object>> getAllKeepingPost(PostKeepRequest request) {
+    public ResponseEntity<Map<String, Object>> getAllKeepingPost(@RequestParam String jwt) {
         HttpStatus httpStatus;
         Map<String, Object> response = new HashMap<>();
         List<PostModel> posts = new ArrayList<>();
-        String jwt = request.getJwt();
         if (jwtTokenService.validateToken(jwt)) {
             int userId = jwtTokenService.getUserIdFromToken(jwt);
             UserModel user = userService.getUserById(userId);
