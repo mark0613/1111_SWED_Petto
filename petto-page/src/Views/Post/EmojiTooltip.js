@@ -6,11 +6,12 @@ import {
 import { 
     SmileOutlined,
 } from '@ant-design/icons';
-import { getEmojiIcons } from "../../Components/Emoji";
+import { getAllEmojis, getEmojiIcons } from "../../Components/Emoji";
 import { AuthUtil, CookieUtil, Request } from "../../Utils";
+import { useEffect, useState } from "react";
 
 
-function generateEmojiButton(postId) {
+function generateEmojiButton(postId, renderPage) {
     let buttons = [];
     const emojiIcons = getEmojiIcons(25);
     const handleEmojiClick = (e) => {
@@ -28,7 +29,7 @@ function generateEmojiButton(postId) {
             {
                 body: formData,
                 success: (response) => {
-                    alert(response.message);
+                    renderPage();
                 },
             }
         )
@@ -54,13 +55,33 @@ function generateEmojiButton(postId) {
     return buttons;
 }
 
-function EmojiTooltip(porps) {
-    const postId = porps.post;
+function EmojiTooltip(props) {
+    const postId = props.post;
+    const onButtonClick = props.onClick;
     const tooltipContent = (
         <Space>
-            { generateEmojiButton(postId) }
+            { generateEmojiButton(postId, onButtonClick) }
         </Space>
     );
+    const [currentEmoji, setCurrentEmoji] = useState(<SmileOutlined key="emoji" />);
+
+    useEffect(() => {
+        if (AuthUtil.isLogin()) {
+            let userId = AuthUtil.getUserDetails().id;
+            Request.get(
+                `/api/emoji-record?post=${postId}&user=${userId}`,
+                {
+                    success: (response) => {
+                        let emoji = response.emoji;
+                        if (emoji) {
+                            emoji = getEmojiIcons()[getAllEmojis()[emoji.id]];
+                            setCurrentEmoji(_ => emoji);
+                        }
+                    }
+                }
+            );
+        }
+    }, [currentEmoji]);
 
     return (
         <Tooltip 
@@ -69,7 +90,7 @@ function EmojiTooltip(porps) {
                 maxWidth: '350px'
             }}
         >
-            <SmileOutlined key="emoji" />
+            { currentEmoji }
         </Tooltip>
     )
 }

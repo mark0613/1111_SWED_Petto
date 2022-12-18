@@ -112,6 +112,7 @@ function generatePost(data, renderPage) {
                     actions={[
                         <EmojiTooltip
                             post={ data.id }
+                            onClick={ () => {renderPage()} }
                         />,
                         <Keep id={ data.id } />,
                         <ShareAltOutlined key="share" />,
