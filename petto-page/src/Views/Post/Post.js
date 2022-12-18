@@ -29,7 +29,7 @@ import {
     Request,
 } from "../../Utils";
 import { PageTemplate } from '../Template';
-import { DeleteBtn } from "./Delete";
+import { DeleteButton } from "./Delete";
 import { Keep } from "./Keep";
 import { Reply } from "./Reply";
 
@@ -128,7 +128,7 @@ function generatePost(data) {
                         description={ Moment(data.timestamp).format('YYYY-MM-DD HH:mm:ss') }
                     />
                     <p style={{marginLeft: "95%"}}>
-                        <DeleteBtn 
+                        <DeleteButton 
                             username={ data.username }
                             id={ data.id } 
                         />

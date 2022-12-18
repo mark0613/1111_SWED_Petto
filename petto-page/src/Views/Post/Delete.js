@@ -23,8 +23,11 @@ function onClick(id) {
         }
     )
 }
-function DeleteBtn(props) {
-    let name = AuthUtil.getUserDetails().username;
+function DeleteButton(props) {
+    let name = "";
+    if (AuthUtil.isLogin()) {
+        name = AuthUtil.getUserDetails().username;
+    }
     if (props.username === name) {
         return (
             <DeleteOutlined 
@@ -39,4 +42,4 @@ function DeleteBtn(props) {
     }
 }
 
-export { DeleteBtn }
+export { DeleteButton }
