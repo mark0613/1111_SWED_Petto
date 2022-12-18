@@ -91,7 +91,7 @@ function generateReply(reply) {
             key={ `reply-${reply.id}` }
         >
             <List.Item.Meta
-                avatar={ <Avatar /> }
+                avatar={ <Avatar src={ `${process.env.PUBLIC_URL}/images/head.jpg` } /> }
                 title={ reply.username }
                 description={ DateFormatter.datetime(reply.timestamp) }
             />
