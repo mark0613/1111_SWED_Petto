@@ -35,7 +35,7 @@ const onFinish = (values) => {
             CookieUtil.set("token", token);
             alert("登入成功!");
             if (data.message === "登入成功!") {
-                window.location.href = '/PostList';
+                window.location.href = '/posts';
             }
         }
         else {
