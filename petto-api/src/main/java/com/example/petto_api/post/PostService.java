@@ -80,6 +80,9 @@ public class PostService {
     }
 
     public void setPostAttributes(PostModel post) {
+        if (post == null) {
+            return ;
+        }
         this.countEmojis(post);
         this.setOwner(post);
         this.setVoteOptions(post);
