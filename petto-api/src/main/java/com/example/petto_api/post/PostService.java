@@ -2,6 +2,7 @@ package com.example.petto_api.post;
 
 import com.example.petto_api.reply.ReplyModel;
 import com.example.petto_api.reply.ReplyService;
+import com.example.petto_api.tag.TagModel;
 import com.example.petto_api.user.UserModel;
 import com.example.petto_api.user.UserService;
 import com.example.petto_api.vote.VoteModel;
@@ -130,6 +131,14 @@ public class PostService {
             this.setPostAttributes(post);
         }
         return posts;
+    }
+
+    public ArrayList<PostModel> getAllPosts(Set<TagModel> tags) {
+        Set<PostModel> result = new HashSet<>();
+        for (TagModel tag : tags) {
+            result.addAll(tag.getPosts());
+        }
+        return new ArrayList<>(result);
     }
 
     public boolean userHasKeptPost(UserModel user, PostModel post) {

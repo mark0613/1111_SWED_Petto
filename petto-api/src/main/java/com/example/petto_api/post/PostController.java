@@ -53,6 +53,22 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PostMapping("/posts")
+    public ResponseEntity<Map<String, Object>> getPostsContainTags(TagSearchRequest request) {
+        Set<TagModel> tags = new HashSet<>();
+        for (Integer id : request.getTags()) {
+            TagModel tag = tagService.getTagById(id);
+            if (tag == null) {
+                continue;
+            }
+            tags.add(tag);
+        }
+        Map<String, Object> response = new HashMap<>();
+        ArrayList<PostModel> posts = postService.getAllPosts(tags);
+        response.put("posts", posts);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @GetMapping("/posts/{user_id}")
     public ResponseEntity<Map<String, Object>> getUserPosts(@PathVariable("user_id") int user_id) {
         Map<String, Object> response = new HashMap<>();
