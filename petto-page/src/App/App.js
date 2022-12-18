@@ -18,8 +18,8 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route exact path="/" element={ <PageTemplate type="home" /> } />
-                <Route path="/home" element={ <PageTemplate type="home" /> } />
+                <Route exact path="/" element={ <PostList /> } />
+                <Route path="/home" element={ <PostList /> } />
                 <Route path="/register" element={ <Register /> } />
                 <Route path="/login" element={ <Login/> } />
                 <Route path="/post/new/text" element={ <PostEditor type="text" /> } />
