@@ -168,9 +168,6 @@ function PostList(props) {
             url,
             {
                 success : (response) => {
-                    console.log(response)
-                    console.log(url)
-                    console.log(formData.getAll("jwt"));
                     for (let post of response.posts) {
                         setList(card => [...card, generatePost(post)]);
                     } 
