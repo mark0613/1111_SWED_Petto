@@ -62,7 +62,19 @@ function PostList(props) {
             url,
             {
                 success : (response) => {
-                    for (let post of response.posts) {
+                    let posts = response.posts;
+                    posts.sort((a, b) => {
+                        if (a.timestamp > b.timestamp) {
+                            return -1;
+                        }
+                        else if (a.timestamp < b.timestamp) {
+                            return 1;
+                        }
+                        else {
+                            return 0;
+                        }
+                    })
+                    for (let post of posts) {
                         setPostList(cards => [...cards, <PostItem key={ `post-item-${cards.length}` } data={ post } />]);
                     } 
                 }
