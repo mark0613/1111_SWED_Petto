@@ -11,6 +11,15 @@ const emojiUrl = {
     angry : "https://cdn-icons-png.flaticon.com/512/743/743418.png",
 };
 
+function getAllEmojis() {
+    let result = {};
+    let index = 1;
+    for (let emoji in emojiUrl) {
+        result[index] = emoji;
+        index++;
+    }
+    return result;
+}
 
 function getEmojiIcons(size=25) {
     const emojiIcons = {};
@@ -25,4 +34,4 @@ function getEmojiIcons(size=25) {
     return emojiIcons;
 }
 
-export { getEmojiIcons };
+export { getAllEmojis, getEmojiIcons };
