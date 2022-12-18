@@ -1,4 +1,5 @@
 import {
+    Avatar,
     Button,
     Col,
     Image,
@@ -75,7 +76,6 @@ function NavBar(props) {
             <Row>
                 <Col span={ 3 } >
                     <a href="/posts">
-
                         <Image 
                             src="https://i.imgur.com/YenWz4J.png"
                             preview={ false }
@@ -90,6 +90,16 @@ function NavBar(props) {
                 <Col span={ 3 }>
                     {
                         AuthUtil.isLogin() ?
+                        <>
+                            <Avatar
+                                style={{
+                                    width: '40px',
+                                    height: '40px',
+                                    marginRight: '10%',
+                                    border: '1px solid black',
+                                }}
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjLF1bThQuAsw3u0oFraBB3oXn_DXnbxSvM3hb-MCnKKqR7suZdhsEe2wdM1lcScYembA&usqp=CAU"
+                            />
                             <Select
                                 style={{
                                     textAlign: "center",
@@ -99,6 +109,7 @@ function NavBar(props) {
                                 options={ dropdownOptions }
                                 onChange={ onSelectChange }
                             />
+                        </>
                          :
                         <Space>
                             <Button>
