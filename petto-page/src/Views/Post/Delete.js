@@ -33,8 +33,8 @@ function DeleteButton(props) {
             <>
                 <DeleteOutlined 
                     style={{
-                        marginLeft: "90%",
-                        fontSize: '30px'
+                        marginLeft: "calc(100% - 70px)",
+                        fontSize: '20px'
                     }}
                     onClick={ () => onClick(props.id) }
                 />
